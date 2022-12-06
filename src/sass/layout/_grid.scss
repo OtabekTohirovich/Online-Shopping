@@ -1,0 +1,71 @@
+@use "sass:math";
+.container {
+  width: 100%;
+  padding: 2rem;
+  margin: auto;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+// .row > div {
+//   flex: 0 0 100%;
+//   padding: 10px;
+// }
+
+.col {
+  flex: 1;
+  // padding: 10px;
+}
+
+$breakpoints: (
+  "xs": 0,
+  "sm": 576px,
+  "md": 768px,
+  "lg": 992px,
+  "xl": 1200px,
+  "xxl": 1400px,
+);
+
+@each $mq in (sm, md, lg, xl, xxl) {
+  @media screen and (min-width: map-get($breakpoints, $mq)) {
+    .container {
+      max-width: map-get($breakpoints, $mq) - 0 * 10px;
+    }
+  }
+}
+@for $i from 1 through $gridColumns {
+  .row .col-#{$i} {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: math.div(100%, $gridColumns * $i);
+    padding: 10px;
+  }
+}
+@for $i from 0 through $spacingCount {
+  .m-#{$i} {
+    margin: $i * 0.75rem;
+  }
+}
+
+@each $mq in (sm, md, lg, xl, xxl) {
+  @media screen and (min-width: map-get($breakpoints, $mq)) {
+    @for $i from 1 through $gridColumns {
+      .row .col-#{$mq}-#{$i} {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: math.div(100%, $gridColumns * $i);
+        padding: 10px;
+      }
+    }
+  }
+}
+@each $mq in (sm, md, lg, xl, xxl) {
+  @media screen and (min-width: map-get($breakpoints, $mq)) {
+    @for $i from 0 through $spacingCount {
+      .m-#{$mq}-#{$i} {
+        margin: $i * 0.75rem;
+      }
+    }
+  }
+}
