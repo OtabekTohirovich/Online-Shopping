@@ -1,7 +1,7 @@
 {
-  "name":"online-shopping",
+  "name": "online-shopping",
   "version": "1.0.0",
-  "source":"src/js/main.js",
+  "source": "src/js/main.js",
   "scripts": {
     "start": "parcel ./src/pages/*.html --open",
     "build": "parcel build ./src/pages/*.html"
