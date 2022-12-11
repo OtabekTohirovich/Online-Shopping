@@ -1,3 +1,40 @@
 .hero__pages {
-    background: $whitehero;
+  background: $whitehero;
+  border-radius: 2rem;
+  margin: 1rem 0;
+  .wreapper__sec {
+    justify-content: space-between;
+  }
+  .cole {
+    padding: 4.5rem;
+  }
+  .col__img {
+    object-fit: cover;
+    margin: -0.4rem;
+  }
+  overflow: hidden;
+  .title {
+    font-size: 3.5rem;
+    font-weight: 500;
+  }
+  .title__paragraph {
+    margin-top: 1.5rem;
+    font-size: 2rem;
+    color: $whiteGray;
+  }
+  .sec__wreap {
+    margin-top: 2.5rem;
+    border: 2px solid $mainGreen;
+    padding: 1rem 2rem;
+    border-radius: 0.8rem;
+    background-color: $mainGreen;
+    color: $mainWhite;
+    font-size: large;
+    cursor: pointer;
+  }
+  .sec__wreap:hover {
+    background-color: $mainWhite;
+    color: $mainGreen;
+  }
 }
+

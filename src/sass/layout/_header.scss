@@ -51,7 +51,64 @@ header {
     font-size: 1.5rem;
     font-weight: 600;
   }
-  .hide {
-    display: none;
+
+}
+.hide {
+  display: none;
+}
+
+.nav__smaller {
+  .nav__item {
+    padding: 1rem;
+    background-color: $mainGreen;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    a {
+      color: $mainWhite;
+      img {
+        color: $mainWhite;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 600px) {
+  .navbar{
+    ul.nav__menu {
+      display: none;
+    }
+    ul.connect {
+      display: none;
+    }
+  }
+  .small__header {
+    i {
+      color: $mainGreen;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+  }
+  
+}
+@media screen and (min-width: 601px) {
+  .navbar {
+    .small__header {
+      display: none;
+    }
   }
 }

@@ -6,8 +6,19 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
   });
-
   const page = location.pathname;
+  if (page === "/index.html" || page === "/") {
+    const smallHeader = document.querySelector(".small__header");
+    if (smallHeader) {
+      smallHeader.addEventListener("click", ()=>{
+        const navSmall = document.querySelector(".nav__smaller");
+        navSmall.classList.toggle("hide");
+        
+      })
+      
+    }
+
+  }
   if (page === "/sign-up.html" || page === "/sign-up") {
     const formSignUp = document.querySelector(".form__type");
     formSignUp.addEventListener("submit", (e) => {
