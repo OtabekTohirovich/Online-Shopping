@@ -43,4 +43,15 @@ header {
       width: 2.5rem;
     }
   }
+  #account__login {
+    border: 2px solid $mainGreen;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    color: $mainGreen;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  .hide {
+    display: none;
+  }
 }

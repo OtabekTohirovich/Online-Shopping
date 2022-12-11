@@ -1,6 +1,7 @@
 import "./style";
 import { singIn, singUp } from "../api";
 import { SignUp } from "./sign_up";
+import { loadToken } from "./home";
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
@@ -63,4 +64,5 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         });
     });
   }
+  loadToken();
 });
