@@ -1,11 +1,32 @@
 import "./style";
 import { singIn, singUp } from "../api";
 import { SignUp } from "./sign_up";
-import { loadToken } from "./home";
+import { loadToken, initializeMEvent } from "./home";
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
   });
+
+  document.addEventListener("click", (e)=>{
+    const element = e.target;
+
+    let cardList = document.querySelectorAll(".nav__item.show");
+    if (!cardList.length) return;
+
+    cardList?.forEach((card) => {
+      card.classList.remove("show");
+      card.querySelector(".nav__content").classList.remove("show");
+    });
+    let isMenuBtn = element
+      .closest(".navbar__btns")
+      ?.classList.contains("navbar__btns");
+    if (isMenuBtn) {
+      let card__menu = element.closest(".navbar__btns");
+      card__menu.nextElementSibling.classList.toggle("show");
+      card__menu.parentElement.parentElement.classList.toggle("show");
+    }
+  })
+
   const page = location.pathname;
   if (page === "/index.html" || page === "/") {
     const smallHeader = document.querySelector(".small__header");
@@ -15,9 +36,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         navSmall.classList.toggle("hide");
         
       })
-      
     }
-
+    initializeMEvent()
   }
   if (page === "/sign-up.html" || page === "/sign-up") {
     const formSignUp = document.querySelector(".form__type");

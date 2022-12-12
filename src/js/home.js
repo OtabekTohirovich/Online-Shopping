@@ -9,4 +9,22 @@ export function loadToken() {
 }
 
 
+export function initializeMEvent() {
+  const navNodeList = document.querySelectorAll(".nav__item");
+  navNodeList.forEach((nav) => {
+    nav.addEventListener("click", (event) => {
+      let isMenuBtn = event.target
+        .closest(".navbar__btns")
+        ?.classList.contains("navbar__btns");
+      if (isMenuBtn) {
+        let navContent = nav.querySelector(".nav__content");
+        navContent.classList.toggle("show");
+        nav.classList.toggle("show");
+      }
+    });
+  });
+}
+
+
+
 
