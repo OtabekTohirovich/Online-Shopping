@@ -37,4 +37,37 @@
     color: $mainGreen;
   }
 }
+.section__dastavke {
+  padding: 4.5rem;
+  background-color: $secondary;
+  border: 2px solid $secondary;
+  border-radius: 2rem;
+  .sec__wreap {
+    margin-top: 2.5rem;
+    border: 2px solid $mainGreen;
+    padding: 1rem 2rem;
+    border-radius: 0.8rem;
+    background-color: $mainGreen;
+    color: $mainWhite;
+    font-size: large;
+    cursor: pointer;
+  }
+  .sec__wreap:hover {
+    background-color: $mainWhite;
+    color: $mainGreen;
+  }
+  .img__wreapper {
+    object-fit: cover;
+    width: 40rem;
+  }
+  .wreapper__sec {
+    justify-content: space-between;
+  }
+  .title__wreapper {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+  }
+
+}
 
