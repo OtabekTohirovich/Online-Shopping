@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         console.log(data);
         localStorage.token = data.token;
         localStorage.user = JSON.stringify(data.user.role);
-        // location.assign("/");
+        location.assign("/");
       });
     });
   }
