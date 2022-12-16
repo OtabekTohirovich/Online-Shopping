@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     location.reload();
   });
 
-  document.addEventListener("click", (e)=>{
+  document.addEventListener("click", (e) => {
     const element = e.target;
 
     let cardList = document.querySelectorAll(".nav__item.show");
@@ -25,36 +25,37 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       card__menu.nextElementSibling.classList.toggle("show");
       card__menu.parentElement.parentElement.classList.toggle("show");
     }
-  })
+  });
 
   const page = location.pathname;
   if (page === "/index.html" || page === "/") {
     const smallHeader = document.querySelector(".small__header");
     if (smallHeader) {
-      smallHeader.addEventListener("click", ()=>{
+      smallHeader.addEventListener("click", () => {
         const navSmall = document.querySelector(".nav__smaller");
         navSmall.classList.toggle("hide");
-        
-      })
+      });
     }
-    initializeMEvent()
+    initializeMEvent();
   }
   if (page === "/sign-up.html" || page === "/sign-up") {
     const formSignUp = document.querySelector(".form__type");
     formSignUp.addEventListener("submit", (e) => {
       e.preventDefault();
       const formData = new SignUp(
-        formSignUp.firstName.value,
+        formSignUp.name.value,
         formSignUp.lastName.value,
         formSignUp.email.value,
-        formSignUp.password.value
+        formSignUp.password.value,
+        formSignUp.address.value,
+        formSignUp.phone.value
       );
       console.log(formData);
       singUp(formData).then(({ data }) => {
         console.log(data);
         localStorage.token = data.token;
-        localStorage.user = JSON.stringify(data.payload.type);
-        location.assign("/");
+        localStorage.user = JSON.stringify(data.user.role);
+        // location.assign("/");
       });
     });
   }
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         .then(({ data }) => {
           console.log(data);
           localStorage.token = data.token;
-          localStorage.user = JSON.stringify(data.payload.type);
+          localStorage.user = JSON.stringify(data.payload.role);
           location.assign("/");
         })
         .catch((err) => {

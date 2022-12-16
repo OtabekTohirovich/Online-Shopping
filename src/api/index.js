@@ -19,8 +19,11 @@ export function singUp(quary) {
   let url = `auth/sign-up`;
   return axios.post(url, {
     email: `${quary.email}`,
-    password: `${quary.password}`
-    // firstName: `${quary.firstName}`,
-    // lastName: `${quary.lastName}`,
+    password: `${quary.password}`,
+    name: `${quary.name}`,
+    lastName: `${quary.lastName}`,
+    phone: `${quary.phone}`,
+    address: `${quary.address}`,
+    role: "user"
   });
 }

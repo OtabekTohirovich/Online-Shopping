@@ -7,47 +7,87 @@
     <title>Document</title>
   </head>
   <body>
-
     <section class="sign__upp">
-      <div class="container">
-          
-      </div>
-      <div class="row ">
-          <div class="col">
-              <div class="sign__upimg">
-                 <img width="100%" src="../assets/shef.png" alt="">  
-              </div>
+      <div class="container"></div>
+      <div class="row">
+        <div class="col">
+          <div class="sign__upimg">
+            <img width="100%" src="../assets/shef.png" alt="" />
           </div>
-          <div class="col col__wrapper">
-              <h1 class="col__title">Sign up</h1>
-                  <p class="wrapper__tittle">Already have an account? <a href="./sign-in.html">Sign In</a></p>
-              <form class="form__type">
-  
-                  <p class="user__information">
-                      <label for="firstName">Firstname</label>
-                      <input class="input__disgn" placeholder=" FirstName" type="text" name="firstName" id="firstName">
-                  </p>
-                  <p class="user__information">
-                      <label for="lastName">Lastname</label>
-                      <input class="input__disgn" placeholder=" LirstName" type="text" name="lastName" id="lastName">
-                  </p>
-                  <p class="user__information">
-                      <label for="email">Email</label>
-                      <input class="input__disgn" placeholder=" Email"  type="email" name="email" id="email">
-                  </p>
-                  <p class="user__information">
-                      <label for="password">Password</label>
-                      <input class="input__disgn" placeholder="Password"  type="password" name="password" id="password">
-                  </p>
-                  <br>
-                  <button class="signup__btn" >Sign up</button>
-          
-              </form>
-          
-          </div>
-      </div>
-  </section>
+        </div>
+        <div class="col col__wrapper">
+          <h1 class="col__title">Sign up</h1>
+          <p class="wrapper__tittle">
+            Already have an account? <a href="./sign-in.html">Sign In</a>
+          </p>
+          <form class="form__type">
+            <p class="user__information">
+              <label for="name">Name</label>
+              <input
+                class="input__disgn"
+                placeholder="Name"
+                type="text"
+                name="name"
+                id="name"
+              />
+            </p>
+            <p class="user__information">
+              <label for="lastName">Lastname</label>
+              <input
+                class="input__disgn"
+                placeholder=" LirstName"
+                type="text"
+                name="lastName"
+                id="lastName"
+              />
+            </p>
+            <p class="user__information">
+              <label for="email">Email</label>
+              <input
+                class="input__disgn"
+                placeholder=" Email"
+                type="email"
+                name="email"
+                id="email"
+              />
+            </p>
+            <p class="user__information">
+              <label for="password">Password</label>
+              <input
+                class="input__disgn"
+                placeholder="Password"
+                type="password"
+                name="password"
+                id="password"
+              />
+            </p>
+            <p class="user__information">
+              <label for="phone">Phone</label>
+              <input
+                class="input__disgn"
+                placeholder="Phone"
+                type="tel"
+                name="phone"
+                id="phone"
+              />
+            </p>
+            <p class="user__information">
+                <label for="address">Address</label>
+                <input
+                  class="input__disgn"
+                  placeholder="Address"
+                  type="text"
+                  name="address"
+                  id="address"
+                />
+              </p>
+            
 
+            <button class="signup__btn">Sign up</button>
+          </form>
+        </div>
+      </div>
+    </section>
 
     <script type="module" src="../js/main.js"></script>
   </body>
