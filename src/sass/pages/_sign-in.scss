@@ -21,10 +21,64 @@
   }
   .wreappers {
     display: flex;
-    padding-bottom: 3rem;
+    padding-bottom: 1rem;
     .wreap__img {
-        width: 8rem;
+      width: 8rem;
     }
   }
-}
+  .btn__wreapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 0;
+    .signin__btn {
+      border: 2px solid $mainGreen;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    color: $mainWhite;
+    background-color: $mainGreen;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    }
+    .btn__inline {
+    font-weight: 600;
+    color: $mainGreen;
+    }
+  }
+  .input__location {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    
+    .input__disgn {
+      padding: .5rem;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: 1px solid;
+    }
+    .input__disgn:focus-visible {
+      outline: none;
+      background-color: $mainWhite;
+    }
+    .input__disgn:focus {
+      color: rgb(4, 102, 45);
+      background-color: $mainWhite;
 
+    }
+    .input__disgn:checked {
+      background-color: $mainWhite;
+    }
+  }
+  .login__title {
+    font-weight: 500;
+  }
+  .login__admin {
+    .btn__inline {
+      font-weight: 600;
+      color: #dbdbdba4;
+    }
+
+  }
+}
