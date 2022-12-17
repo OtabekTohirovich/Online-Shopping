@@ -1,0 +1,30 @@
+.sign__upp #sign__in-wreapper {
+  border: 1px solid rgba(86, 86, 86, 0.185);
+  width: 70%;
+  margin: 3rem auto;
+  height: 78vh;
+  border-radius: 1rem;
+  -webkit-box-shadow: 0px 0px 50px 4px rgba(86, 86, 86, 0.2);
+  -moz-box-shadow: 0px 0px 50px 4px rgba(86, 86, 86, 0.2);
+  box-shadow: 0px 0px 50px 4px rgba(86, 86, 86, 0.2);
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  .col__wrapper {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #img__wreapper-sign {
+    margin-right: 3rem;
+  }
+  .wreappers {
+    display: flex;
+    padding-bottom: 3rem;
+    .wreap__img {
+        width: 8rem;
+    }
+  }
+}
+

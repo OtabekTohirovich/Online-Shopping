@@ -11,16 +11,90 @@
     />
   </head>
   <body>
+    <header>
+      <div class="container">
+        <nav class="navbar">
+          <li class="logo__item">
+            <div href="./index.html" class="logo__link">
+              <img width="100%" src="../assets/logo.png" alt="logo" />
+            </div>
+          </li>
+          <ul class="nav__menu">
+            <li class="nav__item">
+              <div  class="nav__item--link">
+                <div class="navbar__contenrets navbar__btns">Bosh menu</div>
+                <div class="nav__content">
+                  <div class="added__content"> <a href="#"><h4>Menu</h4></a></div>
+                  <div class="added__content"> <a href="#">Shashliklar</a></div>
+                  <div class="added__content"> <a href="#">Salatlar</a></div>
+                  <div class="added__content"> <a href="#">Ichimliklar</a></div>
+                </div>
+              </div>
+            </li>
+            
+            <li class="nav__item">
+              <a href="#" class="nav__item--link">Yetkazib berish</a>
+            </li>
+            <li class="nav__item">
+              <a href="#" class="nav__item--link">To'lov</a>
+            </li>
+            <li class="nav__item">
+              <a href="#" class="nav__item--link">Joy buyurtmasi</a>
+            </li>
+          </ul>
+          <ul class="connect">
+            <li class="nav__item">
+              <a href="#" class="nav__item--link">
+                <img src="../assets/img/phone.png" alt="phone" />
+              </a>
+            </li>
+            <li class="nav__item">
+              <a href="#" class="nav__item--link" id="number__coll"> +998915911604 </a>
+            </li>
+            <li class="nav__item add__person hide" >
+              <a class="nav__item--link"
+                ><img src="../assets/img/person.png" alt=""
+              /></a>
+            </li>
+            <li class="nav__item account__state">
+              <a
+                href="./sign-in.html"
+                class="nav__item--link sign__in"
+                id="account__login"
+                >Sign-in</a
+              >
+              <a
+                href="./sign-up.html"
+                class="nav__item--link sign__up"
+                id="account__login__up"
+                >Sign-up</a
+              >
+            </li>
+            <li class="nav__item">
+              <a href="#" class="nav__item--link"
+                ><img src="../assets/img/shopping-cart.png" alt="cart"
+              /></a>
+            </li>
+          </ul>
+          <div class="small__header">
+            <i class="fa-solid fa-house-chimney"></i>
+          </div>
+          
+        </nav>
+      </div>
+    </header>
     <section class="sign__upp">
       <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="sign__upimg">
-              <img width="100%" src="../assets/shef.png" alt="shef" />
-            </div>
-          </div>
+        <div class="row" id="sign__in-wreapper">
+          
           <div class="col col__wrapper">
-            <h1 class="col__title">Log in</h1>
+            <div class="wreappers">
+              <div class="wreap__img">
+              <img width="100%" src="../assets/logo.png" alt="">
+              </div>
+              <h1 class="col__title"> Tea House</h1>
+            </div>
+             <h3 class="login__title">Log in</h3>
             <a href="./sign-up.html">Sign Up</a>
             <form class="form__type signIn_form">
               <p class="input__location">
@@ -43,9 +117,15 @@
                   id="password"
                 />
               </p>
+              
 
               <button class="signup__btn">Log in</button>
             </form>
+          </div>
+          <div class="col" id="img__wreapper-sign">
+            <div class="sign__upimg">
+              <img width="100%" src="../assets/shef.png" alt="shef" />
+            </div>
           </div>
         </div>
       </div>
