@@ -1,3 +1,48 @@
+import configs from "../configs";
+
+export function cardTemplate(data) {
+  const { id, img, title, description, quantity, name } = data;
+  return ` <div class="col container">
+  <article class="card">
+    <div class="card__header">
+      <div class="card__img">
+        <img src="${img}" alt="product">
+      </div>
+    </div>
+    <div class="card__body">
+      <div class="card__title">adas</div>
+      <div class="card__discription">${description}</div>
+      <div class="card__count">
+        <div class="card__prise">
+          jhefe
+        </div>
+        <div class="count__products">312</div>
+      </div>
+      <div class="card__btn">
+        <button>Savatga qo'shish</button>
+      </div>
+
+    </div>
+    
+  </article>
+</div>`
+}
+
+export function displayProducts(data = []) {
+  let result = "";
+  const productMenuNode = document.querySelector(".card__wreapper");
+  data.forEach((product) => {
+    const { img , ...docs } = product;
+    const imgs = img
+      ? configs.baseImgURL + img
+      : configs.defaultImg + "500";
+    result += cardTemplate({ ...docs, img});
+  });
+  productMenuNode.innerHTML = result;
+}
+
+
+
 export function loadToken() {
   if (localStorage.token) {
     let img__wrapper = document.querySelector(".account__state");

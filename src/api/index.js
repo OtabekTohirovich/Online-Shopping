@@ -27,3 +27,8 @@ export function singUp(quary) {
     role: "user"
   });
 }
+
+export function getProducts() {
+  let url = `products/public`;
+  return axios.get(url);
+}

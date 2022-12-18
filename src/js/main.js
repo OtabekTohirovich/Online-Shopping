@@ -1,7 +1,7 @@
 import "./style";
-import { singIn, singUp } from "../api";
+import { singIn, singUp, getProducts } from "../api";
 import { SignUp } from "./sign_up";
-import { loadToken, initializeMEvent } from "./home";
+import { loadToken, initializeMEvent, displayProducts } from "./home";
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
@@ -10,20 +10,20 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   document.addEventListener("click", (e) => {
     const element = e.target;
 
-    let cardList = document.querySelectorAll(".nav__item.show");
-    if (!cardList.length) return;
+    let navbarMenu = document.querySelectorAll(".nav__item.show");
+    if (!navbarMenu.length) return;
 
-    cardList?.forEach((card) => {
-      card.classList.remove("show");
-      card.querySelector(".nav__content").classList.remove("show");
+    navbarMenu?.forEach((nav) => {
+      nav.classList.remove("show");
+      nav.querySelector(".nav__content").classList.remove("show");
     });
     let isMenuBtn = element
       .closest(".navbar__btns")
       ?.classList.contains("navbar__btns");
     if (isMenuBtn) {
-      let card__menu = element.closest(".navbar__btns");
-      card__menu.nextElementSibling.classList.toggle("show");
-      card__menu.parentElement.parentElement.classList.toggle("show");
+      let navMenu = element.closest(".navbar__btns");
+      navMenu.nextElementSibling.classList.toggle("show");
+      navMenu.parentElement.parentElement.classList.toggle("show");
     }
   });
 
@@ -36,6 +36,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         navSmall.classList.toggle("hide");
       });
     }
+    getProducts().then(({data})=>{
+      console.log(data.data);
+      displayProducts(data.data)
+    })
     initializeMEvent();
   }
   if (page === "/sign-up.html" || page === "/sign-up") {
