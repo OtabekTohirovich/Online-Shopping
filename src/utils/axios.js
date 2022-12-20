@@ -10,8 +10,8 @@ const ApiForImg = Axios.create({
 });
 
 function getToken(config) {
-  const token = localStorage["onlineShop"]
-    ? JSON.parse(JSON.parse(localStorage["onlineShop"])).token
+  const token = localStorage["online-shopping"]
+    ? JSON.parse(JSON.parse(localStorage["online-shopping"])).token
     : "";
   config.headers.Authorization = token ? `Bearer ${token}` : "";
   return config;

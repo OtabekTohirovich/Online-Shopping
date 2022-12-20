@@ -5,4 +5,5 @@ export default {
   defaultImg: "https://via.placeholder.com/",
   sessionId: "hechnima yu",
   defaultText: "Don't have a biography ",
+  Authorization: localStorage.token,
 };
