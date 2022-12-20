@@ -1,0 +1,57 @@
+.card {
+  position: relative;
+  width: 25rem;
+  &.show::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 10px;
+  }
+  .card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .card__body {
+    width: 100%;
+    padding: 1rem;
+    .card__title {
+      padding-top: 1rem;
+      &:hover {
+        color: $mainGreen;
+      }
+      cursor: pointer;
+    }
+    .card__discription {
+      padding-top: 0.6rem;
+    }
+    .card__count {
+      padding-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .card__btn {
+      .btns {
+        margin-top: 2.5rem;
+        border: 2px solid $mainGreen;
+        padding: 1rem 2rem;
+        border-radius: 0.8rem;
+        background-color: $mainGreen;
+        color: $mainWhite;
+        font-size: large;
+        cursor: pointer;
+      }
+    }
+  }
+}

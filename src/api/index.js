@@ -35,7 +35,16 @@ export function getProducts() {
 
 export function getCategories(access_token) {
   let url = `categories/`;
-  return axios.get(url);
+  return axios.get(url, {'Authorization': `bearer ${token}`});
 }
 
 // https://shopzone.onrender.com/categories/
+// https://shopzone.onrender.com/products/:id
+export function fetchProduct(id) {
+  if (!id) {
+    throw "Please insert id parametr";
+  }
+  return axios.get(
+    `products/:id`
+  );
+}

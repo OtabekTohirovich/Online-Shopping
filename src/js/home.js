@@ -1,27 +1,27 @@
 import configs from "../configs";
 
 export function cardTemplate(data) {
-  const { id, imgs, title, description, quantity, name } = data;
+  const { _id, imgs, quantity, description, name, salePrice} = data;
+  const nameTitle = name ? name : data.category.name;
   return ` <div class="col container">
-  <article class="card">
+  <article class="card" data-id="${_id}">
     <div class="card__header">
       <div class="card__img">
-        <img src="${imgs}" alt="product">
+        <img width="100%" src="${imgs}" alt="product">
       </div>
     </div>
     <div class="card__body">
-      <div class="card__title">adas</div>
-      <div class="card__discription">${description}</div>
+      <div class="card__title">${nameTitle}</div>
+      <div class="card__discription">${description.slice(0 ,23)}</div>
       <div class="card__count">
         <div class="card__prise">
-          jhefe
+          ${salePrice} ming
         </div>
-        <div class="count__products">312</div>
+        <div class="count__products">${quantity} k/n</div>
       </div>
       <div class="card__btn">
-        <button>Savatga qo'shish</button>
+        <button class="btns">Savatga qo'shish</button>
       </div>
-
     </div>
     
   </article>
@@ -71,5 +71,21 @@ export function initializeMEvent() {
 }
 
 
-
+export function initializeProduct() {
+  const cardNodeList = document.querySelectorAll(".card");
+  cardNodeList.forEach((card) => {
+    card.addEventListener("click", (event) => {
+      const element = event.target;
+      const id = card?.dataset?.id;
+      let showMovieDetails =
+        element.closest(".card__img")?.classList.contains("card__img") ||
+        element.closest(".card__title")?.classList.contains("card__title");
+      if (showMovieDetails) {
+        if (!id) return;
+        history.pushState({ id }, null, "/product.html");
+        location.reload();
+      }
+    });
+  });
+}
 

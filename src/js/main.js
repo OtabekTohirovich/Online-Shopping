@@ -1,7 +1,12 @@
 import "./style";
-import { singIn, singUp, getProducts, getCategories } from "../api";
+import { singIn, singUp, getProducts, getCategories,fetchProduct } from "../api";
 import { SignUp } from "./sign_up";
-import { loadToken, initializeMEvent, displayProducts } from "./home";
+import {
+  loadToken,
+  initializeMEvent,
+  displayProducts,
+  initializeProduct,
+} from "./home";
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
@@ -39,13 +44,14 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     getProducts().then(({ data }) => {
       console.log(data.data);
       displayProducts(data.data);
+      initializeProduct();
     });
 
     // getCategories(token).then((data)=>{
     //   console.log(data);
     // })
-    initializeMEvent();
   }
+  initializeMEvent();
   if (page === "/sign-up.html" || page === "/sign-up") {
     const formSignUp = document.querySelector(".form__type");
     formSignUp.addEventListener("submit", (e) => {
@@ -98,10 +104,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(formData);
       singIn(formData)
         .then(({ data }) => {
-            console.log(data);
-            localStorage.token = data.token;
-            localStorage.user = JSON.stringify(data.payload.role);
-            location.assign("/");
+          console.log(data);
+          localStorage.token = data.token;
+          localStorage.user = JSON.stringify(data.payload.role);
+          location.assign("/");
         })
         .catch((err) => {
           Toastify({
@@ -134,10 +140,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(formData);
       singIn(formData)
         .then(({ data }) => {
-            console.log(data);
-            localStorage.token = data.token;
-            localStorage.user = JSON.stringify(data.payload.role);
-            location.assign("/");
+          console.log(data);
+          localStorage.token = data.token;
+          localStorage.user = JSON.stringify(data.payload.role);
+          location.assign("/");
         })
         .catch((err) => {
           Toastify({
@@ -158,6 +164,11 @@ document.addEventListener("DOMContentLoaded", async (e) => {
           }
         });
     });
+  }
+  if (page === "/product.html" || page === "/product") {
+    fetchProduct(history.state.id).then((data)=>{
+      console.log(data);
+    })
   }
   loadToken();
 });
