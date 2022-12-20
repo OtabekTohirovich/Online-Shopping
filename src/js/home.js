@@ -1,12 +1,12 @@
 import configs from "../configs";
 
 export function cardTemplate(data) {
-  const { id, img, title, description, quantity, name } = data;
+  const { id, imgs, title, description, quantity, name } = data;
   return ` <div class="col container">
   <article class="card">
     <div class="card__header">
       <div class="card__img">
-        <img src="${img}" alt="product">
+        <img src="${imgs}" alt="product">
       </div>
     </div>
     <div class="card__body">
@@ -35,8 +35,8 @@ export function displayProducts(data = []) {
     const { img , ...docs } = product;
     const imgs = img
       ? configs.baseImgURL + img
-      : configs.defaultImg + "500";
-    result += cardTemplate({ ...docs, img});
+      : configs.defaultImg + "400";
+    result += cardTemplate({ ...docs, imgs});
   });
   productMenuNode.innerHTML = result;
 }

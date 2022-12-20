@@ -1,5 +1,5 @@
 import "./style";
-import { singIn, singUp, getProducts } from "../api";
+import { singIn, singUp, getProducts, getCategories } from "../api";
 import { SignUp } from "./sign_up";
 import { loadToken, initializeMEvent, displayProducts } from "./home";
 document.addEventListener("DOMContentLoaded", async (e) => {
@@ -36,10 +36,14 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         navSmall.classList.toggle("hide");
       });
     }
-    getProducts().then(({data})=>{
+    getProducts().then(({ data }) => {
       console.log(data.data);
-      displayProducts(data.data)
-    })
+      displayProducts(data.data);
+    });
+
+    // getCategories(token).then((data)=>{
+    //   console.log(data);
+    // })
     initializeMEvent();
   }
   if (page === "/sign-up.html" || page === "/sign-up") {
@@ -55,12 +59,31 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         formSignUp.phone.value
       );
       console.log(formData);
-      singUp(formData).then(({ data }) => {
-        console.log(data);
-        localStorage.token = data.token;
-        localStorage.user = JSON.stringify(data.user.role);
-        location.assign("/");
-      });
+      singUp(formData)
+        .then(({ data }) => {
+          console.log(data);
+          localStorage.token = data.token;
+          localStorage.user = JSON.stringify(data.user.role);
+          location.assign("/");
+        })
+        .catch((err) => {
+          Toastify({
+            text: err.msg,
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+              background: "linear-gradient(to right, red, red)",
+            },
+            onClick: function () {},
+          }).showToast();
+          if (err?.path) {
+            location.assign(err.path);
+          }
+        });
     });
   }
 
@@ -75,10 +98,46 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(formData);
       singIn(formData)
         .then(({ data }) => {
-          console.log(data);
-          localStorage.token = data.token;
-          localStorage.user = JSON.stringify(data.payload.role);
-          location.assign("/");
+            console.log(data);
+            localStorage.token = data.token;
+            localStorage.user = JSON.stringify(data.payload.role);
+            location.assign("/");
+        })
+        .catch((err) => {
+          Toastify({
+            text: err.msg,
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+              background: "linear-gradient(to right, red, red)",
+            },
+            onClick: function () {},
+          }).showToast();
+          if (err?.path) {
+            location.assign(err.path);
+          }
+        });
+    });
+  }
+  if (page === "/signin-admin.html" || page === "/signin-admin") {
+    const signInForm = document.querySelector(".signIn_form");
+    signInForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = {
+        email: signInForm.email.value,
+        password: signInForm.password.value,
+      };
+      console.log(formData);
+      singIn(formData)
+        .then(({ data }) => {
+            console.log(data);
+            localStorage.token = data.token;
+            localStorage.user = JSON.stringify(data.payload.role);
+            location.assign("/");
         })
         .catch((err) => {
           Toastify({

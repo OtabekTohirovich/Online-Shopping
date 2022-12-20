@@ -11,23 +11,25 @@
       <div class="container">
         <nav class="navbar">
           <li class="logo__item">
-            <div href="./index.html" class="logo__link">
+            <div class="logo__link">
               <img width="100%" src="../assets/logo.png" alt="logo" />
             </div>
           </li>
           <ul class="nav__menu">
             <li class="nav__item">
-              <div  class="nav__item--link">
+              <div class="nav__item--link">
                 <div class="navbar__contenrets navbar__btns">Bosh menu</div>
                 <div class="nav__content">
-                  <div class="added__content"> <a href="#"><h4>Menu</h4></a></div>
-                  <div class="added__content"> <a href="#">Shashliklar</a></div>
-                  <div class="added__content"> <a href="#">Salatlar</a></div>
-                  <div class="added__content"> <a href="#">Ichimliklar</a></div>
+                  <div class="added__content">
+                    <a href="#"><h4>Menu</h4></a>
+                  </div>
+                  <div class="added__content"><a href="#">Shashliklar</a></div>
+                  <div class="added__content"><a href="#">Salatlar</a></div>
+                  <div class="added__content"><a href="#">Ichimliklar</a></div>
                 </div>
               </div>
             </li>
-            
+
             <li class="nav__item">
               <a href="#" class="nav__item--link">Yetkazib berish</a>
             </li>
@@ -45,9 +47,11 @@
               </a>
             </li>
             <li class="nav__item">
-              <a href="#" class="nav__item--link" id="number__coll"> +998915911604 </a>
+              <a href="#" class="nav__item--link" id="number__coll">
+                +998915911604
+              </a>
             </li>
-            <li class="nav__item add__person hide" >
+            <li class="nav__item add__person hide">
               <a class="nav__item--link"
                 ><img src="../assets/img/person.png" alt=""
               /></a>
@@ -75,75 +79,54 @@
           <div class="small__header">
             <i class="fa-solid fa-house-chimney"></i>
           </div>
-          
         </nav>
       </div>
     </header>
     <section class="sign__upp">
-      <div class="container"></div>
-      <div class="row">
-        <div class="col">
-          <div class="sign__upimg">
-            <img width="100%" src="../assets/shef.png" alt="" />
-          </div>
-        </div>
-        <div class="col col__wrapper">
-          <h1 class="col__title">Sign up</h1>
-          <p class="wrapper__tittle">
-            Already have an account? <a href="./sign-in.html">Sign In</a>
-          </p>
-          <form class="form__type">
-            <p class="user__information">
-              <label for="name">Name</label>
-              <input
-                class="input__disgn"
-                placeholder="Name"
-                type="text"
-                name="name"
-                id="name"
-              />
-            </p>
-            <p class="user__information">
-              <label for="lastName">Lastname</label>
-              <input
-                class="input__disgn"
-                placeholder=" LirstName"
-                type="text"
-                name="lastName"
-                id="lastName"
-              />
-            </p>
-            <p class="user__information">
-              <label for="email">Email</label>
-              <input
-                class="input__disgn"
-                placeholder=" Email"
-                type="email"
-                name="email"
-                id="email"
-              />
-            </p>
-            <p class="user__information">
-              <label for="password">Password</label>
-              <input
-                class="input__disgn"
-                placeholder="Password"
-                type="password"
-                name="password"
-                id="password"
-              />
-            </p>
-            <p class="user__information">
-              <label for="phone">Phone</label>
-              <input
-                class="input__disgn"
-                placeholder="Phone"
-                type="tel"
-                name="phone"
-                id="phone"
-              />
-            </p>
-            <p class="user__information">
+      <div class="container">
+        <div class="row" id="sign__in-wreapper">
+          <div class="col col__wrapper">
+            <div class="wreappers">
+              <div class="wreap__img">
+                <img width="100%" src="../assets/logo.png" alt="" />
+              </div>
+              <h1 class="col__title">Tea House</h1>
+            </div>
+            <h3 class="login__title">Sign in</h3>
+
+            <form class="form__type signIn_form">
+              <p class="input__location">
+                <label for="name">Name</label>
+                <input
+                  class="input__disgn"
+                  placeholder="Name"
+                  type="text"
+                  name="name"
+                  id="name"
+                />
+              </p>
+              <p class="input__location">
+                <label for="lastName">Lastname</label>
+                <input
+                  class="input__disgn"
+                  placeholder=" LirstName"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                />
+              </p>
+
+              <p class="input__location">
+                <label for="phone">Phone</label>
+                <input
+                  class="input__disgn"
+                  placeholder="Phone"
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                />
+              </p>
+              <p class="input__location">
                 <label for="address">Address</label>
                 <input
                   class="input__disgn"
@@ -153,14 +136,41 @@
                   id="address"
                 />
               </p>
-            
 
-            <button class="signup__btn">Sign up</button>
-          </form>
+              <p class="input__location">
+                <label for="email">Email</label>
+                <input
+                  class="input__disgn"
+                  placeholder="People@gmail.com"
+                  type="email"
+                  name="email"
+                  id="email"
+                />
+              </p>
+              <p class="input__location">
+                <label for="password">Password</label>
+                <input
+                  class="input__disgn"
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  id="password"
+                />
+              </p>
+              <div class="btn__wreapper">
+                <button class="signin__btn ">Sign Up</button>
+              </div>
+            </form>
+          </div>
+          <div class="col" id="img__wreapper-sign">
+            <div class="sign__upimg">
+              <img width="100%" src="../assets/shef.png" alt="shef" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.12.0/toastify.min.js"></script>
     <script type="module" src="../js/main.js"></script>
   </body>
 </html>
