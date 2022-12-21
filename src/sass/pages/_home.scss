@@ -68,15 +68,30 @@
     justify-content: center;
     flex-flow: column;
   }
+}
 
+.card__wreapper.row {
+  gap: 20px;
+}
+.card__wreapper.row .col {
+  flex: 1 250px;
 }
 
 .homepage {
   position: relative;
-  .img__home{
+  .img__home {
     position: absolute;
     top: 45%;
     left: 45%;
-
+  }
+}
+.category__type {
+  .category {
+    display: flex;
+    font-size: 2rem;
+    font-weight: 500;
+    .category__link {
+      padding:0 2.5rem ;
+    }
   }
 }

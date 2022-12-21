@@ -1,12 +1,20 @@
 import "./style";
-import { singIn, singUp, getProducts, getCategories,fetchProduct } from "../api";
+import {
+  singIn,
+  singUp,
+  getProducts,
+  getCategories,
+  fetchProduct,
+} from "../api";
 import { SignUp } from "./sign_up";
 import {
   loadToken,
   initializeMEvent,
   displayProducts,
   initializeProduct,
+  displayCategory,
 } from "./home";
+import { displayProduct } from "./product"
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
@@ -47,9 +55,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       initializeProduct();
     });
 
-    getCategories().then((data)=>{
+    getCategories().then(({data}) => {
       console.log(data);
-    })
+      displayCategory(data.payload)
+    });
   }
   initializeMEvent();
   if (page === "/sign-up.html" || page === "/sign-up") {
@@ -166,9 +175,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     });
   }
   if (page === "/product.html" || page === "/product") {
-    fetchProduct(history.state.id).then((data)=>{
+    fetchProduct(history.state.id).then(({data}) => {
       console.log(data);
-    })
+      displayProduct(data)
+    });
   }
   loadToken();
 });

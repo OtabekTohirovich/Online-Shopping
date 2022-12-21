@@ -45,6 +45,6 @@ export function fetchProduct(id) {
     throw "Please insert id parametr";
   }
   return axios.get(
-    `products/:id` + id 
+    `products/` + id 
   );
 }

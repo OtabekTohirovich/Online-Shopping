@@ -2,7 +2,7 @@ import configs from "../configs";
 
 export function cardTemplate(data) {
   const { _id, imgs, quantity, description, name, salePrice} = data;
-  const nameTitle = name ? name : data.category.name;
+  // const nameTitle = name ? name : data.category.name;
   return ` <div class="col container">
   <article class="card" data-id="${_id}">
     <div class="card__header">
@@ -11,7 +11,7 @@ export function cardTemplate(data) {
       </div>
     </div>
     <div class="card__body">
-      <div class="card__title">${nameTitle}</div>
+      <div class="card__title">${name}</div>
       <div class="card__discription">${description.slice(0 ,23)}</div>
       <div class="card__count">
         <div class="card__prise">
@@ -41,6 +41,15 @@ export function displayProducts(data = []) {
   productMenuNode.innerHTML = result;
 }
 
+export function displayCategory(data = []) {
+  let result = "";
+  const productMenuNode = document.querySelector(".category");
+  data.forEach((category) => {
+    const { _id, name } = category;
+    result += `<div class="category__link" data-id="${_id}"> <p>${name}</p> </div>`;
+  });
+  productMenuNode.innerHTML = result;
+}
 
 
 export function loadToken() {
