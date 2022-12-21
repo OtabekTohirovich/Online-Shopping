@@ -33,11 +33,11 @@ export function getProducts() {
   return axios.get(url);
 }
 
-export function getCategories(access_token) {
+export function getCategories() {
   let url = `categories/`;
   return axios.get(url);
 }
-
+const token = localStorage.token;
 // https://shopzone.onrender.com/categories/
 // https://shopzone.onrender.com/products/:id
 export function fetchProduct(id) {
@@ -45,6 +45,6 @@ export function fetchProduct(id) {
     throw "Please insert id parametr";
   }
   return axios.get(
-    `products/:id`
+    `products/:id` + id 
   );
 }

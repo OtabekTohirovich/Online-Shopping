@@ -47,9 +47,9 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       initializeProduct();
     });
 
-    // getCategories(token).then((data)=>{
-    //   console.log(data);
-    // })
+    getCategories().then((data)=>{
+      console.log(data);
+    })
   }
   initializeMEvent();
   if (page === "/sign-up.html" || page === "/sign-up") {
