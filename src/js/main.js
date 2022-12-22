@@ -14,7 +14,7 @@ import {
   initializeProduct,
   displayCategory,
 } from "./home";
-import { displayProduct } from "./product"
+import { displayProduct } from "./product";
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
@@ -55,9 +55,21 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       initializeProduct();
     });
 
-    getCategories().then(({data}) => {
+    getCategories().then(({ data }) => {
       console.log(data);
-      displayCategory(data.payload)
+      displayCategory(data.payload);
+    });
+    const cartOverlay = document.querySelector(".cart-overlay");
+    const cartDOM = document.querySelector(".cart");
+    const cartBtns = document.querySelector(".cart__btns");
+    const closeCartBtn = document.querySelector(".close-cart");
+    cartBtns.addEventListener("click", () => {
+      cartOverlay.classList.add("transparentBcg");
+      cartDOM.classList.add("showCart");
+    });
+    closeCartBtn.addEventListener("click", () => {
+      cartOverlay.classList.remove("transparentBcg");
+      cartDOM.classList.remove("showCart");
     });
   }
   initializeMEvent();
@@ -175,9 +187,9 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     });
   }
   if (page === "/product.html" || page === "/product") {
-    fetchProduct(history.state.id).then(({data}) => {
+    fetchProduct(history.state.id).then(({ data }) => {
       console.log(data);
-      displayProduct(data)
+      displayProduct(data);
     });
   }
   loadToken();

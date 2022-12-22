@@ -75,9 +75,11 @@
               >
             </li>
             <li class="nav__item">
-              <a href="#" class="nav__item--link"
+              <div class="nav__item--link cart__btns"
                 ><img src="../assets/img/shopping-cart.png" alt="cart"
-              /></a>
+              />
+              <div class="cart-items">0</div>
+            </div>
             </li>
           </ul>
           <div class="small__header">
@@ -200,6 +202,22 @@
         </div>
       </div>
     </section>
+
+    <div class="cart-overlay">
+            <div class="cart">
+                <span class="close-cart">
+                    <i class="fas fa-window-close"></i>
+                </span>
+                <h2>your cart</h2>
+                <div class="cart-content">
+                    
+                </div>
+                <div class="cart-footer">
+                  <h3>your total : $ <span class="cart-total">0</span></h3>
+                  <button class="clear-cart banner-btn">clear cart</button>
+              </div>
+            </div>
+        </div>
 
 
     <script type="module" src="../js/main.js"></script>
