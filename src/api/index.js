@@ -48,3 +48,33 @@ export function fetchProduct(id) {
     `products/` + id 
   );
 }
+
+export function deleteProduct(id) {
+  if (!id) {
+    throw "Please insert id parametr";
+  }
+  let url = `products/${id}/delete`;
+  return axios.delete(url);
+}
+
+export function createNewProduct(quary, file) {
+  if (!quary) {
+    throw "Please insert quary parametr";
+  }
+  if (!file) {
+    throw "Please insert file parametr";
+  }
+  let url = `products/`;
+  return axios.post(url, {
+    name: `${quary.name}`,
+    quantity: `${quary.quantity}`,
+    description: `${quary.description}`,
+    price: `${quary.price}`,
+    salePrice: `${quary.salePrice}`,
+    brand: `${quary.brand}`,
+    img: `${file}`
+  });
+}
+
+
+// https://shopzone.onrender.com/products/

@@ -52,5 +52,18 @@
         cursor: pointer;
       }
     }
+    .card__btns {
+      display: flex;
+      justify-content: space-between;
+      .btns {
+        margin-top: 2.5rem;
+        border: 1px solid $mainGreen;
+        padding: .2rem .3rem;
+        border-radius: 0.8rem;
+        background-color: $mainGreen;
+        color: $mainWhite;
+        cursor: pointer;
+      }
+    }
   }
 }
