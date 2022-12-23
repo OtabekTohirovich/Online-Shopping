@@ -78,3 +78,23 @@ export function createNewProduct(quary, file) {
 
 
 // https://shopzone.onrender.com/products/
+
+
+// https://shopzone.onrender.com/cart/
+
+export function getCart() {
+  let url = `cart/`;
+  return axios.get(url);
+}
+
+export function addProductToCart(id) {
+  if (!id) {
+    throw "Please insert id parametr";
+  }
+  let url = `cart/${id}/add`;
+  return axios.post(url, {
+    clientId: localStorage.userId
+  });
+}
+
+// https://shopzone.onrender.com/cart/63a193ad8783650034674d1e/add

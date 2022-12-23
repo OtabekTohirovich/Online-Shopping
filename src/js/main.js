@@ -5,6 +5,7 @@ import {
   getProducts,
   getCategories,
   fetchProduct,
+  createNewProduct
 } from "../api";
 import { SignUp } from "./sign_up";
 import {
@@ -14,7 +15,7 @@ import {
   initializeProduct,
   displayCategory,
 } from "./home";
-import {displayProductsEdit, handleInitializeProduct} from "./edit-product"
+import {displayProductsEdit, handleInitializeProduct, CreateProduct} from "./edit-product"
 import { displayProduct } from "./product";
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
@@ -128,6 +129,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         .then(({ data }) => {
           console.log(data);
           localStorage.token = data.token;
+          localStorage.userId = data.payload._id;
           localStorage.user = JSON.stringify(data.payload.role);
           location.assign("/");
         })
@@ -211,8 +213,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
 
   }
   if (page === "/add-product.html" || page === "/add-product") {
-    const fileForm = document.querySelector(".new_book_img_form");
-    const createForm = document.querySelector(".form__add--product");
+    const fileForm = document.forms[0];
+    const createForm = document.forms[1];
     createForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const formData = new CreateProduct(
@@ -227,22 +229,25 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         const fileFormData = new FormData();
         fileFormData.append("files", fileForm.files.files[0]);
         console.log(Array.from(fileFormData));
-        fileUpload(fileFormData)
+        const imgsa = document.querySelector(".newbook__img");
+        console.log(imgsa.src);
+        createNewProduct(formData, fileInput.files[0])
           .then((data) => {
-            formData.image = data.payload[0]._id;
-            console.log(data, formData);
-            bookRequest(formData)
-              .then((data) => {
-                console.log(data);
-                console.log("Muvofaqiyatli yaratdingiz");
-                // location.assign("/index.html");
-              })
-              .catch((err) => {
-                console.log(err.message);
-                if (err?.path) {
-                  location.assign(err.path);
-                }
-              });
+            console.log(data);
+            // formData.image = data.payload[0]._id;
+            // console.log(data, formData);
+            // bookRequest(formData)
+            //   .then((data) => {
+            //     console.log(data);
+            //     console.log("Muvofaqiyatli yaratdingiz");
+            //     // location.assign("/index.html");
+            //   })
+            //   .catch((err) => {
+            //     console.log(err.message);
+            //     if (err?.path) {
+            //       location.assign(err.path);
+            //     }
+            //   });
           })
           .catch((err) => {
             alert(err);

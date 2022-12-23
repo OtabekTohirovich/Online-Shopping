@@ -1,4 +1,5 @@
 import configs from "../configs";
+import {getCart, addProductToCart} from "../api"
 
 export function cardTemplate(data) {
   const { _id, imgs, quantity, description, name, salePrice} = data;
@@ -20,7 +21,7 @@ export function cardTemplate(data) {
         <div class="count__products">${quantity} k/n</div>
       </div>
       <div class="card__btn">
-        <button class="btns">Savatga qo'shish</button>
+        <button class="btns  save__cart">Savatga qo'shish</button>
       </div>
     </div>
     
@@ -75,6 +76,13 @@ export function initializeMEvent() {
         navContent.classList.toggle("show");
         nav.classList.toggle("show");
       }
+      let isCartBtn = event.target
+        .closest(".cart__btns")
+        ?.classList.contains("cart__btns");
+      if (isCartBtn) {
+        console.log("hello");
+        getCart()
+      }
     });
   });
 }
@@ -86,13 +94,21 @@ export function initializeProduct() {
     card.addEventListener("click", (event) => {
       const element = event.target;
       const id = card?.dataset?.id;
-      let showMovieDetails =
+      let showDetails =
         element.closest(".card__img")?.classList.contains("card__img") ||
         element.closest(".card__title")?.classList.contains("card__title");
-      if (showMovieDetails) {
+      if (showDetails) {
         if (!id) return;
         history.pushState({ id }, null, "/product.html");
         location.reload();
+      }
+      let addProductSave = element.closest(".save__cart")?.classList.contains("save__cart");
+      if (addProductSave) {
+        if (!id) return;
+       console.log(id);
+       addProductToCart(id).then((data)=>{
+        console.log(data);
+       })
       }
     });
   });
