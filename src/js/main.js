@@ -5,7 +5,8 @@ import {
   getProducts,
   getCategories,
   fetchProduct,
-  createNewProduct
+  createNewProduct,
+  getUsers
 } from "../api";
 import { SignUp } from "./sign_up";
 import {
@@ -15,6 +16,7 @@ import {
   initializeProduct,
   displayCategory,
 } from "./home";
+import {displayUsers, handleInitializeUsers} from "./all-users"
 import {displayProductsEdit, handleInitializeProduct, CreateProduct} from "./edit-product"
 import { displayProduct } from "./product";
 document.addEventListener("DOMContentLoaded", async (e) => {
@@ -269,6 +271,16 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       }
     });
   }
+
+  if (page === "/all-users.html" || page === "/all-users") {
+    getUsers().then(({data})=>{
+      console.log(data);
+      displayUsers(data);
+      handleInitializeUsers();
+    })
+
+  }
+
 
 
 

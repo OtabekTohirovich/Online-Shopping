@@ -98,3 +98,21 @@ export function addProductToCart(id) {
 }
 
 // https://shopzone.onrender.com/cart/63a193ad8783650034674d1e/add
+
+
+
+// https://shopzone.onrender.com/
+
+
+export function getUsers() {
+  let url = `users/`;
+  return axios.get(url);
+}
+
+export function deleteUser(id) {
+  if (!id) {
+    throw "Please insert id parametr";
+  }
+  let url = `users/${id}/delete`;
+  return axios.get(url);
+}
