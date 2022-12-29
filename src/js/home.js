@@ -34,9 +34,7 @@ export function displayProducts(data = []) {
   const productMenuNode = document.querySelector(".card__wreapper");
   data.forEach((product) => {
     const { img , ...docs } = product;
-    const imgs = img
-      ? configs.baseImgURL + img
-      : configs.defaultImg + "400";
+    const imgs = img ? configs.baseImgURL + img : configs.defaultImg + "400";
     result += cardTemplate({ ...docs, imgs});
   });
   productMenuNode.innerHTML = result;

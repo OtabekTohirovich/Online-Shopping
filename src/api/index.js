@@ -37,7 +37,6 @@ export function getCategories() {
   let url = `categories/`;
   return axios.get(url);
 }
-const token = localStorage.token;
 // https://shopzone.onrender.com/categories/
 // https://shopzone.onrender.com/products/:id
 export function fetchProduct(id) {
@@ -57,13 +56,11 @@ export function deleteProduct(id) {
   return axios.delete(url);
 }
 
-export function createNewProduct(quary, file) {
+export function createNewProduct(quary) {
   if (!quary) {
     throw "Please insert quary parametr";
   }
-  if (!file) {
-    throw "Please insert file parametr";
-  }
+
   let url = `products/`;
   return axios.post(url, {
     name: `${quary.name}`,
@@ -71,8 +68,7 @@ export function createNewProduct(quary, file) {
     description: `${quary.description}`,
     price: `${quary.price}`,
     salePrice: `${quary.salePrice}`,
-    brand: `${quary.brand}`,
-    img: `${file}`
+    categoryId: `${quary.categoryId}`
   });
 }
 
@@ -116,3 +112,34 @@ export function deleteUser(id) {
   let url = `users/${id}/delete`;
   return axios.get(url);
 }
+
+
+export function addCategory(query) {
+  if (!query) {
+    throw "Please insert query parametr";
+  }
+  let url = `categories/`;
+  return axios.post(url, {
+    name: `${query.name}`
+  });
+}
+
+export function deleteCategory(id) {
+  if (!id) {
+    throw "Please insert id parametr";
+  }
+  let url = `categories/${id}`;
+  return axios.delete(url);
+}
+
+export function editCategory(id) {
+  if (!id) {
+    throw "Please insert id parametr";
+  }
+  let url = `categories/${id}`;
+  return axios.post(url, {
+    name: `${query.name}`
+  });
+}
+
+

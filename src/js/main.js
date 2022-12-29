@@ -6,7 +6,8 @@ import {
   getCategories,
   fetchProduct,
   createNewProduct,
-  getUsers
+  getUsers,
+  addCategory,
 } from "../api";
 import { SignUp } from "./sign_up";
 import {
@@ -16,9 +17,14 @@ import {
   initializeProduct,
   displayCategory,
 } from "./home";
-import {displayUsers, handleInitializeUsers} from "./all-users"
-import {displayProductsEdit, handleInitializeProduct, CreateProduct} from "./edit-product"
-import { displayProduct } from "./product";
+import { displayUsers, handleInitializeUsers } from "./all-users";
+import {
+  displayProductsEdit,
+  handleInitializeProduct,
+  CreateProduct,
+  CreateCategory
+} from "./edit-product";
+import { displayProduct, displayCategoryProduct } from "./product";
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
@@ -202,8 +208,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(data.data);
       displayProductsEdit(data.data);
       // initializeProduct();
-      handleInitializeProduct()
-
+      handleInitializeProduct();
     });
 
     getCategories().then(({ data }) => {
@@ -213,76 +218,94 @@ document.addEventListener("DOMContentLoaded", async (e) => {
 
     // deleteProduct()
 
+    let formCate = document.querySelector(".addcate");
+    if (formCate) {
+      formCate.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new CreateCategory(
+          formCate.name.value
+        )
+        
+        addCategory(formData).then((data) => {
+          console.log(data);
+        });
+      });
+    }
   }
   if (page === "/add-product.html" || page === "/add-product") {
     const fileForm = document.forms[0];
     const createForm = document.forms[1];
+    getCategories().then(({ data }) => {
+      console.log(data);
+      displayCategoryProduct(data.payload);
+    });
     createForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const formData = new CreateProduct(
+        createForm.categoryId.value,
         createForm.name.value,
-        createForm.brand.value,
         createForm.salePrice.value,
         createForm.quantity.value,
         createForm.price.value,
         createForm.description.value
       );
-      if (fileForm.files.files.length) {
-        const fileFormData = new FormData();
-        fileFormData.append("files", fileForm.files.files[0]);
-        console.log(Array.from(fileFormData));
-        const imgsa = document.querySelector(".newbook__img");
-        console.log(imgsa.src);
-        createNewProduct(formData, fileInput.files[0])
-          .then((data) => {
-            console.log(data);
-            // formData.image = data.payload[0]._id;
-            // console.log(data, formData);
-            // bookRequest(formData)
-            //   .then((data) => {
-            //     console.log(data);
-            //     console.log("Muvofaqiyatli yaratdingiz");
-            //     // location.assign("/index.html");
-            //   })
-            //   .catch((err) => {
-            //     console.log(err.message);
-            //     if (err?.path) {
-            //       location.assign(err.path);
-            //     }
-            //   });
-          })
-          .catch((err) => {
-            alert(err);
-          });
-      }
-    });
-    const fileInput = fileForm.files;
-    fileInput.addEventListener("change", (e) => {
-      // e.preventDefault();
-      console.log(fileInput);
-      console.log(fileInput.files);
-      if (fileInput.files && fileInput.files.length) {
-        var img = document.querySelector(".newbook__img");
-        img.onload = () => {
-          URL.revokeObjectURL(img.src); // no longer needed, free memory
-        };
+      createNewProduct(formData).then((data) => {
+        console.log(data);
+      });
+      // if (fileForm.files.files.length) {
+      //   const fileFormData = new FormData();
+      //   fileFormData.append("files", fileForm.files.files[0]);
+      //   console.log(Array.from(fileFormData));
+      //   const imgsa = document.querySelector(".newbook__img");
+      //   console.log(imgsa.src);
 
-        img.src = URL.createObjectURL(fileInput.files[0]); // set src to blob url
-      }
+      //     .then((data) => {
+      //       console.log(data);
+      //       // formData.image = data.payload[0]._id;
+      //       // console.log(data, formData);
+      //       // bookRequest(formData)
+      //       //   .then((data) => {
+      //       //     console.log(data);
+      //       //     console.log("Muvofaqiyatli yaratdingiz");
+      //       //     // location.assign("/index.html");
+      //       //   })
+      //       //   .catch((err) => {
+      //       //     console.log(err.message);
+      //       //     if (err?.path) {
+      //       //       location.assign(err.path);
+      //       //     }
+      //       //   });
+      //     })
+      //     .catch((err) => {
+      //       alert(err);
+      //     });
+
+      // }
     });
+
+    // const fileInput = fileForm.files;
+    // fileInput.addEventListener("change", (e) => {
+    //   // e.preventDefault();
+    //   console.log(fileInput);
+    //   console.log(fileInput.files);
+    //   if (fileInput.files && fileInput.files.length) {
+    //     var img = document.querySelector(".newbook__img");
+    //     img.onload = () => {
+    //       URL.revokeObjectURL(img.src); // no longer needed, free memory
+    //     };
+
+    //     img.src = URL.createObjectURL(fileInput.files[0]); // set src to blob url
+    //   }
+    // });
   }
 
   if (page === "/all-users.html" || page === "/all-users") {
-    getUsers().then(({data})=>{
+    getUsers().then(({ data }) => {
       console.log(data);
       displayUsers(data);
       handleInitializeUsers();
-    })
-
+    });
   }
-
-
-
 
   loadToken();
 });

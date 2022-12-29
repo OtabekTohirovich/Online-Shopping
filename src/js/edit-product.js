@@ -57,16 +57,23 @@ export function handleInitializeProduct() {
   });
 }
 
-
-export function CreateProduct(name, categoryName, description, price, salePrice, quantity, brand) {
+export function CreateCategory(name) {
   try {
     this.name = name;
-    this.categoryName = categoryName;
+  } catch (err) {
+    console.log(err);
+  }
+  
+}
+
+export function CreateProduct(name, categoryId, description, price, salePrice, quantity) {
+  try {
+    this.name = name;
+    this.categoryId = categoryId;
     this.description = description;
     this.price = price;
     this.salePrice = salePrice;
     this.quantity = quantity;
-    this.brand = brand; 
   } catch (err) {
     console.log(err);
   }
