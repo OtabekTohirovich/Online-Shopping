@@ -1,5 +1,5 @@
 import configs from "../configs";
-import { deleteProduct } from "../api"
+import { deleteProduct , deleteCategory, editCategory} from "../api"
 export function cardTemplateAdmin(data) {
   const { _id, imgs, quantity, description, name, salePrice } = data;
   // const nameTitle = name ? name : data.category.name;
@@ -56,6 +56,47 @@ export function handleInitializeProduct() {
     });
   });
 }
+
+export function displayCategoryEdit(data = []) {
+  let result = "";
+  const productMenuNode = document.querySelector(".category");
+  data.forEach((category) => {
+    const { _id, name } = category;
+    result += `<div class="category__link" data-id="${_id}"> 
+    <p>${name}</p> 
+     <div class="btn__category--wreapper">
+     <button class="edit__category">Edit</button>
+     <button class="delete__category">Delete</button>
+     </div>
+    </div>`;
+  });
+  productMenuNode.innerHTML = result;
+}
+
+export function handleInitializeCategory() {
+  const cardNodeList = document.querySelectorAll(".category__link");
+  cardNodeList.forEach((card) => {
+    card.addEventListener("click", (event) => {
+      const element = event.target;
+      const id = card?.dataset?.id;
+      let showMovieDetails =
+        element.closest(".delete__category")?.classList.contains("delete__category");
+      if (showMovieDetails) {
+        if (!id) return;
+        deleteCategory(id);
+        card.remove();
+      }
+      let showMovie =
+        element.closest(".edit__category")?.classList.contains("edit__category");
+      if (showMovie) {
+        if (!id) return;
+        editCategory(id);
+        card.parentElement.remove();
+      }
+    });
+  });
+}
+
 
 export function CreateCategory(name) {
   try {

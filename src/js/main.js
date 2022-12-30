@@ -22,7 +22,9 @@ import {
   displayProductsEdit,
   handleInitializeProduct,
   CreateProduct,
-  CreateCategory
+  CreateCategory,
+  displayCategoryEdit,
+  handleInitializeCategory
 } from "./edit-product";
 import { displayProduct, displayCategoryProduct } from "./product";
 document.addEventListener("DOMContentLoaded", async (e) => {
@@ -213,7 +215,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
 
     getCategories().then(({ data }) => {
       console.log(data);
-      displayCategory(data.payload);
+      displayCategoryEdit(data.payload);
+      handleInitializeCategory();
     });
 
     // deleteProduct()
@@ -228,6 +231,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         
         addCategory(formData).then((data) => {
           console.log(data);
+          location.reload()
         });
       });
     }

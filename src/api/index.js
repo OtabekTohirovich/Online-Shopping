@@ -8,7 +8,7 @@ export function singIn(quary) {
   let url = `auth/sign-in`;
   return axios.post(url, {
     email: `${quary.email}`,
-    password: `${quary.password}`
+    password: `${quary.password}`,
   });
 }
 
@@ -24,7 +24,7 @@ export function singUp(quary) {
     lastName: `${quary.lastName}`,
     phone: `${quary.phone}`,
     address: `${quary.address}`,
-    role: "user"
+    role: "user",
   });
 }
 
@@ -43,9 +43,7 @@ export function fetchProduct(id) {
   if (!id) {
     throw "Please insert id parametr";
   }
-  return axios.get(
-    `products/` + id 
-  );
+  return axios.get(`products/` + id);
 }
 
 export function deleteProduct(id) {
@@ -68,13 +66,11 @@ export function createNewProduct(quary) {
     description: `${quary.description}`,
     price: `${quary.price}`,
     salePrice: `${quary.salePrice}`,
-    categoryId: `${quary.categoryId}`
+    categoryId: `${quary.categoryId}`,
   });
 }
 
-
 // https://shopzone.onrender.com/products/
-
 
 // https://shopzone.onrender.com/cart/
 
@@ -89,16 +85,13 @@ export function addProductToCart(id) {
   }
   let url = `cart/${id}/add`;
   return axios.post(url, {
-    clientId: localStorage.userId
+    clientId: localStorage.userId,
   });
 }
 
 // https://shopzone.onrender.com/cart/63a193ad8783650034674d1e/add
 
-
-
 // https://shopzone.onrender.com/
-
 
 export function getUsers() {
   let url = `users/`;
@@ -113,14 +106,13 @@ export function deleteUser(id) {
   return axios.get(url);
 }
 
-
 export function addCategory(query) {
   if (!query) {
     throw "Please insert query parametr";
   }
   let url = `categories/`;
   return axios.post(url, {
-    name: `${query.name}`
+    name: `${query.name}`,
   });
 }
 
@@ -138,8 +130,6 @@ export function editCategory(id) {
   }
   let url = `categories/${id}`;
   return axios.post(url, {
-    name: `${query.name}`
+    name: `${query.name}`,
   });
 }
-
-
