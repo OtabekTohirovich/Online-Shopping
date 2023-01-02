@@ -24,7 +24,7 @@ import {
   CreateProduct,
   CreateCategory,
   displayCategoryEdit,
-  handleInitializeCategory
+  handleInitializeCategory,
 } from "./edit-product";
 import { displayProduct, displayCategoryProduct } from "./product";
 document.addEventListener("DOMContentLoaded", async (e) => {
@@ -213,10 +213,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       handleInitializeProduct();
     });
 
-
     // deleteProduct()
-
-    
   }
   if (page === "/add-product.html" || page === "/add-product") {
     const fileForm = document.forms[0];
@@ -259,33 +256,23 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     if (formCate) {
       formCate.addEventListener("submit", (e) => {
         e.preventDefault();
-        const formData = new CreateCategory(
-          formCate.name.value
-        )
-        
+        const formData = new CreateCategory(formCate.name.value);
+
         addCategory(formData).then((data) => {
-          console.log(data);
-          location.reload()
+          console.log(data.data.payload.name);
+          let dataCate = document.querySelector(".category");
+          dataCate.innerHTML += `<div class="category__link" data-id="${data.data.payload._id}"> 
+          <p class="title__cate">${data.data.payload.name}</p> 
+           <div class="btn__category--wreapper">
+           <button class="edit__category">Edit</button>
+           <button class="delete__category">Delete</button>
+           </div>
+          </div>`;
+          handleInitializeCategory();
         });
+        formCate.reset()
       });
     }
-    const editCate = document.querySelectorAll(".edit__category");
-    editCate.forEach(cate =>{
-      cate.addEventListener("click", (e)=>{
-        console.log("hellowss");
-        const titleWrapper = e.target.parentElement.parentElement;
-        const id = titleWrapper.dataset.id;
-        const title = titleWrapper.querySelector(".title__cate");
-        const text = prompt(" ", title.innerHTML);
-        if (!text) return;
-        title.innerHTML = text;
-      })
-    })
-
-    
-
-    
-
   }
 
   loadToken();
