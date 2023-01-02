@@ -124,12 +124,12 @@ export function deleteCategory(id) {
   return axios.delete(url);
 }
 
-export function editCategory(id) {
+export function editCategory(id, text) {
   if (!id) {
     throw "Please insert id parametr";
   }
   let url = `categories/${id}`;
-  return axios.post(url, {
-    name: `${query.name}`,
+  return axios.put(url, {
+    name: `${text}`,
   });
 }

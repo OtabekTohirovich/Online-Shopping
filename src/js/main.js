@@ -213,28 +213,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       handleInitializeProduct();
     });
 
-    getCategories().then(({ data }) => {
-      console.log(data);
-      displayCategoryEdit(data.payload);
-      handleInitializeCategory();
-    });
 
     // deleteProduct()
 
-    let formCate = document.querySelector(".addcate");
-    if (formCate) {
-      formCate.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const formData = new CreateCategory(
-          formCate.name.value
-        )
-        
-        addCategory(formData).then((data) => {
-          console.log(data);
-          location.reload()
-        });
-      });
-    }
+    
   }
   if (page === "/add-product.html" || page === "/add-product") {
     const fileForm = document.forms[0];
@@ -256,51 +238,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       createNewProduct(formData).then((data) => {
         console.log(data);
       });
-      // if (fileForm.files.files.length) {
-      //   const fileFormData = new FormData();
-      //   fileFormData.append("files", fileForm.files.files[0]);
-      //   console.log(Array.from(fileFormData));
-      //   const imgsa = document.querySelector(".newbook__img");
-      //   console.log(imgsa.src);
-
-      //     .then((data) => {
-      //       console.log(data);
-      //       // formData.image = data.payload[0]._id;
-      //       // console.log(data, formData);
-      //       // bookRequest(formData)
-      //       //   .then((data) => {
-      //       //     console.log(data);
-      //       //     console.log("Muvofaqiyatli yaratdingiz");
-      //       //     // location.assign("/index.html");
-      //       //   })
-      //       //   .catch((err) => {
-      //       //     console.log(err.message);
-      //       //     if (err?.path) {
-      //       //       location.assign(err.path);
-      //       //     }
-      //       //   });
-      //     })
-      //     .catch((err) => {
-      //       alert(err);
-      //     });
-
-      // }
     });
-
-    // const fileInput = fileForm.files;
-    // fileInput.addEventListener("change", (e) => {
-    //   // e.preventDefault();
-    //   console.log(fileInput);
-    //   console.log(fileInput.files);
-    //   if (fileInput.files && fileInput.files.length) {
-    //     var img = document.querySelector(".newbook__img");
-    //     img.onload = () => {
-    //       URL.revokeObjectURL(img.src); // no longer needed, free memory
-    //     };
-
-    //     img.src = URL.createObjectURL(fileInput.files[0]); // set src to blob url
-    //   }
-    // });
   }
 
   if (page === "/all-users.html" || page === "/all-users") {
@@ -309,6 +247,45 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       displayUsers(data);
       handleInitializeUsers();
     });
+  }
+
+  if (page === "/category.html" || page === "/category") {
+    getCategories().then(({ data }) => {
+      console.log(data);
+      displayCategoryEdit(data.payload);
+      handleInitializeCategory();
+    });
+    let formCate = document.querySelector(".addcate");
+    if (formCate) {
+      formCate.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new CreateCategory(
+          formCate.name.value
+        )
+        
+        addCategory(formData).then((data) => {
+          console.log(data);
+          location.reload()
+        });
+      });
+    }
+    const editCate = document.querySelectorAll(".edit__category");
+    editCate.forEach(cate =>{
+      cate.addEventListener("click", (e)=>{
+        console.log("hellowss");
+        const titleWrapper = e.target.parentElement.parentElement;
+        const id = titleWrapper.dataset.id;
+        const title = titleWrapper.querySelector(".title__cate");
+        const text = prompt(" ", title.innerHTML);
+        if (!text) return;
+        title.innerHTML = text;
+      })
+    })
+
+    
+
+    
+
   }
 
   loadToken();

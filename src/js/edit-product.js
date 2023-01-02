@@ -63,7 +63,7 @@ export function displayCategoryEdit(data = []) {
   data.forEach((category) => {
     const { _id, name } = category;
     result += `<div class="category__link" data-id="${_id}"> 
-    <p>${name}</p> 
+    <p class="title__cate">${name}</p> 
      <div class="btn__category--wreapper">
      <button class="edit__category">Edit</button>
      <button class="delete__category">Delete</button>
@@ -90,8 +90,16 @@ export function handleInitializeCategory() {
         element.closest(".edit__category")?.classList.contains("edit__category");
       if (showMovie) {
         if (!id) return;
-        editCategory(id);
-        card.parentElement.remove();
+        console.log("hellowss");
+        const titleWrapper = event.target.parentElement.parentElement;
+        let title = titleWrapper.children[0];
+        console.log(titleWrapper, titleWrapper.children[0]);
+        const text = prompt(" ", title.innerHTML);
+        if (!text) return;
+        title.innerHTML = text;
+        editCategory(id, text).then((data)=>{
+          console.log(data);
+        })
       }
     });
   });
