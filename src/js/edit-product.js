@@ -57,6 +57,7 @@ export function handleInitializeProduct() {
   });
 }
 
+
 export function displayCategoryEdit(data = []) {
   let result = "";
   const productMenuNode = document.querySelector(".category");
@@ -115,14 +116,14 @@ export function CreateCategory(name) {
   
 }
 
-export function CreateProduct(name, categoryId, description, price, salePrice, quantity) {
+export function CreateProduct(name, price, salePrice, quantity, description ,categoryId) {
   try {
     this.name = name;
-    this.categoryId = categoryId;
-    this.description = description;
     this.price = price;
     this.salePrice = salePrice;
     this.quantity = quantity;
+    this.description = description;
+    this.categoryId = categoryId;
   } catch (err) {
     console.log(err);
   }

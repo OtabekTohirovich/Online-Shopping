@@ -58,15 +58,14 @@ export function createNewProduct(quary) {
   if (!quary) {
     throw "Please insert quary parametr";
   }
-
   let url = `products/`;
   return axios.post(url, {
     name: `${quary.name}`,
-    quantity: `${quary.quantity}`,
-    description: `${quary.description}`,
     price: `${quary.price}`,
     salePrice: `${quary.salePrice}`,
-    categoryId: `${quary.categoryId}`,
+    quantity: `${quary.quantity}`,
+    description: `${quary.description}`,
+    categoryId: `${quary.categoryId}`
   });
 }
 

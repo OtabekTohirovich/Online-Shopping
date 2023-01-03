@@ -236,6 +236,20 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         console.log(data);
       });
     });
+    const fileInput = fileForm.files;
+    fileInput.addEventListener("change", (e) => {
+      // e.preventDefault();
+      console.log(fileInput);
+      console.log(fileInput.files);
+      if (fileInput.files && fileInput.files.length) {
+        var img = document.querySelector(".newbook__img");
+        img.onload = () => {
+          URL.revokeObjectURL(img.src); // no longer needed, free memory
+        };
+
+        img.src = URL.createObjectURL(fileInput.files[0]); // set src to blob url
+      }
+    });
   }
 
   if (page === "/all-users.html" || page === "/all-users") {
@@ -270,9 +284,37 @@ document.addEventListener("DOMContentLoaded", async (e) => {
           </div>`;
           handleInitializeCategory();
         });
-        formCate.reset()
+        formCate.reset();
       });
     }
+
+    let genreWrapper = document.querySelector(".category__wreapperss");
+    getCategories().then(({ data }) => {
+      console.log(data);
+      let genresTemplate = "";
+      data.payload.forEach((genre) => {
+        genresTemplate += `<li class="category__type"><input name="categoryId" type="radio" id=${genre._id} value=${genre._id}  /> <label for="${genre._id}">${genre.name}</label></li>`;
+      });
+      genreWrapper.innerHTML = genresTemplate;
+    });
+    const formProduct = document.querySelector(".create__products");
+    const fileForm = document.querySelector(".new_book_img_form");
+    formProduct.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new CreateProduct(
+        formProduct.name.value,
+        formProduct.salePrice.value,
+        formProduct.quantity.value,
+        formProduct.price.value,
+        formProduct.description.value,
+        formProduct.categoryId.value
+      );
+      
+      console.log(formData);
+      createNewProduct(formData).then((data) => {
+        console.log(data);
+      });
+    });
   }
 
   loadToken();
