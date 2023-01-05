@@ -136,14 +136,9 @@ export function editCategory(id, text) {
 
 
 
-export function ereffrditCategory(id, text) {
-  if (!id) {
-    throw "Please insert id parametr";
-  }
-  let url = `categories/${id}`;
-  return axios.put(url, {
-    name: `${text}`,
-  });
+export function getAccount() {
+  let url = `auth/profile`;
+  return axios.get(url);
 }
 
 

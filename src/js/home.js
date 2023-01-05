@@ -1,8 +1,8 @@
 import configs from "../configs";
-import {getCart, addProductToCart} from "../api"
+import { getCart, addProductToCart } from "../api";
 
 export function cardTemplate(data) {
-  const { _id, imgs, quantity, description, name, salePrice} = data;
+  const { _id, imgs, quantity, description, name, salePrice } = data;
   // const nameTitle = name ? name : data.category.name;
   return ` <div class="col container">
   <article class="card" data-id="${_id}">
@@ -13,7 +13,7 @@ export function cardTemplate(data) {
     </div>
     <div class="card__body">
       <div class="card__title">${name}</div>
-      <div class="card__discription">${description.slice(0 ,23)}</div>
+      <div class="card__discription">${description.slice(0, 23)}</div>
       <div class="card__count">
         <div class="card__prise">
           ${salePrice} ming
@@ -26,16 +26,16 @@ export function cardTemplate(data) {
     </div>
     
   </article>
-</div>`
+</div>`;
 }
 
 export function displayProducts(data = []) {
   let result = "";
   const productMenuNode = document.querySelector(".card__wreapper");
   data.forEach((product) => {
-    const { img , ...docs } = product;
+    const { img, ...docs } = product;
     const imgs = img ? configs.baseImgURL + img : configs.defaultImg + "400";
-    result += cardTemplate({ ...docs, imgs});
+    result += cardTemplate({ ...docs, imgs });
   });
   productMenuNode.innerHTML = result;
 }
@@ -50,7 +50,6 @@ export function displayCategory(data = []) {
   productMenuNode.innerHTML = result;
 }
 
-
 export function loadToken() {
   if (localStorage.token) {
     let img__wrapper = document.querySelector(".account__state");
@@ -60,7 +59,6 @@ export function loadToken() {
     nav__link.classList.remove("hide");
   }
 }
-
 
 export function initializeMEvent() {
   const navNodeList = document.querySelectorAll(".nav__item");
@@ -79,12 +77,11 @@ export function initializeMEvent() {
         ?.classList.contains("cart__btns");
       if (isCartBtn) {
         console.log("hello");
-        getCart()
+        getCart();
       }
     });
   });
 }
-
 
 export function initializeProduct() {
   const cardNodeList = document.querySelectorAll(".card");
@@ -100,15 +97,51 @@ export function initializeProduct() {
         history.pushState({ id }, null, "/product.html");
         location.reload();
       }
-      let addProductSave = element.closest(".save__cart")?.classList.contains("save__cart");
+      let addProductSave = element
+        .closest(".save__cart")
+        ?.classList.contains("save__cart");
       if (addProductSave) {
         if (!id) return;
-       console.log(id);
-       addProductToCart(id).then((data)=>{
-        console.log(data);
-       })
+        console.log(id);
+        addProductToCart(id).then((data) => {
+          console.log(data);
+        });
       }
     });
   });
 }
 
+export function handleCart() {
+  const cartOverlay = document.querySelector(".cart-overlay");
+  const cartDOM = document.querySelector(".cart");
+  const cartBtns = document.querySelector(".cart__btns");
+  const closeCartBtn = document.querySelector(".close-cart");
+  cartBtns.addEventListener("click", () => {
+    cartOverlay.classList.add("transparentBcg");
+    cartDOM.classList.add("showCart");
+  });
+  closeCartBtn.addEventListener("click", () => {
+    cartOverlay.classList.remove("transparentBcg");
+    cartDOM.classList.remove("showCart");
+  });
+}
+
+export function displayAccount(data = []) {
+  let result = "";
+  const productMenuNode = document.querySelector(".account__wreapper");
+  const { _id, name, img, address, email, lastName, phone, createdAt } = data;
+  const imgs = img ? configs.baseImgURL + img : configs.defaultImg + "400";
+  result += `<div class="account" data-id="${_id}">
+      <div class="card__img">
+        <img width="20%" src="${imgs}" alt="product">
+      </div>
+       <h1 class="user__name">${name}</h1>
+       <p class="user__lastname">${lastName}</p>
+       <p class="user__lastname">${address}</p>
+       <p class="user__lastname">${email}</p>
+       <p class="user__lastname">${phone}</p>
+       <p class="user__lastname">${createdAt.slice(0, 10)}</p>
+
+       </div>`;
+  productMenuNode.innerHTML = result;
+}

@@ -8,6 +8,7 @@ import {
   createNewProduct,
   getUsers,
   addCategory,
+  getAccount,
 } from "../api";
 import { SignUp } from "./sign_up";
 import {
@@ -16,6 +17,8 @@ import {
   displayProducts,
   initializeProduct,
   displayCategory,
+  handleCart,
+  displayAccount
 } from "./home";
 import { displayUsers, handleInitializeUsers } from "./all-users";
 import {
@@ -31,7 +34,6 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
   });
-
   document.addEventListener("click", (e) => {
     const element = e.target;
 
@@ -51,16 +53,15 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       navMenu.parentElement.parentElement.classList.toggle("show");
     }
   });
+  
 
   const page = location.pathname;
   if (page === "/index.html" || page === "/") {
-    const smallHeader = document.querySelector(".small__header");
-    if (smallHeader) {
-      smallHeader.addEventListener("click", () => {
-        const navSmall = document.querySelector(".nav__smaller");
-        navSmall.classList.toggle("hide");
-      });
-    }
+    const chanegeAccount = document.querySelector(".add__person");
+    chanegeAccount.addEventListener("click", ()=>{
+      location.assign("/account.html");
+    })
+    
     getProducts().then(({ data }) => {
       console.log(data.data);
       displayProducts(data.data);
@@ -71,19 +72,17 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(data);
       displayCategory(data.payload);
     });
-    const cartOverlay = document.querySelector(".cart-overlay");
-    const cartDOM = document.querySelector(".cart");
-    const cartBtns = document.querySelector(".cart__btns");
-    const closeCartBtn = document.querySelector(".close-cart");
-    cartBtns.addEventListener("click", () => {
-      cartOverlay.classList.add("transparentBcg");
-      cartDOM.classList.add("showCart");
-    });
-    closeCartBtn.addEventListener("click", () => {
-      cartOverlay.classList.remove("transparentBcg");
-      cartDOM.classList.remove("showCart");
-    });
+    handleCart();
   }
+
+  if (page === "/account.html" || page === "/account") {
+    getAccount().then(({data})=>{
+      console.log(data);
+      displayAccount(data.payload)
+    })
+    handleCart();
+  }
+ 
   initializeMEvent();
   if (page === "/sign-up.html" || page === "/sign-up") {
     const formSignUp = document.querySelector(".form__type");
