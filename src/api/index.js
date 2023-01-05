@@ -1,3 +1,4 @@
+import { sampleSize } from "lodash";
 import axios from "../utils/axios";
 // import configs from "../configs";
 
@@ -132,3 +133,18 @@ export function editCategory(id, text) {
     name: `${text}`,
   });
 }
+
+
+
+export function ereffrditCategory(id, text) {
+  if (!id) {
+    throw "Please insert id parametr";
+  }
+  let url = `categories/${id}`;
+  return axios.put(url, {
+    name: `${text}`,
+  });
+}
+
+
+
