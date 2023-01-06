@@ -142,4 +142,7 @@ export function getAccount() {
 }
 
 
-
+export function deleteAllProducts() {
+  let url = `products/delete-all`;
+  return axios.get(url);
+}

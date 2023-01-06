@@ -9,6 +9,7 @@ import {
   getUsers,
   addCategory,
   getAccount,
+  deleteAllProducts,
 } from "../api";
 import { SignUp } from "./sign_up";
 import {
@@ -209,7 +210,18 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(data.data);
       displayProductsEdit(data.data);
       // initializeProduct();
+      const deleteALLProducts = document.querySelector(".delete__all--products");
+      if(deleteALLProducts){
+        deleteALLProducts.addEventListener("click", ()=>{
+          deleteAllProducts().then((data)=>{
+            console.log(data);
+             const allProducts = document.querySelector(".all__products");
+             allProducts.innerHTML = "";
+          })
+        })
+      }
       handleInitializeProduct();
+
     });
 
     // deleteProduct()
@@ -224,12 +236,12 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     createForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const formData = new CreateProduct(
-        createForm.categoryId.value,
         createForm.name.value,
+        createForm.price.value,
         createForm.salePrice.value,
         createForm.quantity.value,
-        createForm.price.value,
-        createForm.description.value
+        createForm.description.value,
+        createForm.categoryId.value,
       );
       createNewProduct(formData).then((data) => {
         console.log(data);
@@ -302,9 +314,9 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       e.preventDefault();
       const formData = new CreateProduct(
         formProduct.name.value,
+        formProduct.price.value,
         formProduct.salePrice.value,
         formProduct.quantity.value,
-        formProduct.price.value,
         formProduct.description.value,
         formProduct.categoryId.value
       );
