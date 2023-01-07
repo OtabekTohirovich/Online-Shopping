@@ -74,6 +74,21 @@ export function createNewProduct(quary) {
 
 // https://shopzone.onrender.com/cart/
 
+export function createCart() {
+  let url = `cart/`;
+  return axios.post(url);
+}
+
+export function deleteCartAllProduct(id) {
+  if (!id) {
+    throw "Please insert id parametr";
+  }
+  let url = `cart/${id}/empty`;
+  return axios.delete(url);
+}
+
+
+
 export function getCart() {
   let url = `cart/`;
   return axios.get(url);
@@ -89,6 +104,20 @@ export function addProductToCart(id) {
   });
 }
 
+export function getUserCart() {
+  let url = `cart/${localStorage.userId}`;
+  return axios.get(url);
+}
+
+export function getProductId(id) {
+  let url = `products/${id}`;
+  return axios.get(url);
+}
+
+
+// https://shopzone.onrender.com/products/63b7bcc7b501550034523c5f
+
+// https://shopzone.onrender.com/cart/63b80af2903b140035b088d8
 // https://shopzone.onrender.com/cart/63a193ad8783650034674d1e/add
 
 // https://shopzone.onrender.com/

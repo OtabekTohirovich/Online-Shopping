@@ -10,6 +10,8 @@ import {
   addCategory,
   getAccount,
   deleteAllProducts,
+  createCart,
+  getUserCart,
 } from "../api";
 import { SignUp } from "./sign_up";
 import {
@@ -19,7 +21,9 @@ import {
   initializeProduct,
   displayCategory,
   handleCart,
-  displayAccount
+  displayAccount,
+  displayCart,
+  initializeCartEvent,
 } from "./home";
 import { displayUsers, handleInitializeUsers } from "./all-users";
 import {
@@ -54,20 +58,30 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       navMenu.parentElement.parentElement.classList.toggle("show");
     }
   });
-  
 
   const page = location.pathname;
   if (page === "/index.html" || page === "/") {
     const chanegeAccount = document.querySelector(".add__person");
-    chanegeAccount.addEventListener("click", ()=>{
+    chanegeAccount.addEventListener("click", () => {
       location.assign("/account.html");
-    })
-    
+    });
+
     getProducts().then(({ data }) => {
       console.log(data.data);
       displayProducts(data.data);
       initializeProduct();
     });
+    let cart = document.querySelector(".cart__btns");
+    if (cart) {
+      cart.addEventListener("click", () => {
+        getUserCart().then(({data}) => {
+          console.log(data);
+          displayCart(data.payload.items);
+          initializeCartEvent();
+        });
+        
+      });
+    }
 
     getCategories().then(({ data }) => {
       console.log(data);
@@ -77,13 +91,13 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   }
 
   if (page === "/account.html" || page === "/account") {
-    getAccount().then(({data})=>{
+    getAccount().then(({ data }) => {
       console.log(data);
-      displayAccount(data.payload)
-    })
+      displayAccount(data.payload);
+    });
     handleCart();
   }
- 
+
   initializeMEvent();
   if (page === "/sign-up.html" || page === "/sign-up") {
     const formSignUp = document.querySelector(".form__type");
@@ -102,8 +116,12 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         .then(({ data }) => {
           console.log(data);
           localStorage.token = data.token;
+          localStorage.userId = data.user._id;
           localStorage.user = JSON.stringify(data.user.role);
-          location.assign("/");
+          createCart().then(({ data }) => {
+            localStorage.cartid = data.payload._id;
+            location.assign("/");
+          });
         })
         .catch((err) => {
           Toastify({
@@ -210,18 +228,19 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(data.data);
       displayProductsEdit(data.data);
       // initializeProduct();
-      const deleteALLProducts = document.querySelector(".delete__all--products");
-      if(deleteALLProducts){
-        deleteALLProducts.addEventListener("click", ()=>{
-          deleteAllProducts().then((data)=>{
+      const deleteALLProducts = document.querySelector(
+        ".delete__all--products"
+      );
+      if (deleteALLProducts) {
+        deleteALLProducts.addEventListener("click", () => {
+          deleteAllProducts().then((data) => {
             console.log(data);
-             const allProducts = document.querySelector(".all__products");
-             allProducts.innerHTML = "";
-          })
-        })
+            const allProducts = document.querySelector(".all__products");
+            allProducts.innerHTML = "";
+          });
+        });
       }
       handleInitializeProduct();
-
     });
 
     // deleteProduct()
@@ -241,7 +260,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         createForm.salePrice.value,
         createForm.quantity.value,
         createForm.description.value,
-        createForm.categoryId.value,
+        createForm.categoryId.value
       );
       createNewProduct(formData).then((data) => {
         console.log(data);
@@ -320,7 +339,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         formProduct.description.value,
         formProduct.categoryId.value
       );
-      
+
       console.log(formData);
       createNewProduct(formData).then((data) => {
         console.log(data);

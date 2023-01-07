@@ -1,5 +1,5 @@
 import configs from "../configs";
-import { getCart, addProductToCart } from "../api";
+import { getUserCart, addProductToCart, getProductId } from "../api";
 
 export function cardTemplate(data) {
   const { _id, imgs, quantity, description, name, salePrice } = data;
@@ -50,8 +50,45 @@ export function displayCategory(data = []) {
   productMenuNode.innerHTML = result;
 }
 
+export function displayCart(data = []) {
+  let result = "";
+  const productMenuNode = document.querySelector(".cart-content");
+  data.forEach((category) => {
+    const { _id, qty } = category;
+    getProductId(_id).then(({ data }) => {
+      console.log(data);
+      const { _id, img, name, salePrice, description } = data;
+      const imgs = img ? configs.baseImgURL + img : configs.defaultImg + "200";
+
+      result += `
+      <div class="cart-item" data-id="${_id}">
+        <div class="remove-item">
+          <i class="fa-solid fa-trash"></i>
+        </div>
+        <div class="cart__img--wreapper">
+          <img width="100%" src="${imgs}" alt="product"> 
+        </div>
+        <div>
+          <h4>${name}</h4>
+          <p class="discription__cart">${description}</p>
+        </div>
+        <div>
+          <p class="price__count">${salePrice} sum</p>
+          <div class="caunts">
+          <i class="fa-sharp fa-solid fa-minus"></i>
+          <p class="item-amount">${qty}</p>
+          <i class="fa-solid fa-plus"></i>
+          </div>
+        </div>
+        
+      </div>`;
+      productMenuNode.innerHTML = result;
+    });
+  });
+}
+
 export function loadToken() {
-  if (localStorage.token) {
+  if (localStorage.token && localStorage.user) {
     let img__wrapper = document.querySelector(".account__state");
     let nav__link = document.querySelector(".add__person");
     if (!img__wrapper) return;
@@ -72,15 +109,13 @@ export function initializeMEvent() {
         navContent.classList.toggle("show");
         nav.classList.toggle("show");
       }
-      let isCartBtn = event.target
-        .closest(".cart__btns")
-        ?.classList.contains("cart__btns");
-      if (isCartBtn) {
-        console.log("hello");
-        getCart();
-      }
     });
   });
+}
+
+export function initializeCartEvent() {
+  const navNodeList = document.querySelectorAll(".cart-item");
+  
 }
 
 export function initializeProduct() {
