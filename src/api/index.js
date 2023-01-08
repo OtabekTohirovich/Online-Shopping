@@ -87,6 +87,8 @@ export function deleteCartAllProduct(id) {
   return axios.delete(url);
 }
 
+// https://shopzone.onrender.com/cart/63b80af2903b140035b088d8/add
+
 
 
 export function getCart() {
@@ -94,13 +96,13 @@ export function getCart() {
   return axios.get(url);
 }
 
-export function addProductToCart(id) {
-  if (!id) {
+export function addProductToCart(id, _id) {
+  if (!id && !_id) {
     throw "Please insert id parametr";
   }
   let url = `cart/${id}/add`;
   return axios.post(url, {
-    clientId: localStorage.userId,
+    _id: `${_id}`,
   });
 }
 

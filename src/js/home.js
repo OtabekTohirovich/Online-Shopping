@@ -1,5 +1,10 @@
 import configs from "../configs";
-import { getUserCart, addProductToCart, getProductId } from "../api";
+import {
+  getUserCart,
+  addProductToCart,
+  getProductId,
+  deleteCartAllProduct,
+} from "../api";
 
 export function cardTemplate(data) {
   const { _id, imgs, quantity, description, name, salePrice } = data;
@@ -55,11 +60,13 @@ export function displayCart(data = []) {
   const productMenuNode = document.querySelector(".cart-content");
   data.forEach((category) => {
     const { _id, qty } = category;
+    const productMenu = document.querySelector(".cart-items");
+    productMenu.innerHTML = qty;
     getProductId(_id).then(({ data }) => {
       console.log(data);
       const { _id, img, name, salePrice, description } = data;
       const imgs = img ? configs.baseImgURL + img : configs.defaultImg + "200";
-
+      let totalProduct = salePrice * qty;
       result += `
       <div class="cart-item" data-id="${_id}">
         <div class="remove-item">
@@ -73,7 +80,7 @@ export function displayCart(data = []) {
           <p class="discription__cart">${description}</p>
         </div>
         <div>
-          <p class="price__count">${salePrice} sum</p>
+          <p class="price__count">${totalProduct} sum</p>
           <div class="caunts">
           <i class="fa-sharp fa-solid fa-minus"></i>
           <p class="item-amount">${qty}</p>
@@ -114,8 +121,24 @@ export function initializeMEvent() {
 }
 
 export function initializeCartEvent() {
-  const navNodeList = document.querySelectorAll(".cart-item");
-  
+  const moviesStatus = document.querySelector(".cart-content");
+
+  moviesStatus.addEventListener("click", (event) => {
+    const id = event.target.closest(".cart-item")?.dataset?.id;
+    console.log(id, "bosilgan");
+    if (!id) return;
+    let isMenuBtn = event.target
+      .closest(".remove-item")
+      ?.classList.contains("remove-item");
+    console.log(isMenuBtn);
+    if (isMenuBtn) {
+      deleteCartAllProduct(localStorage.userId).then((data) => {
+        console.log(data);
+        console.log(event.target.parentElement);
+        event.target.parentElement.parentElement.remove();
+      });
+    }
+  });
 }
 
 export function initializeProduct() {
@@ -138,7 +161,8 @@ export function initializeProduct() {
       if (addProductSave) {
         if (!id) return;
         console.log(id);
-        addProductToCart(id).then((data) => {
+        const userId = localStorage.userId;
+        addProductToCart(userId, id).then((data) => {
           console.log(data);
         });
       }

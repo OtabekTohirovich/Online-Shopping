@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         
       });
     }
+    
 
     getCategories().then(({ data }) => {
       console.log(data);
