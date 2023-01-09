@@ -1,5 +1,7 @@
 .card {
   position: relative;
+  background-color: #fff;
+  border-radius: 1rem;
   &.show::before {
     content: "";
     position: absolute;
@@ -11,6 +13,9 @@
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(20px);
     border-radius: 10px;
+  }
+  .card__title {
+    text-transform: capitalize;
   }
   .card__img {
     width: 100%;
@@ -41,15 +46,37 @@
       justify-content: space-between;
     }
     .card__btn {
+      display: flex;
+      justify-content: center;
+      padding:1.2rem 2rem;
       .btns {
-        margin-top: 2.5rem;
-        border: 2px solid $mainGreen;
-        padding: 1rem 2rem;
-        border-radius: 0.8rem;
-        background-color: $mainGreen;
+        background-color: #05f55d;
+        border-radius: 1rem;
+        box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
+          rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px,
+          rgba(44, 187, 99, 0.15) 0 4px 8px, rgba(44, 187, 99, 0.15) 0 8px 16px,
+          rgba(44, 187, 99, 0.15) 0 16px 32px;
         color: $mainWhite;
-        font-size: large;
         cursor: pointer;
+        display: inline-block;
+        font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto,
+          sans-serif;
+        padding: .5rem 1.5rem;
+        text-align: center;
+        text-decoration: none;
+        transition: all 250ms;
+        border: 0;
+        font-size: 1.6rem;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+      .btns:hover {
+        box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+          rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+          rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+          rgba(44, 187, 99, 0.25) 0 16px 32px;
+        transform: scale(1.05) rotate(0deg);
       }
     }
     .card__btns {
@@ -58,7 +85,7 @@
       .btns {
         margin-top: 2.5rem;
         border: 1px solid $mainGreen;
-        padding: .2rem .3rem;
+        padding: 0.2rem 0.3rem;
         border-radius: 0.8rem;
         background-color: $mainGreen;
         color: $mainWhite;
@@ -66,4 +93,8 @@
       }
     }
   }
+}
+.align__center {
+  display: flex;
+  justify-content: center;
 }

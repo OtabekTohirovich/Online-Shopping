@@ -8,76 +8,58 @@
   </head>
   <body>
     <section>
-      <div class="img__wrapper hide" onclick="toProfile()"></div>
-      <div class="new_book">
-        <img height="200" class="newbook__img" src="#" alt="" />
-        <form class="new_book_img_form">
-          <input type="file" id="file" name="files" />
-          <label class="btn" for="file">Upload Cover</label>
-        </form>
-        <div class="new_book_about">
-          <div class="container">
-            <h2>Add Product</h2>
+      <div class="container">
+          <form class="create__products" name="create__products">
 
-            <form class="form__add--product">
-              <p>
-                <select placeholder="String" class="category" name="categoryId">
-                </select>
-              </p>
-              <p>
-                <input
-                  class="input__disgn"
-                  placeholder="Name"
-                  type="text"
-                  name="name"
-                  id="name"
-                />
-              </p>
-              <!-- <p>
-                <input
-                  type="text"
-                  name="brand"
-                  id="brand"
-                  placeholder="brand"
-                />
-              </p> -->
-              <p>
-                <input
-                  type="number"
-                  name="salePrice"
-                  id="salePrice"
-                  placeholder="salePrice"
-                />
-              </p>
-              <p>
-                <input
-                  type="number"
-                  name="price"
-                  id="price"
-                  placeholder="price"
-                />
-              </p>
-              <p>
-                <input
-                  type="number"
-                  name="quantity"
-                  id="quantity"
-                  placeholder="quantity"
-                />
-              </p>
-              <p>
-                <textarea
-                  name="description"
-                  id="description"
-                  cols="30"
-                  rows="10"
-                  placeholder="Description"
-                ></textarea>
-              </p>
-              <button>Create</button>
-            </form>
-          </div>
-        </div>
+            <div>
+              <label for="name">
+                Name
+                <input type="text" name="name" id="name">
+              </label>
+
+            </div>
+            <div>
+              <label for="price">
+                Price
+                <input type="number" name="price" id="price">
+              </label>
+            </div>
+
+            
+            <div>
+              <label for="salePrice">
+                SalePrice
+                <input type="number" name="salePrice" id="salePrice">
+              </label>
+            </div>
+            
+            <div>
+              <label for="quantity">
+                Quantity
+                <input type="number" name="quantity" id="quantity">
+              </label>
+            </div>
+            
+            <div>
+              <label for="discription">
+                Discription
+                <textarea name="description" id="description">
+              </label>
+            </div>
+
+            
+
+            <div class="category__wreapperss">
+
+
+
+              
+            </div>
+            
+            <div class="btn">
+              <button type="submit">Create Product</button>
+            </div>
+          </form>
       </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.12.0/toastify.min.js"></script>

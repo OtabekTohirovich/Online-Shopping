@@ -46,7 +46,11 @@
           </ul>
           <ul class="connect">
             <li class="nav__item">
-              <a href="./edit-admin.html" class="nav__item--link" id="number__coll">
+              <a
+                href="./edit-admin.html"
+                class="nav__item--link"
+                id="number__coll"
+              >
                 Edit
               </a>
             </li>
@@ -55,7 +59,7 @@
                 <img src="../assets/img/phone.png" alt="phone" />
               </a>
             </li>
-            
+
             <li class="nav__item add__person hide">
               <a class="nav__item--link"
                 ><img src="../assets/img/person.png" alt=""
@@ -76,11 +80,10 @@
               >
             </li>
             <li class="nav__item">
-              <div class="nav__item--link cart__btns"
-                ><img src="../assets/img/shopping-cart.png" alt="cart"
-              />
-              <div class="cart-items">0</div>
-            </div>
+              <div class="nav__item--link cart__btns">
+                <img src="../assets/img/shopping-cart.png" alt="cart" />
+                <div class="cart-items">0</div>
+              </div>
             </li>
           </ul>
           <div class="small__header">
@@ -144,87 +147,27 @@
       </div>
     </section>
 
-
-
     <section>
-        <div class="container">
-            <div class="row">
-                <div class="col category__type">
-                    <div class="category">
-          
-                    </div>
-                    <div class="add__category">
-                        <p>add</p>
-                        <form class="addcate"> 
-                          <input 
-                          placeholder="Name Category"
-                          type="text"
-                          name="name"
-                          id="name"
-                          /> 
-                          <button>Add</button>
-                          </form>
-                      </div>
-                </div>
-                <div class="col">
-                  
-                    <form class="create__products" name="create__products">
-
-                      <div>
-                        <label for="name">
-                          Name
-                          <input type="text" name="name" id="name">
-                        </label>
-  
-                      </div>
-                      <div>
-                        <label for="price">
-                          Price
-                          <input type="number" name="price" id="price">
-                        </label>
-                      </div>
-
-                      
-                      <div>
-                        <label for="salePrice">
-                          SalePrice
-                          <input type="number" name="salePrice" id="salePrice">
-                        </label>
-                      </div>
-                      
-                      <div>
-                        <label for="quantity">
-                          Quantity
-                          <input type="number" name="quantity" id="quantity">
-                        </label>
-                      </div>
-                      
-                      <div>
-                        <label for="discription">
-                          Discription
-                          <textarea name="description" id="description">
-                        </label>
-                      </div>
-
-                      
-
-                      <div class="category__wreapperss">
-
-
-
-                        
-                      </div>
-                      
-                      <div class="btn">
-                        <button type="submit">Create Product</button>
-                      </div>
-                    </form>
-                </div>
-
+      <div class="container">
+        <div class="row">
+          <div class="col category__type">
+            <div class="category row"></div>
+            <div class="add__category">
+              <p>add</p>
+              <form class="addcate">
+                <input
+                  placeholder="Name Category"
+                  type="text"
+                  name="name"
+                  id="name"
+                />
+                <button>Add</button>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </section>
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.12.0/toastify.min.js"></script>
     <script type="module" src="../js/main.js"></script>

@@ -58,10 +58,13 @@ export function displayCategory(data = []) {
 export function displayCart(data = []) {
   let result = "";
   const productMenuNode = document.querySelector(".cart-content");
+  let dataResult = 0;
   data.forEach((category) => {
     const { _id, qty } = category;
     const productMenu = document.querySelector(".cart-items");
+    const cartTotal = document.querySelector(".cart-total");
     productMenu.innerHTML = qty;
+   
     getProductId(_id).then(({ data }) => {
       console.log(data);
       const { _id, img, name, salePrice, description } = data;
@@ -89,7 +92,11 @@ export function displayCart(data = []) {
         </div>
         
       </div>`;
+      dataResult = dataResult + totalProduct;
+      
       productMenuNode.innerHTML = result;
+      console.log(dataResult);
+      cartTotal.innerHTML = `${dataResult} sum`;
     });
   });
 }
@@ -103,6 +110,7 @@ export function loadToken() {
     nav__link.classList.remove("hide");
   }
 }
+
 
 export function initializeMEvent() {
   const navNodeList = document.querySelectorAll(".nav__item");

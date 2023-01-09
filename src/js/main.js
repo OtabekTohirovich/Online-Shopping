@@ -82,12 +82,16 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         
       });
     }
-    
 
     getCategories().then(({ data }) => {
       console.log(data);
       displayCategory(data.payload);
-    });
+    }) 
+    .catch((err)=>{
+      if (err) {
+        // location.assign("sign-in.html");
+      }
+    })
     handleCart();
   }
 
@@ -247,39 +251,31 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     // deleteProduct()
   }
   if (page === "/add-product.html" || page === "/add-product") {
-    const fileForm = document.forms[0];
-    const createForm = document.forms[1];
+    let genreWrapper = document.querySelector(".category__wreapperss");
     getCategories().then(({ data }) => {
       console.log(data);
-      displayCategoryProduct(data.payload);
+      let genresTemplate = "";
+      data.payload.forEach((genre) => {
+        genresTemplate += `<li class="category__type"><input name="categoryId" type="radio" id=${genre._id} value=${genre._id}  /> <label for="${genre._id}">${genre.name}</label></li>`;
+      });
+      genreWrapper.innerHTML = genresTemplate;
     });
-    createForm.addEventListener("submit", (e) => {
+    const formProduct = document.querySelector(".create__products");
+    formProduct.addEventListener("submit", (e) => {
       e.preventDefault();
       const formData = new CreateProduct(
-        createForm.name.value,
-        createForm.price.value,
-        createForm.salePrice.value,
-        createForm.quantity.value,
-        createForm.description.value,
-        createForm.categoryId.value
+        formProduct.name.value,
+        formProduct.price.value,
+        formProduct.salePrice.value,
+        formProduct.quantity.value,
+        formProduct.description.value,
+        formProduct.categoryId.value
       );
+
+      console.log(formData);
       createNewProduct(formData).then((data) => {
         console.log(data);
       });
-    });
-    const fileInput = fileForm.files;
-    fileInput.addEventListener("change", (e) => {
-      // e.preventDefault();
-      console.log(fileInput);
-      console.log(fileInput.files);
-      if (fileInput.files && fileInput.files.length) {
-        var img = document.querySelector(".newbook__img");
-        img.onload = () => {
-          URL.revokeObjectURL(img.src); // no longer needed, free memory
-        };
-
-        img.src = URL.createObjectURL(fileInput.files[0]); // set src to blob url
-      }
     });
   }
 
@@ -319,33 +315,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       });
     }
 
-    let genreWrapper = document.querySelector(".category__wreapperss");
-    getCategories().then(({ data }) => {
-      console.log(data);
-      let genresTemplate = "";
-      data.payload.forEach((genre) => {
-        genresTemplate += `<li class="category__type"><input name="categoryId" type="radio" id=${genre._id} value=${genre._id}  /> <label for="${genre._id}">${genre.name}</label></li>`;
-      });
-      genreWrapper.innerHTML = genresTemplate;
-    });
-    const formProduct = document.querySelector(".create__products");
-    const fileForm = document.querySelector(".new_book_img_form");
-    formProduct.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData = new CreateProduct(
-        formProduct.name.value,
-        formProduct.price.value,
-        formProduct.salePrice.value,
-        formProduct.quantity.value,
-        formProduct.description.value,
-        formProduct.categoryId.value
-      );
-
-      console.log(formData);
-      createNewProduct(formData).then((data) => {
-        console.log(data);
-      });
-    });
+   
+    
   }
 
   loadToken();

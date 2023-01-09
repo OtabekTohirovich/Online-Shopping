@@ -13,6 +13,9 @@ header {
     width: 10rem;
     cursor: pointer;
   }
+  .logo__link:hover {
+    transform: scale(1.25) rotate(0deg);
+  }
   .nav__menu {
     display: flex;
     align-items: center;
@@ -24,6 +27,9 @@ header {
       a {
         color: $mainBlack;
       }
+    }
+    .nav__item:hover {
+      transform: scale(1.05) rotate(0deg);
     }
   }
   .connect {
@@ -39,29 +45,86 @@ header {
         color: $mainBlack;
       }
     }
+    .nav__item:hover {
+      transform: scale(1.25) rotate(3deg);
+    }
     .nav__item--link img {
       width: 2.5rem;
     }
+
+  }
+  .account__state {
+    display: flex;
   }
   #account__login {
-    border: 2px solid $mainGreen;
     padding: 1rem 1.5rem;
     border-radius: 1rem;
     color: $mainWhite;
-    background-color: $mainGreen;
+    margin-right: 1rem;
     font-size: 1.5rem;
     font-weight: 600;
+    display: flex;
+    justify-content: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    color: white;
+    background: #ad5389;
+    background: linear-gradient(
+      0deg,
+      rgb(114, 241, 150) 20%,
+      rgb(2, 255, 23) 100%
+    );
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  #account__login:hover {
+    box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+      rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+      rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+      rgba(44, 187, 99, 0.25) 0 16px 32px;
+    transform: scale(1.05) rotate(0deg);
   }
   #account__login__up {
-    border: 2px solid $mainGreen;
-    margin-left: 1rem;
     padding: 1rem 1.5rem;
     border-radius: 1rem;
-    color: $mainGreen;
+    color: $mainWhite;
     font-size: 1.5rem;
     font-weight: 600;
+    display: flex;
+    justify-content: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    color: white;
+    background: #ad5389;
+    background: linear-gradient(
+      0deg,
+      rgb(0, 255, 72) 0%,
+      rgb(106, 243, 118) 100%
+    );
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  #account__login__up:hover {
+    box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+      rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+      rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+      rgba(44, 187, 99, 0.25) 0 16px 32px;
+    transform: scale(1.05) rotate(0deg);
   }
   .nav__item--link {
+   
     position: relative;
     &.show::before {
       content: "";

@@ -63,7 +63,7 @@ export function displayCategoryEdit(data = []) {
   const productMenuNode = document.querySelector(".category");
   data.forEach((category) => {
     const { _id, name } = category;
-    result += `<div class="category__link" data-id="${_id}"> 
+    result += `<div class="col category__link" data-id="${_id}"> 
     <p class="title__cate">${name}</p> 
      <div class="btn__category--wreapper">
      <button class="edit__category">Edit</button>

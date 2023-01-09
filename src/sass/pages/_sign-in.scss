@@ -32,18 +32,59 @@
     align-items: center;
     padding: 3rem 0;
     .signin__btn {
-      border: 2px solid $mainGreen;
-    padding: 1rem 2rem;
-    border-radius: 1rem;
-    color: $mainWhite;
-    background-color: $mainGreen;
-    font-size: 1.5rem;
-    font-weight: 600;
-    cursor: pointer;
+      display: flex;
+      margin-top: 2rem;
+      justify-content: center;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 16px;
+      padding: 0.7em 1.4em 0.7em 1.1em;
+      color: white;
+      background: #ad5389;
+      background: linear-gradient(
+        0deg,
+        rgb(23, 248, 87) 0%,
+        rgb(150, 248, 159) 100%
+      );
+      border: none;
+      box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+      letter-spacing: 0.05em;
+      border-radius: 1rem;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+     .signin__btn:hover {
+      box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+        rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+        rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+        rgba(44, 187, 99, 0.25) 0 16px 32px;
+      transform: scale(1.05) rotate(0deg);
     }
     .btn__inline {
-    font-weight: 600;
-    color: $mainGreen;
+      display: flex;
+      margin-top: 2rem;
+      justify-content: center;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 16px;
+      padding: 0.7em 1.4em 0.7em 1.1em;
+      color: white;
+      background: #ad5389;
+      background: linear-gradient(
+        0deg,
+        rgb(148, 245, 176) 0%,
+        rgb(0, 252, 21) 100%
+      );
+      border: none;
+      box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+      letter-spacing: 0.05em;
+      border-radius: 1rem;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
     }
   }
   .input__location {
