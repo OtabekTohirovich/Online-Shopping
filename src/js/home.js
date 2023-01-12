@@ -3,7 +3,7 @@ import {
   getUserCart,
   addProductToCart,
   getProductId,
-  deleteCartAllProduct,
+  deleteProductCart,
 } from "../api";
 
 export function cardTemplate(data) {
@@ -59,19 +59,18 @@ export function displayCart(data = []) {
   let result = "";
   const productMenuNode = document.querySelector(".cart-content");
   let dataResult = 0;
+  let dataResul = 0;
+  console.log(data);
   data.forEach((category) => {
-    const { _id, qty } = category;
+    const {  qty, total ,_id } = category;
+    const { img, name, salePrice, description} = category.product;
+    const imgs = img ? configs.baseImgURL + img : configs.defaultImg + "200";
     const productMenu = document.querySelector(".cart-items");
     const cartTotal = document.querySelector(".cart-total");
-    productMenu.innerHTML = qty;
-   
-    getProductId(_id).then(({ data }) => {
-      console.log(data);
-      const { _id, img, name, salePrice, description } = data;
-      const imgs = img ? configs.baseImgURL + img : configs.defaultImg + "200";
-      let totalProduct = salePrice * qty;
+      let totalProduct = salePrice;
       result += `
-      <div class="cart-item" data-id="${_id}">
+      <div class="cart-item" data-id="${category.product._id}" data-key="${_id}"
+      data-total="${total}" data-qty="${qty}">
         <div class="remove-item">
           <i class="fa-solid fa-trash"></i>
         </div>
@@ -90,14 +89,14 @@ export function displayCart(data = []) {
           <i class="fa-solid fa-plus"></i>
           </div>
         </div>
-        
       </div>`;
+      dataResul = dataResul + qty;
       dataResult = dataResult + totalProduct;
       
+    productMenu.innerHTML = dataResul;
       productMenuNode.innerHTML = result;
       console.log(dataResult);
       cartTotal.innerHTML = `${dataResult} sum`;
-    });
   });
 }
 
@@ -133,14 +132,20 @@ export function initializeCartEvent() {
 
   moviesStatus.addEventListener("click", (event) => {
     const id = event.target.closest(".cart-item")?.dataset?.id;
+    const _id = event.target.closest(".cart-item")?.dataset?.key;
+    const total = event.target.closest(".cart-item")?.dataset?.total;
+    const qty = event.target.closest(".cart-item")?.dataset?.qty;
     console.log(id, "bosilgan");
     if (!id) return;
+    if (!_id) return;
+    if (!total) return;
+    if (!qty) return;
     let isMenuBtn = event.target
       .closest(".remove-item")
       ?.classList.contains("remove-item");
     console.log(isMenuBtn);
     if (isMenuBtn) {
-      deleteCartAllProduct(localStorage.userId).then((data) => {
+      deleteProductCart(localStorage.userId, id, qty, total, _id).then((data) => {
         console.log(data);
         console.log(event.target.parentElement);
         event.target.parentElement.parentElement.remove();

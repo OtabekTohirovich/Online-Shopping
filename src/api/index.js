@@ -47,6 +47,21 @@ export function fetchProduct(id) {
   return axios.get(`products/` + id);
 }
 
+export function deleteProductCart(id, product, qty, total, _id) {
+  if (!id) {
+    throw "Please insert id parametr";
+  }
+  let url = `cart/${id}/remove`;
+  return axios.put(url, {
+    id: `${id}`,
+    items: {
+      product: `${product}`,
+      qty: `${qty}`,
+      total: `${total}`,
+      _id: `${_id}`
+   }
+  });
+}
 export function deleteProduct(id) {
   if (!id) {
     throw "Please insert id parametr";
@@ -102,7 +117,9 @@ export function addProductToCart(id, _id) {
   }
   let url = `cart/${id}/add`;
   return axios.post(url, {
-    _id: `${_id}`,
+    product: `${_id}`,
+    total: 3000,
+    qty: 1,
   });
 }
 
