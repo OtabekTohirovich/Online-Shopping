@@ -140,7 +140,7 @@ export function initializeCartEvent(data) {
     if (!_id) return;
     if (!total) return;
     if (!qty) return;
-    let isMenuBtn = event.target
+    const isMenuBtn = event.target
       .closest(".remove-item")
       ?.classList.contains("remove-item");
     console.log(isMenuBtn);
@@ -157,9 +157,13 @@ export function initializeCartEvent(data) {
           _id: `${data._id}`,
         };
       });
-      
-      deleteProductCart(localStorage.userId, datdfdsfg);
-      //  console.log(datdfdsfg);
+
+      deleteProductCart(localStorage.userId, datdfdsfg ? datdfdsfg : {}).then(
+        ( data ) => {
+          console.log(data);
+          
+        }
+      );
     }
   });
 }
