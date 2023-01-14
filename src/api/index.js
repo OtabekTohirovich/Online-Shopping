@@ -47,19 +47,12 @@ export function fetchProduct(id) {
   return axios.get(`products/` + id);
 }
 
-export function deleteProductCart(id, product, qty, total, _id) {
-  if (!id) {
-    throw "Please insert id parametr";
-  }
+export function deleteProductCart(id, items) {
   let url = `cart/${id}/remove`;
+
   return axios.put(url, {
     id: `${id}`,
-    items: {
-      product: `${product}`,
-      qty: `${qty}`,
-      total: `${total}`,
-      _id: `${_id}`
-   }
+    items: items
   });
 }
 export function deleteProduct(id) {

@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         getUserCart().then(({data}) => {
           console.log(data);
           displayCart(data.payload.items);
-          initializeCartEvent();
+          initializeCartEvent(data.payload.items);
         });
         
       });

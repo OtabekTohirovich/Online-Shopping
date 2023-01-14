@@ -62,13 +62,13 @@ export function displayCart(data = []) {
   let dataResul = 0;
   console.log(data);
   data.forEach((category) => {
-    const {  qty, total ,_id } = category;
-    const { img, name, salePrice, description} = category.product;
+    const { qty, total, _id } = category;
+    const { img, name, salePrice, description } = category.product;
     const imgs = img ? configs.baseImgURL + img : configs.defaultImg + "200";
     const productMenu = document.querySelector(".cart-items");
     const cartTotal = document.querySelector(".cart-total");
-      let totalProduct = salePrice;
-      result += `
+    let totalProduct = salePrice;
+    result += `
       <div class="cart-item" data-id="${category.product._id}" data-key="${_id}"
       data-total="${total}" data-qty="${qty}">
         <div class="remove-item">
@@ -90,13 +90,13 @@ export function displayCart(data = []) {
           </div>
         </div>
       </div>`;
-      dataResul = dataResul + qty;
-      dataResult = dataResult + totalProduct;
-      
+    dataResul = dataResul + qty;
+    dataResult = dataResult + totalProduct;
+
     productMenu.innerHTML = dataResul;
-      productMenuNode.innerHTML = result;
-      console.log(dataResult);
-      cartTotal.innerHTML = `${dataResult} sum`;
+    productMenuNode.innerHTML = result;
+    console.log(dataResult);
+    cartTotal.innerHTML = `${dataResult} sum`;
   });
 }
 
@@ -109,7 +109,6 @@ export function loadToken() {
     nav__link.classList.remove("hide");
   }
 }
-
 
 export function initializeMEvent() {
   const navNodeList = document.querySelectorAll(".nav__item");
@@ -127,7 +126,7 @@ export function initializeMEvent() {
   });
 }
 
-export function initializeCartEvent() {
+export function initializeCartEvent(data) {
   const moviesStatus = document.querySelector(".cart-content");
 
   moviesStatus.addEventListener("click", (event) => {
@@ -135,6 +134,7 @@ export function initializeCartEvent() {
     const _id = event.target.closest(".cart-item")?.dataset?.key;
     const total = event.target.closest(".cart-item")?.dataset?.total;
     const qty = event.target.closest(".cart-item")?.dataset?.qty;
+
     console.log(id, "bosilgan");
     if (!id) return;
     if (!_id) return;
@@ -145,14 +145,29 @@ export function initializeCartEvent() {
       ?.classList.contains("remove-item");
     console.log(isMenuBtn);
     if (isMenuBtn) {
-      deleteProductCart(localStorage.userId, id, qty, total, _id).then((data) => {
-        console.log(data);
-        console.log(event.target.parentElement);
-        event.target.parentElement.parentElement.remove();
+      const itemId = data.filter((item) => {
+        let daata = item.product._id !== id;
+        return daata;
       });
+      const datdfdsfg = itemId.map((data) => {
+        return {
+          product: `${data.product._id}`,
+          qty: `${data.qty}`,
+          total: `${data.total}`,
+          _id: `${data._id}`,
+        };
+      });
+      
+      deleteProductCart(localStorage.userId, datdfdsfg);
+      //  console.log(datdfdsfg);
     }
   });
 }
+
+//             product: `${data.product._id}`,
+//             qty: `${data.qty}`,
+//             total: `${data.total}`,
+//             _id: `${data._id}`,
 
 export function initializeProduct() {
   const cardNodeList = document.querySelectorAll(".card");
