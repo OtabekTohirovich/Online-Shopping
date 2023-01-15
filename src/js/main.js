@@ -58,6 +58,19 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       navMenu.parentElement.parentElement.classList.toggle("show");
     }
   });
+  
+  let dataResult = 0;
+  const cartToltals = document.querySelector(".cart-items");
+  getUserCart().then(({ data }) => {
+    console.log(data);
+    data.payload.items.forEach((cart) => {
+      const { qty } = cart;
+      dataResult = dataResult + qty;
+      cartToltals.innerHTML = dataResult;
+    });
+  });
+
+
 
   const page = location.pathname;
   if (page === "/index.html" || page === "/") {
@@ -74,24 +87,24 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     let cart = document.querySelector(".cart__btns");
     if (cart) {
       cart.addEventListener("click", () => {
-        getUserCart().then(({data}) => {
+        getUserCart().then(({ data }) => {
           console.log(data);
           displayCart(data.payload.items);
           initializeCartEvent(data.payload.items);
         });
-        
       });
     }
 
-    getCategories().then(({ data }) => {
-      console.log(data);
-      displayCategory(data.payload);
-    }) 
-    .catch((err)=>{
-      if (err) {
-        // location.assign("sign-in.html");
-      }
-    })
+    getCategories()
+      .then(({ data }) => {
+        console.log(data);
+        displayCategory(data.payload);
+      })
+      .catch((err) => {
+        if (err) {
+          // location.assign("sign-in.html");
+        }
+      });
     handleCart();
   }
 
@@ -314,9 +327,6 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         formCate.reset();
       });
     }
-
-   
-    
   }
 
   loadToken();

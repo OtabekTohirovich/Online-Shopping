@@ -131,15 +131,9 @@ export function initializeCartEvent(data) {
 
   moviesStatus.addEventListener("click", (event) => {
     const id = event.target.closest(".cart-item")?.dataset?.id;
-    const _id = event.target.closest(".cart-item")?.dataset?.key;
-    const total = event.target.closest(".cart-item")?.dataset?.total;
-    const qty = event.target.closest(".cart-item")?.dataset?.qty;
 
     console.log(id, "bosilgan");
     if (!id) return;
-    if (!_id) return;
-    if (!total) return;
-    if (!qty) return;
     const isMenuBtn = event.target
       .closest(".remove-item")
       ?.classList.contains("remove-item");
@@ -149,7 +143,7 @@ export function initializeCartEvent(data) {
         let daata = item.product._id !== id;
         return daata;
       });
-      const datdfdsfg = itemId.map((data) => {
+      const dataCart = itemId.map((data) => {
         return {
           product: `${data.product._id}`,
           qty: `${data.qty}`,
@@ -158,13 +152,13 @@ export function initializeCartEvent(data) {
         };
       });
 
-      deleteProductCart(localStorage.userId, datdfdsfg ? datdfdsfg : {}).then(
-        ( data ) => {
+      deleteProductCart(localStorage.userId, dataCart ? dataCart : {}).then(
+        (data) => {
           console.log(data);
-          
         }
       );
     }
+    event.target.parentElement.parentElement.remove();
   });
 }
 
@@ -194,8 +188,11 @@ export function initializeProduct() {
         if (!id) return;
         console.log(id);
         const userId = localStorage.userId;
+        const cartToltals = document.querySelector(".cart-items");
+
         addProductToCart(userId, id).then((data) => {
           console.log(data);
+          cartToltals + 1;
         });
       }
     });
