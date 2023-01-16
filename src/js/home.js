@@ -67,7 +67,7 @@ export function displayCart(data = []) {
     const imgs = img ? configs.baseImgURL + img : configs.defaultImg + "200";
     const productMenu = document.querySelector(".cart-items");
     const cartTotal = document.querySelector(".cart-total");
-    let totalProduct = salePrice;
+    let totalProduct = salePrice * qty;
     result += `
       <div class="cart-item" data-id="${category.product._id}" data-key="${_id}"
       data-total="${total}" data-qty="${qty}">
@@ -86,7 +86,7 @@ export function displayCart(data = []) {
           <div class="caunts">
           <i class="fa-sharp fa-solid fa-minus"></i>
           <p class="item-amount">${qty}</p>
-          <i class="fa-solid fa-plus"></i>
+          <i class="fa-solid fa-plus  added__product"></i>
           </div>
         </div>
       </div>`;
@@ -131,36 +131,60 @@ export function initializeCartEvent(data) {
 
   moviesStatus.addEventListener("click", (event) => {
     const id = event.target.closest(".cart-item")?.dataset?.id;
-
+    let result = 1;
     console.log(id, "bosilgan");
     if (!id) return;
     const isMenuBtn = event.target
       .closest(".remove-item")
       ?.classList.contains("remove-item");
+
+    const cartadd = event.target
+      .closest(".added__product")
+      ?.classList.contains("added__product");
     console.log(isMenuBtn);
     if (isMenuBtn) {
       const itemId = data.filter((item) => {
         let daata = item.product._id !== id;
-        return daata;
+         if(daata) {
+          return {
+            product: `${item.product._id}`,
+            qty: `${item.qty}`,
+            total: `${item.total}`,
+            _id: `${item._id}`,
+          };
+         }
       });
-      const dataCart = itemId.map((data) => {
-        return {
-          product: `${data.product._id}`,
-          qty: `${data.qty}`,
-          total: `${data.total}`,
-          _id: `${data._id}`,
-        };
-      });
-
-      deleteProductCart(localStorage.userId, dataCart ? dataCart : {}).then(
+      deleteProductCart(localStorage.userId, itemId ? itemId : {}).then(
         (data) => {
           console.log(data);
+          event.target.parentElement.parentElement.remove();
         }
       );
     }
-    event.target.parentElement.parentElement.remove();
+    let results;
+    let resultssa = 1;
+    if (cartadd) {
+      let datasd = event.target.previousElementSibling.innerHTML;
+      
+      addProductToCart(localStorage.userId, id).then(({data})=>{
+        console.log(data);
+        results = datasd;
+        console.log(++results);
+        event.target.parentElement.children[1].innerHTML = results++;
+
+      })
+      
+    }
   });
 }
+ // const dataCart = itemId.map((data) => {
+      //   return {
+      //     product: `${data.product._id}`,
+      //     qty: `${data.qty}`,
+      //     total: `${data.total}`,
+      //     _id: `${data._id}`,
+      //   };
+      // });
 
 //             product: `${data.product._id}`,
 //             qty: `${data.qty}`,
@@ -186,7 +210,6 @@ export function initializeProduct() {
         ?.classList.contains("save__cart");
       if (addProductSave) {
         if (!id) return;
-        console.log(id);
         const userId = localStorage.userId;
         const cartToltals = document.querySelector(".cart-items");
 

@@ -99,6 +99,15 @@ export function deleteCartAllProduct(id) {
 
 
 
+export function removeitemsProductCart(id, items) {
+  let url = `cart/${id}/remove`;
+
+  return axios.put(url, {
+    id: `${id}`,
+    items: items
+  });
+}
+
 export function getCart() {
   let url = `cart/`;
   return axios.get(url);
