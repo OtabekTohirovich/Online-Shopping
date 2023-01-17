@@ -121,7 +121,7 @@
   padding-top: 1rem;
   .clear-cart {
     width: 100%;
-    background-color: #309b42;
+    background-color: #3abe50;
     color: #fff;
     font-weight: 700;
     font-size: 17px;
@@ -132,6 +132,21 @@
     outline: none;
     border: 0;
     padding: 17px 0;
+  }
+  .remove__all--carproduct {
+    width: 100%;
+    background-color: #a9f7b6;
+    color: $mainGreen;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: 0.41px;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    padding: 17px;
+    margin-bottom: 1rem;
   }
   .wreapper__item-footer {
     display: flex;

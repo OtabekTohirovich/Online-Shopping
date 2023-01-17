@@ -4,6 +4,7 @@ import {
   addProductToCart,
   getProductId,
   deleteProductCart,
+  deleteCartAllProduct
 } from "../api";
 
 export function cardTemplate(data) {
@@ -100,6 +101,21 @@ export function displayCart(data = []) {
   });
 }
 
+
+export function deleteAllCartProduct() {
+  let img__wrapper = document.querySelector(".remove__all--carproduct");
+  const id = localStorage.userId;
+  if (img__wrapper) {
+    img__wrapper.addEventListener("click", ()=>{
+      deleteCartAllProduct(id).then(({data})=>{
+        console.log(data);
+        location.assign("/")
+      })
+    })
+  }
+}
+
+
 export function loadToken() {
   if (localStorage.token && localStorage.user) {
     let img__wrapper = document.querySelector(".account__state");
@@ -144,8 +160,7 @@ export function initializeCartEvent(data) {
     console.log(isMenuBtn);
     if (isMenuBtn) {
       const itemId = data.filter((item) => {
-        let daata = item.product._id !== id;
-        return daata;
+        return item.product._id !== id;
       });
       const dataCart = itemId.map((data) => {
         return {

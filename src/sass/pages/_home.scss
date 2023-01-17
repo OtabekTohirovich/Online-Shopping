@@ -184,3 +184,70 @@
 //   background-color: #dbdbdb;
 //   border-radius: 15px;
 // }
+
+.hFrbFX .form__inp {
+  display: block;
+  width: 100%;
+  height: calc(1.6em + 1.625rem);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgb(30, 32, 34);
+  background-color: rgb(255, 255, 255);
+  background-clip: padding-box;
+  border: 1px solid rgb(231, 234, 243);
+  border-radius: 0.3125rem;
+}
+
+.hFrbFX .form__block {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.hFrbFX .w-100 {
+  width: 100%;
+}
+
+.hFrbFX .form__inner {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.hFrbFX .form__title {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: rgb(30, 32, 34);
+}
+
+.hFrbFX .form {
+  margin-top: 25px;
+}
+.hFrbFX .title {
+  color: rgb(30, 32, 34);
+  font-size: 20px;
+  margin: 0px;
+}
+
+.hFrbFX .form__inp-box {
+  max-width: 16px;
+  min-width: 16px;
+  max-height: 16px;
+  min-height: 16px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+.hFrbFX .form__inner-item label {
+  cursor: pointer;
+  color: rgb(140, 152, 164);
+  font-size: 14px;
+}
+
+.hFrbFX .form__inner-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}

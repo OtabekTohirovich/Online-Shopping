@@ -24,6 +24,7 @@ import {
   displayAccount,
   displayCart,
   initializeCartEvent,
+  deleteAllCartProduct,
 } from "./home";
 import { displayUsers, handleInitializeUsers } from "./all-users";
 import {
@@ -58,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       navMenu.parentElement.parentElement.classList.toggle("show");
     }
   });
-  
+
   let dataResult = 0;
   const cartToltals = document.querySelector(".cart-items");
   getUserCart().then(({ data }) => {
@@ -69,8 +70,6 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       cartToltals.innerHTML = dataResult;
     });
   });
-
-
 
   const page = location.pathname;
   if (page === "/index.html" || page === "/") {
@@ -102,9 +101,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       })
       .catch((err) => {
         if (err) {
-          // location.assign("sign-in.html");
+          location.assign("sign-in.html");
         }
       });
+    deleteAllCartProduct();
     handleCart();
   }
 
