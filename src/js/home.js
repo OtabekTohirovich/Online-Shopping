@@ -145,19 +145,24 @@ export function initializeCartEvent(data) {
     if (isMenuBtn) {
       const itemId = data.filter((item) => {
         let daata = item.product._id !== id;
-         if(daata) {
-          return {
-            product: `${item.product._id}`,
-            qty: `${item.qty}`,
-            total: `${item.total}`,
-            _id: `${item._id}`,
-          };
-         }
+        return daata;
       });
-      deleteProductCart(localStorage.userId, itemId ? itemId : {}).then(
+      const dataCart = itemId.map((data) => {
+        return {
+          product: `${data.product._id}`,
+          qty: `${data.qty}`,
+          total: `${data.total}`,
+          _id: `${data._id}`,
+        };
+      });
+      deleteProductCart(localStorage.userId, dataCart ? dataCart : {}).then(
         (data) => {
           console.log(data);
           event.target.parentElement.parentElement.remove();
+          const cartOverlay = document.querySelector(".cart-overlay");
+          const cartDOM = document.querySelector(".cart");
+          cartOverlay.classList.remove("transparentBcg");
+          cartDOM.classList.remove("showCart");
         }
       );
     }
@@ -165,26 +170,16 @@ export function initializeCartEvent(data) {
     let resultssa = 1;
     if (cartadd) {
       let datasd = event.target.previousElementSibling.innerHTML;
-      
-      addProductToCart(localStorage.userId, id).then(({data})=>{
+
+      addProductToCart(localStorage.userId, id).then(({ data }) => {
         console.log(data);
         results = datasd;
-        console.log(++results);
-        event.target.parentElement.children[1].innerHTML = results++;
-
-      })
-      
+        // console.log(++results);
+        event.target.parentElement.children[1].innerHTML = ++results;
+      });
     }
   });
 }
- // const dataCart = itemId.map((data) => {
-      //   return {
-      //     product: `${data.product._id}`,
-      //     qty: `${data.qty}`,
-      //     total: `${data.total}`,
-      //     _id: `${data._id}`,
-      //   };
-      // });
 
 //             product: `${data.product._id}`,
 //             qty: `${data.qty}`,
