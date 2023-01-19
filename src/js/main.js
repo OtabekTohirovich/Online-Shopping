@@ -13,6 +13,7 @@ import {
   createCart,
   getUserCart,
   postOrder,
+  getAllUserOrder,
 } from "../api";
 import { SignUp, OrderData } from "./sign_up";
 import {
@@ -37,6 +38,7 @@ import {
   handleInitializeCategory,
 } from "./edit-product";
 import { displayProduct, displayCategoryProduct } from "./product";
+import { displayAllUserOrder } from "./order";
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
@@ -362,6 +364,14 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         })
       });
 
+    })
+    
+  }
+
+  if (page === "/order.html" || page === "/order") {
+    getAllUserOrder().then(({data})=>{
+      console.log(data);
+      displayAllUserOrder(data.data)
     })
     
   }

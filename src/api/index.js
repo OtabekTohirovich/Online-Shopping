@@ -207,3 +207,18 @@ export function postOrder(id, customer, items, total) {
   });
 }
 
+export function getAllUserOrder() {
+  let url = `orders`;
+  return axios.get(url);
+}
+
+export function deleteUserOrder(id) {
+  let url = `orders/${id}/delete`;
+  return axios.delete(url);
+}
+
+// https://shopzone.onrender.com/orders/63c83af336164800344ffcf4/delete
+
+
+
+
