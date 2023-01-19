@@ -12,8 +12,7 @@
         <div class="sc-iNqMTl hFrbFX">
             <div class="w-100">
               <h1 class="title">Billing address</h1>
-              <form class="form" action="">
-                <div class="form__inner"></div>
+              <form class="form__order" >
                 <div class="form__inner">
                   <div class="form__block">
                     <lable class="form__title">Name</lable
@@ -69,31 +68,7 @@
                       value=""
                     />
                   </div>
-                  <div class="form__block">
-                    <lable class="form__title">Payment type</lable
-                    ><select class="form__inp" type="text" name="paymentType">
-                      <option value="cash">Cash</option>
-                      <option value="card">Card</option>
-                    </select>
-                  </div>
                 </div>
-                <div class="form__inner form__inner--space">
-                  <div class="form__block">
-                    <lable class="form__title">Description</lable
-                    ><input
-                      class="form__inp"
-                      placeholder="You can enter more info here..."
-                      type="text"
-                      name="info"
-                      value=""
-                    />
-                  </div>
-                </div>
-                <div
-                  class="ant-divider ant-divider-horizontal"
-                  role="separator"
-                  style="width: auto; margin-right: 80px"
-                ></div>
                 <div class="form__inner">
                   <div class="form__block">
                     <lable class="form__title">Email address</lable
@@ -105,18 +80,8 @@
                       value=""
                     />
                   </div>
-                  <div class="form__block">
-                    <lable class="form__title">Password</lable
-                    ><input
-                      class="form__inp"
-                      placeholder="*********"
-                      type="password"
-                      name="password"
-                      value=""
-                    />
-                  </div>
                 </div>
-                <div>
+                <!-- <div>
                   <div class="form__inner-item">
                     <input
                       name="isDelivery"
@@ -141,10 +106,10 @@
                     >
                   </div>
                 </div>
+              </div> -->
                 <div class="form__inner form__inner--space form__inner-respons">
-                  <a class="form__link" href="/cart">&lt; Return to cart</a
-                  ><button class="form__btn">Place order</button>
-                </div>
+                  <a class="form__link" href="#">&lt; Return to cart</a
+                  ><button type="submit" class="form__btn">Place order</button>
               </form>
             </div>
           </div>

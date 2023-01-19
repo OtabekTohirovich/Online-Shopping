@@ -160,7 +160,7 @@ export function initializeCartEvent(data) {
     console.log(isMenuBtn);
     if (isMenuBtn) {
       const itemId = data.filter((item) => {
-        return item.product._id !== id;
+        return item.product._id != id;
       });
       const dataCart = itemId.map((data) => {
         return {

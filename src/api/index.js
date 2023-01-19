@@ -197,21 +197,13 @@ export function deleteAllProducts() {
   return axios.get(url);
 }
 
-export function postOrder(id, customer) {
-  let url = `orders`;
-  return axios.get(url , {
-    customerId: id,
-    status: "pending",
-    contact: {
-      name: customer.name,
-      email: customer.email,
-      phone: customer.phone,
-    },
-    shipping: {
-      address: customer.address,
-      city: customer.city,
-      zip: customer.zip,
-    }
+export function postOrder(id, customer, items, total) {
+  let url = `orders/`;
+  return axios.post(url , {
+    cartId: `${id}`,
+    customer: customer,
+    items: items,
+    total: `${total}`
   });
 }
 

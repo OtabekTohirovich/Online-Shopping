@@ -12,8 +12,9 @@ import {
   deleteAllProducts,
   createCart,
   getUserCart,
+  postOrder,
 } from "../api";
-import { SignUp } from "./sign_up";
+import { SignUp, OrderData } from "./sign_up";
 import {
   loadToken,
   initializeMEvent,
@@ -60,16 +61,16 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     }
   });
 
-  let dataResult = 0;
-  const cartToltals = document.querySelector(".cart-items");
-  getUserCart().then(({ data }) => {
-    console.log(data);
-    data.payload.items.forEach((cart) => {
-      const { qty } = cart;
-      dataResult = dataResult + qty;
-      cartToltals.innerHTML = dataResult;
-    });
-  });
+  // let dataResult = 0;
+  // const cartToltals = document.querySelector(".cart-items");
+  // getUserCart().then(({ data }) => {
+  //   console.log(data);
+  //   data.payload.items.forEach((cart) => {
+  //     const { qty } = cart;
+  //     dataResult = dataResult + qty;
+  //     cartToltals.innerHTML = dataResult;
+  //   });
+  // });
 
   const page = location.pathname;
   if (page === "/index.html" || page === "/") {
@@ -327,6 +328,42 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         formCate.reset();
       });
     }
+  }
+  if (page === "/cart-checkout.html" || page === "/cart-checkout") {
+    const form = document.querySelector(".form__order");
+    
+    form.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const formData = new OrderData(
+        form.name.value,
+        form.phone.value,
+        form.address.value,
+        form.city.value,
+        form.zip.value,
+        form.email.value,
+      );
+      getUserCart().then(({ data }) => {
+        console.log(data);
+        const itemId = data.payload.items.map((data) => {
+          return {
+            product: `${data.product._id}`,
+            qty: `${data.qty}`,
+            total: `${data.total}`,
+          };
+        });
+        let totals= 0;
+        const total = data.payload.items.forEach(data=>{
+           totals = totals + data.total
+        })
+        console.log(itemId, totals);
+  
+        postOrder(localStorage.userId, formData, itemId, totals).then(({data})=>{
+          console.log(data);
+        })
+      });
+
+    })
+    
   }
 
   loadToken();
