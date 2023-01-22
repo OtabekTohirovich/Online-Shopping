@@ -220,5 +220,19 @@ export function deleteUserOrder(id) {
 // https://shopzone.onrender.com/orders/63c83af336164800344ffcf4/delete
 
 
+export function completedUserOrder(id) {
+  let url = `orders/${id}/change-status`;
+  return axios.put(url, {
+    status: "completed"
+  });
+}
 
+export function cancelUserOrder(id) {
+  let url = `orders/${id}/change-status`;
+  return axios.put(url, {
+    status: "canceled"
+  });
+}
+
+// orders/63ca310d3377870035f2f452/change-status
 

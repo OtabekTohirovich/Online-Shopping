@@ -38,7 +38,7 @@ import {
   handleInitializeCategory,
 } from "./edit-product";
 import { displayProduct, displayCategoryProduct } from "./product";
-import { displayAllUserOrder } from "./order";
+import { displayAllUserOrder, initializeOrderEvent } from "./order";
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
@@ -74,6 +74,17 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   //   });
   // });
 
+  let cart = document.querySelector(".cart__btns");
+    if (cart) {
+      cart.addEventListener("click", () => {
+        getUserCart().then(({ data }) => {
+          console.log(data);
+          displayCart(data.payload.items);
+          initializeCartEvent(data.payload.items);
+        });
+      });
+    }
+
   const page = location.pathname;
   if (page === "/index.html" || page === "/") {
     const chanegeAccount = document.querySelector(".add__person");
@@ -86,16 +97,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       displayProducts(data.data);
       initializeProduct();
     });
-    let cart = document.querySelector(".cart__btns");
-    if (cart) {
-      cart.addEventListener("click", () => {
-        getUserCart().then(({ data }) => {
-          console.log(data);
-          displayCart(data.payload.items);
-          initializeCartEvent(data.payload.items);
-        });
-      });
-    }
+    
 
     getCategories()
       .then(({ data }) => {
@@ -372,6 +374,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     getAllUserOrder().then(({data})=>{
       console.log(data);
       displayAllUserOrder(data.data)
+      initializeOrderEvent()
     })
     
   }

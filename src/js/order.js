@@ -1,4 +1,9 @@
-import { getProductId } from "../api";
+import {
+  getProductId,
+  deleteUserOrder,
+  completedUserOrder,
+  cancelUserOrder,
+} from "../api";
 
 export function displayAllUserOrder(data = []) {
   let result = "";
@@ -17,7 +22,6 @@ export function displayAllUserOrder(data = []) {
     items.forEach((data) => {
       getProductId(data.product).then(({ data }) => {
         console.log(data);
-        
       });
     });
 
@@ -46,8 +50,52 @@ export function displayAllUserOrder(data = []) {
           <div class="payment__type">${status}</div>
           <div class="payment__type">${total}</div>
         </div>
+        <button class="remove__order">Remove</button>
+        <button class="complated__order">Completed order</button>
+        <button class="cansel__order">Cancel order</button>
       </div>
     `;
   });
   orderMenuNode.innerHTML = result;
+}
+
+export function initializeOrderEvent() {
+  const orders = document.querySelectorAll(".user__order");
+
+  orders.forEach((order) => {
+    order.addEventListener("click", (event) => {
+      const element = event.target;
+      const id = order?.dataset?.id;
+      let deleteOrder = element
+        .closest(".remove__order")
+        ?.classList.contains("remove__order");
+      if (deleteOrder) {
+        if (!id) return;
+        deleteUserOrder(id).then(({ data }) => {
+          console.log(data);
+          event.target.parentElement.remove();
+        });
+      }
+      let complatedOrder = element
+        .closest(".complated__order")
+        ?.classList.contains("complated__order");
+      if (complatedOrder) {
+        if (!id) return;
+        completedUserOrder(id).then(({ data }) => {
+          console.log(data);
+          event.target.parentElement.remove();
+        });
+      }
+      let cancelOrder = element
+        .closest(".cansel__order")
+        ?.classList.contains("cansel__order");
+      if (cancelOrder) {
+        if (!id) return;
+          cancelUserOrder(id).then(({ data }) => {
+          console.log(data);
+          // event.target.parentElement.remove()
+        });
+      }
+    });
+  });
 }
