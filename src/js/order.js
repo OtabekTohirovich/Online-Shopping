@@ -3,7 +3,10 @@ import {
   deleteUserOrder,
   completedUserOrder,
   cancelUserOrder,
+  getUserCart,
+  postOrder,
 } from "../api";
+import { OrderData } from "./sign_up";
 
 export function displayAllUserOrder(data = []) {
   let result = "";
@@ -98,4 +101,41 @@ export function initializeOrderEvent() {
       }
     });
   });
+}
+
+
+export function orderForms() {
+  const form = document.querySelector(".form__order");
+    
+    form.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const formData = new OrderData(
+        form.name.value,
+        form.phone.value,
+        form.address.value,
+        form.city.value,
+        form.zip.value,
+        form.email.value,
+      );
+      getUserCart().then(({ data }) => {
+        console.log(data);
+        const itemId = data.payload.items.map((data) => {
+          return {
+            product: `${data.product._id}`,
+            qty: `${data.qty}`,
+            total: `${data.total}`,
+          };
+        });
+        let totals= 0;
+        const total = data.payload.items.forEach(data=>{
+           totals = totals + data.total
+        })
+        console.log(itemId, totals);
+  
+        postOrder(localStorage.userId, formData, itemId, totals).then(({data})=>{
+          console.log(data);
+        })
+      });
+
+    })
 }

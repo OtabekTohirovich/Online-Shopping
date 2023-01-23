@@ -1,6 +1,5 @@
 import { sampleSize } from "lodash";
 import axios from "../utils/axios";
-// import configs from "../configs";
 
 export function singIn(quary) {
   if (!quary) {
@@ -38,8 +37,8 @@ export function getCategories() {
   let url = `categories/`;
   return axios.get(url);
 }
-// https://shopzone.onrender.com/categories/
-// https://shopzone.onrender.com/products/:id
+
+
 export function fetchProduct(id) {
   if (!id) {
     throw "Please insert id parametr";
@@ -78,9 +77,6 @@ export function createNewProduct(quary) {
   });
 }
 
-// https://shopzone.onrender.com/products/
-
-// https://shopzone.onrender.com/cart/
 
 export function createCart() {
   let url = `cart/`;
@@ -94,9 +90,6 @@ export function deleteCartAllProduct(id) {
   let url = `cart/${id}/empty`;
   return axios.delete(url);
 }
-
-// https://shopzone.onrender.com/cart/63b80af2903b140035b088d8/add
-
 
 
 export function removeitemsProductCart(id, items) {
@@ -135,13 +128,6 @@ export function getProductId(id) {
   return axios.get(url);
 }
 
-
-// https://shopzone.onrender.com/products/63b7bcc7b501550034523c5f
-
-// https://shopzone.onrender.com/cart/63b80af2903b140035b088d8
-// https://shopzone.onrender.com/cart/63a193ad8783650034674d1e/add
-
-// https://shopzone.onrender.com/
 
 export function getUsers() {
   let url = `users/`;
@@ -217,8 +203,6 @@ export function deleteUserOrder(id) {
   return axios.delete(url);
 }
 
-// https://shopzone.onrender.com/orders/63c83af336164800344ffcf4/delete
-
 
 export function completedUserOrder(id) {
   let url = `orders/${id}/change-status`;
@@ -234,5 +218,27 @@ export function cancelUserOrder(id) {
   });
 }
 
-// orders/63ca310d3377870035f2f452/change-status
+
+
+
+export function getFavority(id) {
+  let url = `favorites/all/${id}`;
+  return axios.get(url);
+}
+
+export function postFavority(userId, productId) {
+  let url = `favorites/`;
+  return axios.post(url, {
+    productId:`${productId}`,
+    userId: `${userId}`
+  });
+}
+
+export function deleteFavority(userId, productId) {
+  let url = `favorites/${productId}`;
+  return axios.delete(url, {
+    userId: `${userId}`
+  });
+}
+
 

@@ -2,10 +2,15 @@ import configs from "../configs";
 import {
   getUserCart,
   addProductToCart,
-  getProductId,
   deleteProductCart,
-  deleteCartAllProduct
+  deleteCartAllProduct,
+  getUserCart,
+  addCategory,
+  singUp,
+  createCart
 } from "../api";
+import { SignUp } from "./sign_up";
+import {CreateCategory, handleInitializeCategory} from "./edit-product"
 
 export function cardTemplate(data) {
   const { _id, imgs, quantity, description, name, salePrice } = data;
@@ -101,20 +106,18 @@ export function displayCart(data = []) {
   });
 }
 
-
 export function deleteAllCartProduct() {
   let img__wrapper = document.querySelector(".remove__all--carproduct");
   const id = localStorage.userId;
   if (img__wrapper) {
-    img__wrapper.addEventListener("click", ()=>{
-      deleteCartAllProduct(id).then(({data})=>{
+    img__wrapper.addEventListener("click", () => {
+      deleteCartAllProduct(id).then(({ data }) => {
         console.log(data);
-        location.assign("/")
-      })
-    })
+        location.assign("/");
+      });
+    });
   }
 }
-
 
 export function loadToken() {
   if (localStorage.token && localStorage.user) {
@@ -265,4 +268,123 @@ export function displayAccount(data = []) {
 
        </div>`;
   productMenuNode.innerHTML = result;
+}
+
+export function cartTotalsCount() {
+  let dataResult = 0;
+  const cartToltals = document.querySelector(".cart-items");
+  if (cartToltals) {
+    getUserCart().then(({ data }) => {
+      console.log(data);
+      data.payload.items.forEach((cart) => {
+        const { qty } = cart;
+        dataResult = dataResult + qty;
+        cartToltals.innerHTML = dataResult;
+      });
+    });
+  }
+}
+
+export function getCartUsera() {
+  let cart = document.querySelector(".cart__btns");
+  if (cart) {
+    cart.addEventListener("click", () => {
+      getUserCart().then(({ data }) => {
+        console.log(data);
+        displayCart(data.payload.items);
+        initializeCartEvent(data.payload.items);
+      });
+    });
+  }
+}
+
+export function sortCategory() {
+  let formCate = document.querySelector(".addcate");
+    if (formCate) {
+      formCate.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new CreateCategory(formCate.name.value);
+
+        addCategory(formData).then((data) => {
+          console.log(data.data.payload.name);
+          let dataCate = document.querySelector(".category");
+          dataCate.innerHTML += `<div class="category__link" data-id="${data.data.payload._id}"> 
+          <p class="title__cate">${data.data.payload.name}</p> 
+           <div class="btn__category--wreapper">
+           <button class="edit__category">Edit</button>
+           <button class="delete__category">Delete</button>
+           </div>
+          </div>`;
+          handleInitializeCategory();
+        });
+        formCate.reset();
+      });
+    }
+}
+
+export function sortNavbar() {
+  document.addEventListener("click", (e) => {
+    const element = e.target;
+
+    let navbarMenu = document.querySelectorAll(".nav__item.show");
+    if (!navbarMenu.length) return;
+
+    navbarMenu?.forEach((nav) => {
+      nav.classList.remove("show");
+      nav.querySelector(".nav__content").classList.remove("show");
+    });
+    let isMenuBtn = element
+      .closest(".navbar__btns")
+      ?.classList.contains("navbar__btns");
+    if (isMenuBtn) {
+      let navMenu = element.closest(".navbar__btns");
+      navMenu.nextElementSibling.classList.toggle("show");
+      navMenu.parentElement.parentElement.classList.toggle("show");
+    }
+  });
+}
+
+export function signUpForm() {
+  const formSignUp = document.querySelector(".form__type");
+    formSignUp.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new SignUp(
+        formSignUp.name.value,
+        formSignUp.lastName.value,
+        formSignUp.email.value,
+        formSignUp.password.value,
+        formSignUp.address.value,
+        formSignUp.phone.value
+      );
+      console.log(formData);
+      singUp(formData)
+        .then(({ data }) => {
+          console.log(data);
+          localStorage.token = data.token;
+          localStorage.userId = data.user._id;
+          localStorage.user = JSON.stringify(data.user.role);
+          createCart().then(({ data }) => {
+            localStorage.cartid = data.payload._id;
+            location.assign("/");
+          });
+        })
+        .catch((err) => {
+          Toastify({
+            text: err.msg,
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+              background: "linear-gradient(to right, red, red)",
+            },
+            onClick: function () {},
+          }).showToast();
+          if (err?.path) {
+            location.assign(err.path);
+          }
+        });
+    });
 }

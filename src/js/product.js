@@ -1,4 +1,8 @@
 import configs from "../configs";
+import { createNewProduct, getCategories } from "../api";
+import {
+  CreateProduct
+} from "./edit-product";
 
 export function displayProduct(data = []) {
   let result = "";
@@ -20,3 +24,31 @@ export function displayCategoryProduct(data) {
   categoryNode.innerHTML = result;
 }
 
+export function addProductsCount() {
+  let genreWrapper = document.querySelector(".category__wreapperss");
+    getCategories().then(({ data }) => {
+      console.log(data);
+      let genresTemplate = "";
+      data.payload.forEach((genre) => {
+        genresTemplate += `<li class="category__type"><input name="categoryId" type="radio" id=${genre._id} value=${genre._id}  /> <label for="${genre._id}">${genre.name}</label></li>`;
+      });
+      genreWrapper.innerHTML = genresTemplate;
+    });
+    const formProduct = document.querySelector(".create__products");
+    formProduct.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new CreateProduct(
+        formProduct.name.value,
+        formProduct.price.value,
+        formProduct.salePrice.value,
+        formProduct.quantity.value,
+        formProduct.description.value,
+        formProduct.categoryId.value
+      );
+
+      console.log(formData);
+      createNewProduct(formData).then((data) => {
+        console.log(data);
+      });
+    });
+}
