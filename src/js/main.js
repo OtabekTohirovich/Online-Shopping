@@ -1,6 +1,5 @@
 import "./style";
 import {
-  singIn,
   getProducts,
   getCategories,
   fetchProduct,
@@ -25,21 +24,26 @@ import {
   sortNavbar,
   signUpForm,
 } from "./home";
-import { displayUsers, handleInitializeUsers } from "./all-users";
 import {
   displayProductsEdit,
   handleInitializeProduct,
   displayCategoryEdit,
   handleInitializeCategory,
 } from "./edit-product";
+import {
+  displayProduct,
+  addProductsCount,
+  signInsForm,
+  signInAdmins,
+} from "./product";
 
-import { displayProduct , addProductsCount} from "./product";
+import { displayUsers, handleInitializeUsers } from "./all-users";
 import { displayAllUserOrder, initializeOrderEvent, orderForms } from "./order";
+
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
     location.reload();
   });
-
   const page = location.pathname;
 
   if (page === "/index.html" || page === "/") {
@@ -82,77 +86,10 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   }
 
   if (page === "/sign-in.html" || page === "/sign-in") {
-    const signInForm = document.querySelector(".signIn_form");
-    signInForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData = {
-        email: signInForm.email.value,
-        password: signInForm.password.value,
-      };
-      console.log(formData);
-      singIn(formData)
-        .then(({ data }) => {
-          console.log(data);
-          localStorage.token = data.token;
-          localStorage.userId = data.payload._id;
-          localStorage.user = JSON.stringify(data.payload.role);
-          location.assign("/");
-        })
-        .catch((err) => {
-          Toastify({
-            text: err.msg,
-            duration: 3000,
-            newWindow: true,
-            close: true,
-            gravity: "top",
-            position: "right",
-            stopOnFocus: true,
-            style: {
-              background: "linear-gradient(to right, red, red)",
-            },
-            onClick: function () {},
-          }).showToast();
-          if (err?.path) {
-            location.assign(err.path);
-          }
-        });
-    });
+    signInsForm();
   }
   if (page === "/signin-admin.html" || page === "/signin-admin") {
-    const signInForm = document.querySelector(".signIn_form");
-    signInForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData = {
-        email: signInForm.email.value,
-        password: signInForm.password.value,
-      };
-      console.log(formData);
-      singIn(formData)
-        .then(({ data }) => {
-          console.log(data);
-          localStorage.token = data.token;
-          localStorage.user = JSON.stringify(data.payload.role);
-          location.assign("/");
-        })
-        .catch((err) => {
-          Toastify({
-            text: err.msg,
-            duration: 3000,
-            newWindow: true,
-            close: true,
-            gravity: "top",
-            position: "right",
-            stopOnFocus: true,
-            style: {
-              background: "linear-gradient(to right, red, red)",
-            },
-            onClick: function () {},
-          }).showToast();
-          if (err?.path) {
-            location.assign(err.path);
-          }
-        });
-    });
+    signInAdmins();
   }
   if (page === "/product.html" || page === "/product") {
     fetchProduct(history.state.id).then(({ data }) => {
@@ -179,8 +116,6 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       }
       handleInitializeProduct();
     });
-
-    // deleteProduct()
   }
   if (page === "/add-product.html" || page === "/add-product") {
     addProductsCount();
