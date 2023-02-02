@@ -293,5 +293,45 @@
 }
 .savatda_bor:hover {
   transform: scale(1.05) rotate(0);
- 
+}
+
+.delete__all--products,
+.creates__thigs,
+.create__categorys {
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  background-color: #f50505;
+  border: 0;
+  border-radius: 1rem;
+  padding: 0.5rem 1.5rem;
+  font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+  font-size: 1.6rem;
+  text-decoration: none;
+  transition: all 0.25s;
+  display: inline-block;
+}
+.create__categorys {
+  &:hover {
+    background-color: #e3e3e3;
+    color: #19f505;
+  }
+  background-color: #19f505;
+  font-weight: 600;
+}
+
+.addcate {
+  display: flex;
+  align-items: center;
+
+  input {
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    border: 2px solid #e3e3e3;
+    border-radius: 1rem;
+    font-weight: 600;
+  }
 }
