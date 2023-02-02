@@ -8,6 +8,8 @@ import {
   deleteAllProducts,
   getAllUserOrder,
   getFavority,
+  getUserCart,
+  addProductToCart,
 } from "../api";
 import {
   loadToken,
@@ -55,7 +57,28 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     getProducts().then(({ data }) => {
       console.log(data.data);
       displayProducts(data.data);
+      let datastate = data.data;
+      console.log(datastate, 'salom');
       initializeProduct();
+      getUserCart().then(({ data }) => {
+        console.log(data);
+        data.payload.items.forEach(element => {
+          const itemId = datastate.filter((item) => {
+            return item._id == element.product._id;
+          });  
+          let dasas = document.querySelectorAll('.card')
+          console.log(itemId[0]);
+          if (itemId[0]) {
+            dasas.forEach(dastas=>{
+              if (dastas.dataset.id == itemId[0]._id) {
+                dastas.children[1].children[3].innerHTML = `<button class="savatda_bor">Savatda bor</button>`
+              }
+            })
+            
+          }
+        });
+        
+      })
     });
 
     getCategories()
@@ -68,6 +91,11 @@ document.addEventListener("DOMContentLoaded", async (e) => {
           location.assign("sign-in.html");
         }
       });
+
+      
+
+
+
     deleteAllCartProduct();
   }
 
@@ -95,6 +123,48 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     fetchProduct(history.state.id).then(({ data }) => {
       console.log(data);
       displayProduct(data);
+      const id = data._id;
+      getUserCart().then(({ data }) => {
+        console.log(data);
+        const itemId = data.payload.items.filter((item) => {
+          return item.product._id === id;
+        });
+        // console.log(itemId[0].qty);
+        let counts = document.querySelector(".counts__all--cs");
+        if (itemId.length) {
+          counts.innerHTML = `<i class="fa-sharp fa-solid fa-minus"></i>
+          <p class="item-amount product__counts--cards">${itemId[0].qty}</p>
+          <i class="fa-solid fa-plus  added__product"></i>`;
+        }
+        if (!itemId.length) {
+          counts.innerHTML = `<button class="addto__cart">Savatga qo'shish</button>`;
+        }
+        let dadad = document.querySelector(".added__product");
+        const dadda = document.querySelector(".addto__cart");
+        if (dadda) {
+          dadda.addEventListener("click", () => {
+            addProductToCart(localStorage.userId, id).then(({ data }) => {
+              console.log(data);
+              counts.innerHTML = `<i class="fa-sharp fa-solid fa-minus"></i>
+          <p class="item-amount product__counts--cards">${1}</p>
+          <i class="fa-solid fa-plus  added__product"></i>`;
+            });
+          });
+        }
+        if (dadad) {
+          dadad.addEventListener("click", () => {
+            addProductToCart(localStorage.userId, id).then(({ data }) => {
+              console.log(data);
+              const itemId = data.payload.items.filter((item) => {
+                return item.product._id === id;
+              });
+              console.log(itemId);
+              let counsttsd = document.querySelector(".product__counts--cards");
+              counsttsd.innerHTML = itemId[0].qty;
+            });
+          });
+        }
+      });
     });
   }
   if (page === "/edit-admin.html" || page === "/edit-admin") {

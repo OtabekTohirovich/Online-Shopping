@@ -29,7 +29,7 @@ export function displayAllUserOrder(data = []) {
     });
 
     result += `
-      <div class="user__order" data-id="${_id}">
+      <div class="user__order rounded p-5" data-id="${_id}">
         <div class="order__contact">
           <h2>For contact</h2>
           <div class="name__contact">${contact.name}</div>
@@ -53,9 +53,9 @@ export function displayAllUserOrder(data = []) {
           <div class="payment__type">${status}</div>
           <div class="payment__type">${total}</div>
         </div>
-        <button class="remove__order">Remove</button>
-        <button class="complated__order">Completed order</button>
-        <button class="cansel__order">Cancel order</button>
+        <button class="remove__order btn btn-secondary">Remove</button>
+        <button class="complated__order btn btn-primary">Completed order</button>
+        <button class="cansel__order btn btn-danger">Cancel order</button>
       </div>
     `;
   });

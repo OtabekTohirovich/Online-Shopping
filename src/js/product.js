@@ -8,7 +8,10 @@ export function displayProduct(data = []) {
 
   const { _id, img, name, description, salePrice } = data;
   const imgs = img ? configs.baseImgURL + img : configs.defaultImg + "400";
-  result += `<div class="product__link" data-id="${_id}">  <img src="${imgs}" alt="home"> <h1>${name}</h1> <p>${description}</p> <div>${salePrice} ming</div> </div>`;
+  result += `<div class="product__link" data-id="${_id}">  <img src="${imgs}" alt="home"> <h1>${name}</h1> <p>${description}</p> <div>${salePrice} ming</div> </div>
+  <div class="caunts  counts__all--cs">
+          </div>
+  `;
   productMenuNode.innerHTML = result;
 }
 
