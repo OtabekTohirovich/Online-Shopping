@@ -62,9 +62,9 @@ export function createNewProduct(quary) {
   let url = `products/`;
   return axios.post(url, {
     name: `${quary.name}`,
-    price: `${quary.price}`,
-    salePrice: `${quary.salePrice}`,
-    quantity: `${quary.quantity}`,
+    price: quary.price,
+    salePrice: quary.salePrice,
+    quantity: quary.quantity,
     description: `${quary.description}`,
     categoryId: `${quary.categoryId}`
   });
@@ -105,7 +105,7 @@ export function addProductToCart(id, _id) {
   }
   let url = `cart/${id}/add`;
   return axios.post(url, {
-    product: `${_id}`,
+    product: _id,
     total: 3000,
     qty: 1,
   });
@@ -182,7 +182,7 @@ export function postOrder(id, customer, items, total) {
     cartId: `${id}`,
     customer: customer,
     items: items,
-    total: `${total}`
+    total: total
   });
 }
 
@@ -234,4 +234,10 @@ export function deleteFavority(userId, productId) {
   });
 }
 
+
+
+export function costumerOrder(id) {
+  let url = `orders/customer/${id}`;
+  return axios.get(url);
+}
 

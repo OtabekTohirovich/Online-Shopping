@@ -31,7 +31,6 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (response) => {
-    console.log(response);
     return response;
   },
   (error) => {
@@ -46,7 +45,8 @@ axios.interceptors.response.use(
         text: error.response.data.msg,
         duration: 3000,
       }).showToast();
-      // location.assign('/sign-in.html')
+
+      location.assign('/sign-in.html')
     }
     else if (error.response.status === 400){
       Toastify({

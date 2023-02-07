@@ -2,6 +2,9 @@ import configs from "../configs";
 import { createNewProduct, getCategories, singIn, } from "../api";
 import { CreateProduct } from "./edit-product";
 
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
+
 export function displayProduct(data = []) {
   let result = "";
   const productMenuNode = document.querySelector(".product__wreapper");
@@ -65,11 +68,20 @@ export function signInsForm() {
     console.log(formData);
     singIn(formData)
       .then(({ data }) => {
-        console.log(data);
-        localStorage.token = data.token;
-        localStorage.userId = data.payload._id;
-        localStorage.user = JSON.stringify(data.payload.role);
-        location.assign("/");
+        console.log(data.payload.role);
+        if(data.payload.role == `user`){
+          console.log(data);
+          localStorage.token = data.token;
+          localStorage.userId = data.payload._id;
+          localStorage.user = JSON.stringify(data.payload.role);
+          location.assign("/");
+        }
+        else {
+          return Toastify({
+            text: `You are not User`,
+            duration: 3000,
+          }).showToast();
+        }
       })
       .catch((err) => {
       });
@@ -84,31 +96,26 @@ export function signInAdmins() {
         email: signInForm.email.value,
         password: signInForm.password.value,
       };
-      console.log(formData);
+      if (formData.email !== 'tohirqurbonov@gmail.com') return;
       singIn(formData)
         .then(({ data }) => {
-          console.log(data);
-          localStorage.token = data.token;
-          localStorage.user = JSON.stringify(data.payload.role);
-          location.assign("/");
+          if(data.payload.role === `admin`){
+            localStorage.token = data.token;
+            localStorage.userId = data.payload._id;
+            localStorage.user = JSON.stringify(data.payload.role);
+            location.assign('/admin-dashboard.html')
+          }
+          else {
+            Toastify({
+              text: `You are not Admin`,
+              duration: 3000,
+            }).showToast();
+            location.assign("/sign-in.html");
+          }
+          
         })
         .catch((err) => {
-          Toastify({
-            text: err.msg,
-            duration: 3000,
-            newWindow: true,
-            close: true,
-            gravity: "top",
-            position: "right",
-            stopOnFocus: true,
-            style: {
-              background: "linear-gradient(to right, red, red)",
-            },
-            onClick: function () {},
-          }).showToast();
-          if (err?.path) {
-            location.assign(err.path);
-          }
+          
         });
     });
 }

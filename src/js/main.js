@@ -10,6 +10,7 @@ import {
   getFavority,
   getUserCart,
   addProductToCart,
+  costumerOrder,
 } from "../api";
 import {
   loadToken,
@@ -40,7 +41,7 @@ import {
 } from "./product";
 
 import { displayUsers, handleInitializeUsers } from "./all-users";
-import { displayAllUserOrder, initializeOrderEvent, orderForms } from "./order";
+import { displayAllUserOrder, displayCostumerOrder, initializeCostumerEvent, initializeOrderEvent, orderForms } from "./order";
 
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
@@ -49,7 +50,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   const page = location.pathname;
 
   if (page === "/index.html" || page === "/") {
-    const chanegeAccount = document.querySelector(".add__person");
+    if (localStorage.userId){
+      const chanegeAccount = document.querySelector(".add__person");
     chanegeAccount.addEventListener("click", () => {
       location.assign("/account.html");
     });
@@ -64,10 +66,9 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         console.log(data);
         data.payload.items.forEach((element) => {
           const itemId = datastate.filter((item) => {
-            return item._id == element.product._id;
+            return item._id == element?.product?._id;
           });
           let dasas = document.querySelectorAll(".card");
-          console.log(itemId[0]);
           if (itemId[0]) {
             dasas.forEach((dastas) => {
               if (dastas.dataset.id == itemId[0]._id) {
@@ -84,6 +85,16 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       displayCategory(data.payload);
     });
     deleteAllCartProduct();
+    }
+    else {
+      location.assign("/public")
+    }
+  }
+  if (page === "/public.html" || page === "/public") {
+    getProducts().then(({ data }) => {
+      displayProducts(data.data);
+      initializeProduct();
+    });
   }
 
   if (page === "/account.html" || page === "/account") {
@@ -103,7 +114,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   if (page === "/sign-in.html" || page === "/sign-in") {
     signInsForm();
   }
-  if (page === "/signin-admin.html" || page === "/signin-admin") {
+  if (page === "/sign-in-admin.html" || page === "/sign-in-admin") {
     signInAdmins();
   }
   if (page === "/product.html" || page === "/product") {
@@ -154,7 +165,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       });
     });
   }
-  if (page === "/edit-admin.html" || page === "/edit-admin") {
+  if (page === "/admin-dashboard.html" || page === "/admin-dashboard") {
     getProducts().then(({ data }) => {
       console.log(data.data);
       displayProductsEdit(data.data);
@@ -205,14 +216,21 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       initializeOrderEvent();
     });
   }
-
+  if (page === "/order-details.html" || page === "/order-details") {
+    costumerOrder(localStorage.userId).then(({data})=>{
+      console.log(data);
+      displayCostumerOrder(data.payload);
+      initializeCostumerEvent()
+    })
+  }
+  
   const herader = document.querySelector(".navbar");
   if (herader) {
     handleCart();
   }
   initializeMEvent();
   sortNavbar();
-  getCartUsera();
-  cartTotalsCount();
+  // getCartUsera();
+  // cartTotalsCount();
   loadToken();
 });

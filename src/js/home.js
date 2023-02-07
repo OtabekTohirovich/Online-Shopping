@@ -173,8 +173,8 @@ export function initializeCartEvent() {
           const dataCart = itemId.map((data) => {
             return {
               product: `${data.product._id}`,
-              qty: `${data.qty}`,
-              total: `${data.total}`,
+              qty: data.qty,
+              total: data.total,
               _id: `${data._id}`,
             };
           });
@@ -199,63 +199,12 @@ export function initializeCartEvent() {
         addProductToCart(localStorage.userId, id).then(({ data }) => {
           console.log(data);
           results = datasd;
-          // console.log(++results);
           event.target.parentElement.children[1].innerHTML = ++results;
         });
       }
     });
   });
 
-  // moviesStatus.addEventListener("click", (event) => {
-  //   const id = event.target.closest(".cart-item")?.dataset?.id;
-  //   return;
-  //   if (!id);
-  //   let result = 1;
-  //   console.log(id);
-  //   const isMenuBtn = event.target
-  //     .closest(".remove-item")
-  //     ?.classList.contains("remove-item");
-
-  //   const cartadd = event.target
-  //     .closest(".added__product")
-  //     ?.classList.contains("added__product");
-  //   console.log(isMenuBtn);
-  //   if (isMenuBtn) {
-  //     const itemId = data.filter((item) => {
-  //       return item.product._id != id;
-  //     });
-  //     const dataCart = itemId.map((data) => {
-  //       return {
-  //         product: `${data.product._id}`,
-  //         qty: `${data.qty}`,
-  //         total: `${data.total}`,
-  //         _id: `${data._id}`,
-  //       };
-  //     });
-  //     deleteProductCart(localStorage.userId, dataCart ? dataCart : {}).then(
-  //       (data) => {
-  //         console.log(data);
-  //         // event.target.parentElement.parentElement.remove();
-  //         // const cartOverlay = document.querySelector(".cart-overlay");
-  //         // const cartDOM = document.querySelector(".cart");
-  //         // cartOverlay.classList.remove("transparentBcg");
-  //         // cartDOM.classList.remove("showCart");
-  //       }
-  //     );
-  //   }
-  //   let results;
-  //   let resultssa = 1;
-  //   if (cartadd) {
-  //     let datasd = event.target.previousElementSibling.innerHTML;
-
-  //     addProductToCart(localStorage.userId, id).then(({ data }) => {
-  //       console.log(data);
-  //       results = datasd;
-  //       // console.log(++results);
-  //       event.target.parentElement.children[1].innerHTML = ++results;
-  //     });
-  //   }
-  // });
 }
 
 export function initializeProduct() {

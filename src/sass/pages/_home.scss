@@ -183,29 +183,6 @@
   }
 }
 
-// .category.row .col {
-//   flex: 1 150px;
-// }
-
-// .category {
-//   flex-direction: row;
-//   overflow-x: auto;
-// }
-//   padding: 1rem 0;
-//   overflow-x: auto;
-//   overflow-y: hidden;
-// }
-// .category::-webkit-scrollbar {
-//   height: 8px;
-// }
-// .category::-webkit-scrollbar-track {
-//   border-radius: 15px;
-//   padding: 1px;
-// }
-// .category::-webkit-bar-thumb {
-//   background-color: #dbdbdb;
-//   border-radius: 15px;
-// }
 
 .hFrbFX .form__inp {
   display: block;
@@ -354,4 +331,8 @@
   }
   height: 600px;
   overflow-y: scroll;
+}
+
+.cart-content {
+  border: 2px solid #e3e3e3;
 }
