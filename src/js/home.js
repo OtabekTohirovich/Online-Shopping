@@ -7,10 +7,12 @@ import {
   getUserCart,
   addCategory,
   singUp,
-  createCart
+  createCart,
 } from "../api";
 import { SignUp } from "./sign_up";
-import {CreateCategory, handleInitializeCategory} from "./edit-product"
+import { CreateCategory, handleInitializeCategory } from "./edit-product";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 export function cardTemplate(data) {
   const { _id, imgs, quantity, description, name, salePrice } = data;
@@ -145,64 +147,116 @@ export function initializeMEvent() {
   });
 }
 
-export function initializeCartEvent(data) {
-  const moviesStatus = document.querySelector(".cart-content");
+export function initializeCartEvent() {
+  const cartNode = document.querySelectorAll(".cart-item");
 
-  moviesStatus.addEventListener("click", (event) => {
-    const id = event.target.closest(".cart-item")?.dataset?.id;
-    let result = 1;
-    console.log(id, "bosilgan");
-    if (!id) return;
-    const isMenuBtn = event.target
-      .closest(".remove-item")
-      ?.classList.contains("remove-item");
+  cartNode.forEach((cart) => {
+    cart.addEventListener("click", (event) => {
+      const id = event.target.closest(".cart-item")?.dataset?.id;
+      if (!id) return;
+      let result = 1;
+      console.log("sas");
 
-    const cartadd = event.target
-      .closest(".added__product")
-      ?.classList.contains("added__product");
-    console.log(isMenuBtn);
-    if (isMenuBtn) {
-      const itemId = data.filter((item) => {
-        return item.product._id != id;
-      });
-      const dataCart = itemId.map((data) => {
-        return {
-          product: `${data.product._id}`,
-          qty: `${data.qty}`,
-          total: `${data.total}`,
-          _id: `${data._id}`,
-        };
-      });
-      deleteProductCart(localStorage.userId, dataCart ? dataCart : {}).then(
-        (data) => {
+      console.log(id, "asdas");
+      const isMenuBtn = event.target
+        .closest(".remove-item")
+        ?.classList.contains("remove-item");
+      const cartadd = event.target
+        .closest(".added__product")
+        ?.classList.contains("added__product");
+      if (isMenuBtn) {
+        getUserCart().then(({ data }) => {
+          const itemId = data.payload.items.filter((item) => {
+            return item.product._id != id;
+          });
+          console.log(itemId);
+          const dataCart = itemId.map((data) => {
+            return {
+              product: `${data.product._id}`,
+              qty: `${data.qty}`,
+              total: `${data.total}`,
+              _id: `${data._id}`,
+            };
+          });
+          console.log(dataCart);
+          deleteProductCart(localStorage.userId, dataCart ? dataCart : {}).then(
+            (data) => {
+              console.log(data);
+              event.target.parentElement.parentElement.remove();
+              const cartOverlay = document.querySelector(".cart-overlay");
+              const cartDOM = document.querySelector(".cart");
+              cartOverlay.classList.remove("transparentBcg");
+              cartDOM.classList.remove("showCart");
+            }
+          );
+        });
+      }
+      let results;
+      let resultssa = 1;
+      if (cartadd) {
+        let datasd = event.target.previousElementSibling.innerHTML;
+
+        addProductToCart(localStorage.userId, id).then(({ data }) => {
           console.log(data);
-          event.target.parentElement.parentElement.remove();
-          const cartOverlay = document.querySelector(".cart-overlay");
-          const cartDOM = document.querySelector(".cart");
-          cartOverlay.classList.remove("transparentBcg");
-          cartDOM.classList.remove("showCart");
-        }
-      );
-    }
-    let results;
-    let resultssa = 1;
-    if (cartadd) {
-      let datasd = event.target.previousElementSibling.innerHTML;
-
-      addProductToCart(localStorage.userId, id).then(({ data }) => {
-        console.log(data);
-        results = datasd;
-        // console.log(++results);
-        event.target.parentElement.children[1].innerHTML = ++results;
-      });
-    }
+          results = datasd;
+          // console.log(++results);
+          event.target.parentElement.children[1].innerHTML = ++results;
+        });
+      }
+    });
   });
-}
 
-//             product: `${data.product._id}`,
-//             qty: `${data.qty}`,
-//             total: `${data.total}`,
-//             _id: `${data._id}`,
+  // moviesStatus.addEventListener("click", (event) => {
+  //   const id = event.target.closest(".cart-item")?.dataset?.id;
+  //   return;
+  //   if (!id);
+  //   let result = 1;
+  //   console.log(id);
+  //   const isMenuBtn = event.target
+  //     .closest(".remove-item")
+  //     ?.classList.contains("remove-item");
+
+  //   const cartadd = event.target
+  //     .closest(".added__product")
+  //     ?.classList.contains("added__product");
+  //   console.log(isMenuBtn);
+  //   if (isMenuBtn) {
+  //     const itemId = data.filter((item) => {
+  //       return item.product._id != id;
+  //     });
+  //     const dataCart = itemId.map((data) => {
+  //       return {
+  //         product: `${data.product._id}`,
+  //         qty: `${data.qty}`,
+  //         total: `${data.total}`,
+  //         _id: `${data._id}`,
+  //       };
+  //     });
+  //     deleteProductCart(localStorage.userId, dataCart ? dataCart : {}).then(
+  //       (data) => {
+  //         console.log(data);
+  //         // event.target.parentElement.parentElement.remove();
+  //         // const cartOverlay = document.querySelector(".cart-overlay");
+  //         // const cartDOM = document.querySelector(".cart");
+  //         // cartOverlay.classList.remove("transparentBcg");
+  //         // cartDOM.classList.remove("showCart");
+  //       }
+  //     );
+  //   }
+  //   let results;
+  //   let resultssa = 1;
+  //   if (cartadd) {
+  //     let datasd = event.target.previousElementSibling.innerHTML;
+
+  //     addProductToCart(localStorage.userId, id).then(({ data }) => {
+  //       console.log(data);
+  //       results = datasd;
+  //       // console.log(++results);
+  //       event.target.parentElement.children[1].innerHTML = ++results;
+  //     });
+  //   }
+  // });
+}
 
 export function initializeProduct() {
   const cardNodeList = document.querySelectorAll(".card");
@@ -229,6 +283,9 @@ export function initializeProduct() {
         addProductToCart(userId, id).then((data) => {
           console.log(data);
           cartToltals + 1;
+          element.closest(
+            ".card__btn"
+          ).innerHTML = `<button class="savatda_bor">Savatda bor</button>`;
         });
       }
     });
@@ -292,7 +349,7 @@ export function getCartUsera() {
       getUserCart().then(({ data }) => {
         console.log(data);
         displayCart(data.payload.items);
-        initializeCartEvent(data.payload.items);
+        initializeCartEvent();
       });
     });
   }
@@ -300,26 +357,26 @@ export function getCartUsera() {
 
 export function sortCategory() {
   let formCate = document.querySelector(".addcate");
-    if (formCate) {
-      formCate.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const formData = new CreateCategory(formCate.name.value);
+  if (formCate) {
+    formCate.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new CreateCategory(formCate.name.value);
 
-        addCategory(formData).then((data) => {
-          console.log(data.data.payload.name);
-          let dataCate = document.querySelector(".category");
-          dataCate.innerHTML += `<div class="category__link" data-id="${data.data.payload._id}"> 
+      addCategory(formData).then((data) => {
+        console.log(data.data.payload.name);
+        let dataCate = document.querySelector(".category");
+        dataCate.innerHTML += `<div class="category__link" data-id="${data.data.payload._id}"> 
           <p class="title__cate">${data.data.payload.name}</p> 
            <div class="btn__category--wreapper">
            <button class="edit__category">Edit</button>
            <button class="delete__category">Delete</button>
            </div>
           </div>`;
-          handleInitializeCategory();
-        });
-        formCate.reset();
+        handleInitializeCategory();
       });
-    }
+      formCate.reset();
+    });
+  }
 }
 
 export function sortNavbar() {
@@ -345,46 +402,41 @@ export function sortNavbar() {
 }
 
 export function signUpForm() {
-  const formSignUp = document.querySelector(".form__type");
+  const formSignUp = document.querySelector(".signIn_form");
+  try {
     formSignUp.addEventListener("submit", (e) => {
       e.preventDefault();
-      const formData = new SignUp(
-        formSignUp.name.value,
-        formSignUp.lastName.value,
-        formSignUp.email.value,
-        formSignUp.password.value,
-        formSignUp.address.value,
-        formSignUp.phone.value
-      );
-      console.log(formData);
-      singUp(formData)
+      let formData = new FormData(formSignUp);
+      console.log(...formData);
+      const data = {};
+      Array.from(formData).forEach((item) => {
+        data[item[0]] = item[1];
+      });
+      singUp(data)
         .then(({ data }) => {
-          console.log(data);
-          localStorage.token = data.token;
-          localStorage.userId = data.user._id;
-          localStorage.user = JSON.stringify(data.user.role);
-          createCart().then(({ data }) => {
-            localStorage.cartid = data.payload._id;
-            location.assign("/");
-          });
+          if(data.success === true){
+            console.log(data.msg);
+            console.log(data);
+            localStorage.token = data.token;
+            localStorage.userId = data.user._id;
+            localStorage.user = JSON.stringify(data.user.role);
+            createCart().then(({ data }) => {
+              localStorage.cartid = data.payload._id;
+              location.assign("/");
+            });
+          }
+          else {
+            Toastify({
+              text: data.msg,
+              duration: 3000,
+            }).showToast();
+          }
         })
         .catch((err) => {
-          Toastify({
-            text: err.msg,
-            duration: 3000,
-            newWindow: true,
-            close: true,
-            gravity: "top",
-            position: "right",
-            stopOnFocus: true,
-            style: {
-              background: "linear-gradient(to right, red, red)",
-            },
-            onClick: function () {},
-          }).showToast();
-          if (err?.path) {
-            location.assign(err.path);
-          }
+          return err;
         });
     });
+  } catch (err) {
+    console.log(err);
+  }
 }

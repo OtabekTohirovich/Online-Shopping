@@ -17,15 +17,8 @@ export function singUp(quary) {
     throw "Please insert quary parametr";
   }
   let url = `auth/sign-up`;
-  return axios.post(url, {
-    email: `${quary.email}`,
-    password: `${quary.password}`,
-    name: `${quary.name}`,
-    lastName: `${quary.lastName}`,
-    phone: `${quary.phone}`,
-    address: `${quary.address}`,
-    role: "user",
-  });
+  return axios.post(url,  quary
+  );
 }
 
 export function getProducts() {

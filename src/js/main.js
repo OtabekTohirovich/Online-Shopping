@@ -58,44 +58,31 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(data.data);
       displayProducts(data.data);
       let datastate = data.data;
-      console.log(datastate, 'salom');
+      console.log(datastate, "salom");
       initializeProduct();
       getUserCart().then(({ data }) => {
         console.log(data);
-        data.payload.items.forEach(element => {
+        data.payload.items.forEach((element) => {
           const itemId = datastate.filter((item) => {
             return item._id == element.product._id;
-          });  
-          let dasas = document.querySelectorAll('.card')
+          });
+          let dasas = document.querySelectorAll(".card");
           console.log(itemId[0]);
           if (itemId[0]) {
-            dasas.forEach(dastas=>{
+            dasas.forEach((dastas) => {
               if (dastas.dataset.id == itemId[0]._id) {
-                dastas.children[1].children[3].innerHTML = `<button class="savatda_bor">Savatda bor</button>`
+                dastas.children[1].children[3].innerHTML = `<button class="savatda_bor">Savatda bor</button>`;
               }
-            })
-            
+            });
           }
         });
-        
-      })
+      });
     });
 
-    getCategories()
-      .then(({ data }) => {
-        console.log(data);
-        displayCategory(data.payload);
-      })
-      .catch((err) => {
-        if (err) {
-          location.assign("sign-in.html");
-        }
-      });
-
-      
-
-
-
+    getCategories().then(({ data }) => {
+      console.log(data);
+      displayCategory(data.payload);
+    });
     deleteAllCartProduct();
   }
 

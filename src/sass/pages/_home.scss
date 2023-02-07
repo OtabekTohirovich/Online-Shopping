@@ -202,7 +202,7 @@
 //   border-radius: 15px;
 //   padding: 1px;
 // }
-// .category::-webkit-scrollbar-thumb {
+// .category::-webkit-bar-thumb {
 //   background-color: #dbdbdb;
 //   border-radius: 15px;
 // }
@@ -334,4 +334,24 @@
     border-radius: 1rem;
     font-weight: 600;
   }
+}
+
+.cart-content {
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  &::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  height: 600px;
+  overflow-y: scroll;
 }
