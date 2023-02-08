@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   const page = location.pathname;
 
   if (page === "/index.html" || page === "/") {
-    if (localStorage.userId) {
+    if (localStorage.userId !== "undefined" && localStorage.userId) {
       const chanegeAccount = document.querySelector(".add__person");
       chanegeAccount.addEventListener("click", () => {
         location.assign("/account.html");
@@ -124,6 +124,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         displayCategory(data.payload);
       });
       deleteAllCartProduct();
+      getCartUsera();
+      cartTotalsCount();
     } else {
       location.assign("/public.html");
     }
@@ -144,6 +146,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     getFavority(localStorage.userId).then(({ data }) => {
       console.log(data);
     });
+    getCartUsera();
+    cartTotalsCount();
   }
 
   if (page === "/sign-up.html" || page === "/sign-up") {
@@ -261,6 +265,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       displayCostumerOrder(data.payload);
       initializeCostumerEvent();
     });
+    getCartUsera();
+    cartTotalsCount();
   }
 
   if (page === "/favority.html" || page === "/favority") {
@@ -268,18 +274,24 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(data);
       displayFav(data.payload.items);
     });
+    getCartUsera();
+    cartTotalsCount();
   }
   if (page === "/category-details.html" || page === "/category-details") {
     categoryFiltrSearch(history.state.id).then(({ data }) => {
       console.log(data);
       displaycateWrapper(data.data);
     });
+    getCartUsera();
+    cartTotalsCount();
   }
   if (page === "/search.html" || page === "/search") {
-    searchProducts(history.state.query).then(({data})=>{
+    searchProducts(history.state.query).then(({ data }) => {
       console.log(data);
-      displaySearchProducts(data.payload)
-    })
+      displaySearchProducts(data.payload);
+    });
+    getCartUsera();
+    cartTotalsCount();
   }
 
   const herader = document.querySelector(".navbar");
@@ -294,7 +306,5 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   }
   initializeMEvent();
   sortNavbar();
-  getCartUsera();
-  cartTotalsCount();
   loadToken();
 });

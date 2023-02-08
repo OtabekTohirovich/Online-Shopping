@@ -68,11 +68,7 @@ header {
     font-size: 16px;
     color: white;
     background: #ad5389;
-    background: linear-gradient(
-      0deg,
-      rgb(114, 241, 150) 20%,
-      rgb(2, 255, 23) 100%
-    );
+    background: linear-gradient(to right, $primaryy,$secondaryyy);
     border: none;
     box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
     letter-spacing: 0.05em;
@@ -102,11 +98,7 @@ header {
     font-size: 16px;
     color: white;
     background: #ad5389;
-    background: linear-gradient(
-      0deg,
-      rgb(0, 255, 72) 0%,
-      rgb(106, 243, 118) 100%
-    );
+    background: linear-gradient(to right, $primaryy,$secondaryyy);
     border: none;
     box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
     letter-spacing: 0.05em;

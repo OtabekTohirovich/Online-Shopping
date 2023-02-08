@@ -12,6 +12,7 @@ import {
   postFavority,
   getFavority,
   getCategories,
+  removeitemsProductCart,
 } from "../api";
 import { SignUp } from "./sign_up";
 import { CreateCategory, handleInitializeCategory } from "./edit-product";
@@ -309,9 +310,48 @@ export function initializeCartEvent() {
           event.target.parentElement.children[1].innerHTML = ++results;
         });
       }
+      const cartRemove = event.target
+        .closest(".fa-minus")
+        ?.classList.contains("fa-minus");
+      if(cartRemove){
+        getUserCart().then(({ data }) => {
+          const itemId = data.payload.items.filter((item) => {
+            return item.product._id == id;
+          });
+          const itemIds = data.payload.items.filter((item) => {
+            return item.product._id != id;
+          });
+          const dataCart = itemId.map((data) => {
+            return {
+              product: `${data.product._id}`,
+              qty: --itemId[0].qty,
+              total: data.total,
+              _id: `${data._id}`,
+            };
+          });
+          const dataCarts = itemIds.map((data) => {
+            return {
+              product: `${data.product._id}`,
+              qty: data.qty,
+              total: data.total,
+              _id: `${data._id}`,
+            };
+          });
+          const mergeResult = [...dataCart, ...dataCarts];
+          console.log(dataCart, dataCarts);
+          removeitemsProductCart(localStorage.userId, mergeResult).then(
+            (data) => {
+              console.log(data);
+              event.target.parentElement.children[1].innerHTML = itemId[0].qty--;
+            }
+          );
+        });
+      }
     });
   });
 }
+
+// removeitemsProductCart
 
 export function initializeProduct() {
   const cardNodeList = document.querySelectorAll(".card");

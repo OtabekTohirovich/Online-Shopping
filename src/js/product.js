@@ -97,7 +97,12 @@ export function signInAdmins() {
         email: signInForm.email.value,
         password: signInForm.password.value,
       };
-      if (formData.email !== 'tohirqurbonov@gmail.com') return;
+      if (formData.email !== 'tohirqurbonov@gmail.com') {
+        return Toastify({
+          text: `You are not Admin`,
+          duration: 3000,
+        }).showToast();
+      };
       singIn(formData)
         .then(({ data }) => {
           if(data.payload.role === `admin`){
