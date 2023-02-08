@@ -45,7 +45,13 @@ import {
 } from "./product";
 
 import { displayUsers, handleInitializeUsers } from "./all-users";
-import { displayAllUserOrder, displayCostumerOrder, initializeCostumerEvent, initializeOrderEvent, orderForms } from "./order";
+import {
+  displayAllUserOrder,
+  displayCostumerOrder,
+  initializeCostumerEvent,
+  initializeOrderEvent,
+  orderForms,
+} from "./order";
 
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
@@ -54,62 +60,61 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   const page = location.pathname;
 
   if (page === "/index.html" || page === "/") {
-    if (localStorage.userId){
+    if (localStorage.userId) {
       const chanegeAccount = document.querySelector(".add__person");
-    chanegeAccount.addEventListener("click", () => {
-      location.assign("/account.html");
-    });
+      chanegeAccount.addEventListener("click", () => {
+        location.assign("/account.html");
+      });
 
-    getProducts().then(({ data }) => {
-      console.log(data.data);
-      displayProducts(data.data);
-      let datastate = data.data;
-      console.log(datastate, "salom");
-      initializeFavorityEvent()
-      initializeProduct();
-      getUserCart().then(({ data }) => {
-        console.log(data);
-        data.payload.items.forEach((element) => {
-          const itemId = datastate.filter((item) => {
-            return item._id == element?.product?._id;
-          });
-          let dasas = document.querySelectorAll(".card");
-          if (itemId[0]) {
-            dasas.forEach((dastas) => {
-              if (dastas.dataset.id == itemId[0]._id) {
-                dastas.children[1].children[3].innerHTML = `<button class="savatda_bor">Savatda bor</button>`;
-              }
+      getProducts().then(({ data }) => {
+        console.log(data.data);
+        displayProducts(data.data);
+        let datastate = data.data;
+        console.log(datastate, "salom");
+        initializeFavorityEvent();
+        initializeProduct();
+        getUserCart().then(({ data }) => {
+          console.log(data);
+          data.payload.items.forEach((element) => {
+            const itemId = datastate.filter((item) => {
+              return item._id == element?.product?._id;
             });
-          }
+            let dasas = document.querySelectorAll(".card");
+            if (itemId[0]) {
+              dasas.forEach((dastas) => {
+                if (dastas.dataset.id == itemId[0]._id) {
+                  dastas.children[1].children[3].innerHTML = `<button class="savatda_bor">Savatda bor</button>`;
+                }
+              });
+            }
+          });
+        });
+        getFavority(localStorage.userId).then(({ data }) => {
+          console.log(data, "hhd");
+          data.payload.items.forEach((element) => {
+            // console.log(element);
+            const itemId = datastate.filter((item) => {
+              return item._id == element?._id;
+            });
+            if (itemId[0]) {
+              let dasas = document.querySelectorAll(".favority__star");
+              dasas.forEach((dastas) => {
+                if (dastas.dataset.id == itemId[0]._id) {
+                  dastas.children[1].style.color = "#f50505";
+                }
+              });
+            }
+          });
         });
       });
-      getFavority(localStorage.userId).then(({data})=>{
-        console.log(data, 'hhd');
-        data.payload.items.forEach((element) => {
-          // console.log(element);
-          const itemId = datastate.filter((item) => {
-            return item._id == element?._id;
-          });
-          if(itemId[0]){
-            let dasas = document.querySelectorAll(".favority__star");
-            dasas.forEach((dastas) => {
-              if (dastas.dataset.id == itemId[0]._id) {
-                dastas.children[1].style.color = "#f50505"
-              }
-            });
-          }
-        });
-      })
-    });
 
-    getCategories().then(({ data }) => {
-      console.log(data);
-      displayCategory(data.payload);
-    });
-    deleteAllCartProduct();
-    }
-    else {
-      location.assign("/public")
+      getCategories().then(({ data }) => {
+        console.log(data);
+        displayCategory(data.payload);
+      });
+      deleteAllCartProduct();
+    } else {
+      location.assign("/public");
     }
   }
   if (page === "/public.html" || page === "/public") {
@@ -240,35 +245,39 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     });
   }
   if (page === "/order-details.html" || page === "/order-details") {
-    costumerOrder(localStorage.userId).then(({data})=>{
+    costumerOrder(localStorage.userId).then(({ data }) => {
       console.log(data);
       displayCostumerOrder(data.payload);
-      initializeCostumerEvent()
-    })
+      initializeCostumerEvent();
+    });
   }
 
   if (page === "/favority.html" || page === "/favority") {
-      getFavority(localStorage.userId).then(({data})=>{
-        console.log(data);
-        displayFav(data.payload.items)
-      })
-  
+    getFavority(localStorage.userId).then(({ data }) => {
+      console.log(data);
+      displayFav(data.payload.items);
+    });
   }
   if (page === "/category-details.html" || page === "/category-details") {
-    categoryFiltrSearch(history.state.id).then(({data})=>{
+    categoryFiltrSearch(history.state.id).then(({ data }) => {
       console.log(data);
-      displaycateWrapper(data.data)
-    })
+      displaycateWrapper(data.data);
+    });
   }
 
-  
   const herader = document.querySelector(".navbar");
   if (herader) {
     handleCart();
   }
+  const admin = document.querySelector('.admin__panels');
+  if(admin){
+    admin.addEventListener("click", ()=>{
+      location.assign('/admin-dashboard.html')
+    })
+  }
   initializeMEvent();
   sortNavbar();
-  // getCartUsera();
-  // cartTotalsCount();
+  getCartUsera();
+  cartTotalsCount();
   loadToken();
 });

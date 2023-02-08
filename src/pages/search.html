@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Online Shopping</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -15,27 +15,29 @@
       <div class="container">
         <nav class="navbar">
           <li class="logo__item">
-            <div class="logo__link admin__panels">
+            <div href="./index.html" class="logo__link">
               <img width="100%" src="../assets/logo.png" alt="logo" />
             </div>
           </li>
           <ul class="nav__menu">
             <li class="nav__item">
-              <a href="./order.html" class="nav__item--link">All order</a>
+              <div class="nav__item--link">
+                <div class="navbar__contenrets navbar__btns">Filter Category</div>
+                <div class="nav__content">
+                  
+                  
+                 
+                </div>
+              </div>
             </li>
 
             <li class="nav__item">
-              <a href="./category.html" class="nav__item--link">Add category</a>
-            </li>
-
-            <li class="nav__item">
-              <a href="./add-product.html" class="nav__item--link"
-                >Add product</a
-              >
+              <a href="./favority.html" class="nav__item--link">Your favority</a>
             </li>
             <li class="nav__item">
-              <a href="./all-users.html" class="nav__item--link">All-Users</a>
+              <a href="./order-details.html" class="nav__item--link">Your Status</a>
             </li>
+            
           </ul>
           <ul class="connect">
             <li class="nav__item">
@@ -66,7 +68,7 @@
             <li class="nav__item">
               <div class="nav__item--link cart__btns">
                 <img src="../assets/img/shopping-cart.png" alt="cart" />
-                <div class="cart-items">0</div>
+                <div class="cart-items ">0</div>
               </div>
             </li>
           </ul>
@@ -76,11 +78,7 @@
         </nav>
       </div>
     </header>
-    <section>
-      <div class="container">
-        <div class="order__all--user"></div>
-      </div>
-    </section>
+
     <div class="cart-overlay">
       <div class="cart">
         <span class="close-cart">
@@ -100,7 +98,8 @@
         </div>
       </div>
     </div>
-
-    <script src="../js/main.js" type="module"></script>
+    
+    
+    <script type="module" src="../js/main.js"></script>
   </body>
 </html>

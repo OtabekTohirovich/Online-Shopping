@@ -71,9 +71,9 @@ export function displayProducts(data = []) {
 export function displaycateWrapper(data = []) {
   let result = "";
   const productMenuNode = document.querySelector(".caten__wreapper");
-  if(!data.length){
-    console.log('afdsfsdf');
-    return productMenuNode.innerHTML = `<div class="not__found--cate">Not found products this category!!!</div>`
+  if (!data.length) {
+    console.log("afdsfsdf");
+    return (productMenuNode.innerHTML = `<div class="not__found--cate">Not found products this category!!!</div>`);
   }
   data.forEach((product) => {
     const { img, ...docs } = product;
@@ -205,23 +205,25 @@ export function initializeFavorityEvent() {
           console.log(itemId);
           const dataCart = itemId.map((data) => {
             return {
-              productId: data._id
+              productId: data._id,
             };
           });
           console.log(dataCart);
-          deleteFavority(localStorage.userId, dataCart? dataCart : {}).then((data) => {
-            console.log(data);
-            Toastify({
-              text: "Favority" + " " + data.config.method,
-              duration: 3000,
-            }).showToast();
-  
-            event.target.parentElement.parentElement.children[1].style.color = "#0ee65f";
-          });
+          deleteFavority(localStorage.userId, dataCart ? dataCart : {}).then(
+            (data) => {
+              console.log(data);
+              Toastify({
+                text: "Favority" + " " + data.config.method,
+                duration: 3000,
+              }).showToast();
+
+              event.target.parentElement.parentElement.children[1].style.color =
+                "#0ee65f";
+            }
+          );
         });
-        
       }
-      // 
+      //
       let isMen = event.target
         .closest(".post__favority")
         ?.classList.contains("post__favority");
@@ -232,7 +234,7 @@ export function initializeFavorityEvent() {
             text: "Favority" + " " + data.config.method,
             duration: 3000,
           }).showToast();
-          event.target.closest(".post__favority").style.color = "#f50505"
+          event.target.closest(".post__favority").style.color = "#f50505";
         });
       }
     });
@@ -368,30 +370,34 @@ export function displayAccount(data = []) {
 }
 
 export function cartTotalsCount() {
-  let dataResult = 0;
-  const cartToltals = document.querySelector(".cart-items");
-  if (cartToltals) {
-    getUserCart().then(({ data }) => {
-      console.log(data);
-      data.payload.items.forEach((cart) => {
-        const { qty } = cart;
-        dataResult = dataResult + qty;
-        cartToltals.innerHTML = dataResult;
+  if (localStorage.userId) {
+    let dataResult = 0;
+    const cartToltals = document.querySelector(".cart-items");
+    if (cartToltals) {
+      getUserCart().then(({ data }) => {
+        console.log(data);
+        data.payload.items.forEach((cart) => {
+          const { qty } = cart;
+          dataResult = dataResult + qty;
+          cartToltals.innerHTML = dataResult;
+        });
       });
-    });
+    }
   }
 }
 
 export function getCartUsera() {
-  let cart = document.querySelector(".cart__btns");
-  if (cart) {
-    cart.addEventListener("click", () => {
-      getUserCart().then(({ data }) => {
-        console.log(data);
-        displayCart(data.payload.items);
-        initializeCartEvent();
+  if (localStorage.userId) {
+    let cart = document.querySelector(".cart__btns");
+    if (cart) {
+      cart.addEventListener("click", () => {
+        getUserCart().then(({ data }) => {
+          console.log(data);
+          displayCart(data.payload.items);
+          initializeCartEvent();
+        });
       });
-    });
+    }
   }
 }
 
@@ -434,18 +440,17 @@ export function sortNavbar() {
       .closest(".navbar__btns")
       ?.classList.contains("navbar__btns");
     if (isMenuBtn) {
-      if(localStorage.userId){
-        getCategories().then(({data})=>{
+      if (localStorage.userId) {
+        getCategories().then(({ data }) => {
           console.log(data);
           displayNavCate(data.payload);
-          initializeCateFiltr()
-        })
+          initializeCateFiltr();
+        });
       }
       let navMenu = element.closest(".navbar__btns");
       navMenu.nextElementSibling.classList.toggle("show");
       navMenu.parentElement.parentElement.classList.toggle("show");
     }
-
   });
 }
 
@@ -453,7 +458,7 @@ export function displayNavCate(data = []) {
   let result = "";
   const productMenuNode = document.querySelector(".nav__content");
   data.forEach((category) => {
-    const {name, _id } = category;
+    const { name, _id } = category;
     result += `
     <div class="added__content">
     <a class="nav__data" data-id="${_id}"><div>${name}</div></a>
@@ -464,19 +469,16 @@ export function displayNavCate(data = []) {
 }
 
 export function initializeCateFiltr() {
-  const cate = document.querySelectorAll('.nav__data');
-  cate.forEach(cate=>{
-    cate.addEventListener('click', (e)=>{
+  const cate = document.querySelectorAll(".nav__data");
+  cate.forEach((cate) => {
+    cate.addEventListener("click", (e) => {
       const id = cate?.dataset?.id;
       console.log(id);
       history.pushState({ id }, null, "/category-details.html");
       location.reload();
-    })
-  })
+    });
+  });
 }
-
-
-
 
 export function signUpForm() {
   const formSignUp = document.querySelector(".signIn_form");

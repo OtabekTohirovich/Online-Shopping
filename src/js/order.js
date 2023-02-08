@@ -63,9 +63,13 @@ export function displayAllUserOrder(data = []) {
   orderMenuNode.innerHTML = result;
 }
 
+
 export function displayCostumerOrder(data = []) {
   let result = "";
   const orderMenuNode = document.querySelector(".order__all--user");
+  if (!data.length) {
+    return orderMenuNode.innerHTML = `<div class="not__found--cate"> You don't buy nothings yet !!!</div>`
+  };
   data.forEach((data) => {
     const {
       contact,
@@ -202,6 +206,7 @@ export function orderForms() {
       postOrder(localStorage.userId, formData, itemId, totals).then(
         ({ data }) => {
           console.log(data);
+          location.assign('/')
         }
       );
     });

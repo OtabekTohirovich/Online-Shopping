@@ -245,3 +245,13 @@ export function costumerOrder(id) {
   return axios.get(url);
 }
 
+
+// https://shopzone.onrender.com/products//search/mishka/page=1
+
+export function searchProducts(name) {
+  if (!name) {
+    throw "Please insert name parametr";
+  }
+  let url = `products/search/${name}/page=1`;
+  return axios.get(url);
+}
