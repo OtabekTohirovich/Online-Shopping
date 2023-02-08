@@ -53,6 +53,7 @@ export function addProductsCount() {
     console.log(formData);
     createNewProduct(formData).then((data) => {
       console.log(data);
+      location.assign('/admin-dashboard.html')
     });
   });
 }
