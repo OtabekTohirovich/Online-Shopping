@@ -6,9 +6,9 @@ header {
   box-shadow: 1px 1px 10px 1px $drobdawn-bordr;
 }
 .navbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr repeat(3, fit-content(150px));
   align-items: center;
-  justify-content: space-between;
   .logo__link {
     width: 10rem;
     cursor: pointer;
@@ -17,11 +17,11 @@ header {
     transform: scale(1.25) rotate(0deg);
   }
   .nav__menu {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 150px);
+    gap: 10px;
     .nav__item {
-      margin-right: 7rem;
-      font-size: 1.8rem;
+      z-index: 10;   
       font-weight: 500;
       cursor: pointer;
       a {
@@ -80,6 +80,7 @@ header {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    width: 100px;
   }
   #account__login:hover {
     box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
@@ -113,6 +114,7 @@ header {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    width: 100px;
   }
   #account__login__up:hover {
     box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
@@ -140,6 +142,7 @@ header {
   .show.nav__content {
     display: flex;
     flex-direction: column;
+    z-index: 10;
   }
   .nav__content {
     position: absolute;
@@ -154,13 +157,20 @@ header {
     box-shadow: 0px -1px 10px 2px rgba(38, 255, 0, 0.2);
     border-radius: 1rem;
     .added__content {
-      padding: 0.5rem 0;
+      padding: .5rem 1.2rem;
       a {
         color: $mainBlack;
       }
     }
+    .added__content:hover{
+      color: #ad5389;
+    }
 
     // display: none;
+  }
+  .nav__data {
+    text-transform:capitalize;
+
   }
 }
 .hide {

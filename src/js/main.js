@@ -11,6 +11,7 @@ import {
   getUserCart,
   addProductToCart,
   costumerOrder,
+  categoryFiltrSearch,
 } from "../api";
 import {
   loadToken,
@@ -26,6 +27,9 @@ import {
   sortCategory,
   sortNavbar,
   signUpForm,
+  initializeFavorityEvent,
+  displayFav,
+  displaycateWrapper,
 } from "./home";
 import {
   displayProductsEdit,
@@ -61,6 +65,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       displayProducts(data.data);
       let datastate = data.data;
       console.log(datastate, "salom");
+      initializeFavorityEvent()
       initializeProduct();
       getUserCart().then(({ data }) => {
         console.log(data);
@@ -78,6 +83,23 @@ document.addEventListener("DOMContentLoaded", async (e) => {
           }
         });
       });
+      getFavority(localStorage.userId).then(({data})=>{
+        console.log(data, 'hhd');
+        data.payload.items.forEach((element) => {
+          // console.log(element);
+          const itemId = datastate.filter((item) => {
+            return item._id == element?._id;
+          });
+          if(itemId[0]){
+            let dasas = document.querySelectorAll(".favority__star");
+            dasas.forEach((dastas) => {
+              if (dastas.dataset.id == itemId[0]._id) {
+                dastas.children[1].style.color = "#f50505"
+              }
+            });
+          }
+        });
+      })
     });
 
     getCategories().then(({ data }) => {
@@ -94,6 +116,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     getProducts().then(({ data }) => {
       displayProducts(data.data);
       initializeProduct();
+      initializeFavorityEvent();
     });
   }
 
@@ -223,6 +246,21 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       initializeCostumerEvent()
     })
   }
+
+  if (page === "/favority.html" || page === "/favority") {
+      getFavority(localStorage.userId).then(({data})=>{
+        console.log(data);
+        displayFav(data.payload.items)
+      })
+  
+  }
+  if (page === "/category-details.html" || page === "/category-details") {
+    categoryFiltrSearch(history.state.id).then(({data})=>{
+      console.log(data);
+      displaycateWrapper(data.data)
+    })
+  }
+
   
   const herader = document.querySelector(".navbar");
   if (herader) {

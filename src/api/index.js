@@ -228,13 +228,17 @@ export function postFavority(userId, productId) {
 }
 
 export function deleteFavority(userId, productId) {
-  let url = `favorites/${productId}`;
+  let url = `favorites/63c2dc010eb84400342f61a6`;
   return axios.delete(url, {
-    userId: `${userId}`
+    items: productId
   });
 }
 
 
+export function categoryFiltrSearch(id) {
+  let url = `products/category/${id}/`;
+  return axios.get(url);
+}
 
 export function costumerOrder(id) {
   let url = `orders/customer/${id}`;

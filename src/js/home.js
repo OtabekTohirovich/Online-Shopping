@@ -8,6 +8,10 @@ import {
   addCategory,
   singUp,
   createCart,
+  deleteFavority,
+  postFavority,
+  getFavority,
+  getCategories,
 } from "../api";
 import { SignUp } from "./sign_up";
 import { CreateCategory, handleInitializeCategory } from "./edit-product";
@@ -23,6 +27,16 @@ export function cardTemplate(data) {
       <div class="card__img">
         <img width="100%" src="${imgs}" alt="product">
       </div>
+      <div class="favority__star" data-id="${_id}">
+       <div class="delete__favority">
+        <i class="fa-solid fa-minus"></i>
+       </div>
+       <div class="post__favority">
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+       </div>
+      </div>
     </div>
     <div class="card__body">
       <div class="card__title">${name}</div>
@@ -33,6 +47,7 @@ export function cardTemplate(data) {
         </div>
         <div class="count__products">${quantity} k/n</div>
       </div>
+      
       <div class="card__btn">
         <button class="btns  save__cart">Savatga qo'shish</button>
       </div>
@@ -45,6 +60,32 @@ export function cardTemplate(data) {
 export function displayProducts(data = []) {
   let result = "";
   const productMenuNode = document.querySelector(".card__wreapper");
+  data.forEach((product) => {
+    const { img, ...docs } = product;
+    const imgs = img ? img : configs.defaultImg + "400";
+    result += cardTemplate({ ...docs, imgs });
+  });
+  productMenuNode.innerHTML = result;
+}
+
+export function displaycateWrapper(data = []) {
+  let result = "";
+  const productMenuNode = document.querySelector(".caten__wreapper");
+  if(!data.length){
+    console.log('afdsfsdf');
+    return productMenuNode.innerHTML = `<div class="not__found--cate">Not found products this category!!!</div>`
+  }
+  data.forEach((product) => {
+    const { img, ...docs } = product;
+    const imgs = img ? img : configs.defaultImg + "400";
+    result += cardTemplate({ ...docs, imgs });
+  });
+  productMenuNode.innerHTML = result;
+}
+
+export function displayFav(data = []) {
+  let result = "";
+  const productMenuNode = document.querySelector(".gets__favority");
   data.forEach((product) => {
     const { img, ...docs } = product;
     const imgs = img ? img : configs.defaultImg + "400";
@@ -147,6 +188,57 @@ export function initializeMEvent() {
   });
 }
 
+export function initializeFavorityEvent() {
+  const navNodeList = document.querySelectorAll(".favority__star");
+  navNodeList.forEach((nav) => {
+    nav.addEventListener("click", (event) => {
+      const id = event.target.closest(".favority__star")?.dataset?.id;
+      let isMenuBtn = event.target
+        .closest(".delete__favority")
+        ?.classList.contains("delete__favority");
+      console.log(id, "dewd");
+      if (isMenuBtn) {
+        getFavority(localStorage.userId).then(({ data }) => {
+          const itemId = data.payload.items.filter((item) => {
+            return item._id != id;
+          });
+          console.log(itemId);
+          const dataCart = itemId.map((data) => {
+            return {
+              productId: data._id
+            };
+          });
+          console.log(dataCart);
+          deleteFavority(localStorage.userId, dataCart? dataCart : {}).then((data) => {
+            console.log(data);
+            Toastify({
+              text: "Favority" + " " + data.config.method,
+              duration: 3000,
+            }).showToast();
+  
+            event.target.parentElement.parentElement.children[1].style.color = "#0ee65f";
+          });
+        });
+        
+      }
+      // 
+      let isMen = event.target
+        .closest(".post__favority")
+        ?.classList.contains("post__favority");
+      if (isMen) {
+        postFavority(localStorage.userId, id).then((data) => {
+          console.log(data);
+          Toastify({
+            text: "Favority" + " " + data.config.method,
+            duration: 3000,
+          }).showToast();
+          event.target.closest(".post__favority").style.color = "#f50505"
+        });
+      }
+    });
+  });
+}
+
 export function initializeCartEvent() {
   const cartNode = document.querySelectorAll(".cart-item");
 
@@ -204,7 +296,6 @@ export function initializeCartEvent() {
       }
     });
   });
-
 }
 
 export function initializeProduct() {
@@ -343,12 +434,49 @@ export function sortNavbar() {
       .closest(".navbar__btns")
       ?.classList.contains("navbar__btns");
     if (isMenuBtn) {
+      if(localStorage.userId){
+        getCategories().then(({data})=>{
+          console.log(data);
+          displayNavCate(data.payload);
+          initializeCateFiltr()
+        })
+      }
       let navMenu = element.closest(".navbar__btns");
       navMenu.nextElementSibling.classList.toggle("show");
       navMenu.parentElement.parentElement.classList.toggle("show");
     }
+
   });
 }
+
+export function displayNavCate(data = []) {
+  let result = "";
+  const productMenuNode = document.querySelector(".nav__content");
+  data.forEach((category) => {
+    const {name, _id } = category;
+    result += `
+    <div class="added__content">
+    <a class="nav__data" data-id="${_id}"><div>${name}</div></a>
+  </div>`;
+
+    productMenuNode.innerHTML = result;
+  });
+}
+
+export function initializeCateFiltr() {
+  const cate = document.querySelectorAll('.nav__data');
+  cate.forEach(cate=>{
+    cate.addEventListener('click', (e)=>{
+      const id = cate?.dataset?.id;
+      console.log(id);
+      history.pushState({ id }, null, "/category-details.html");
+      location.reload();
+    })
+  })
+}
+
+
+
 
 export function signUpForm() {
   const formSignUp = document.querySelector(".signIn_form");
@@ -363,7 +491,7 @@ export function signUpForm() {
       });
       singUp(data)
         .then(({ data }) => {
-          if(data.success === true){
+          if (data.success === true) {
             console.log(data.msg);
             console.log(data);
             localStorage.token = data.token;
@@ -373,8 +501,7 @@ export function signUpForm() {
               localStorage.cartid = data.payload._id;
               location.assign("/");
             });
-          }
-          else {
+          } else {
             Toastify({
               text: data.msg,
               duration: 3000,
