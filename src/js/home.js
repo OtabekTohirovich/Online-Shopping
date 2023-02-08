@@ -68,11 +68,24 @@ export function displayProducts(data = []) {
   productMenuNode.innerHTML = result;
 }
 
+export function displaySearchProducts(data = []) {
+  let result = "";
+  const productMenuNode = document.querySelector(".card__wreapper");
+  if (!data.length) {
+    return (productMenuNode.innerHTML = `<div class="not__found--cate">Not found products with search !!!</div>`);
+  }
+  data.forEach((product) => {
+    const { img, ...docs } = product;
+    const imgs = img ? img : configs.defaultImg + "400";
+    result += cardTemplate({ ...docs, imgs });
+  });
+  productMenuNode.innerHTML = result;
+}
+
 export function displaycateWrapper(data = []) {
   let result = "";
   const productMenuNode = document.querySelector(".caten__wreapper");
   if (!data.length) {
-    console.log("afdsfsdf");
     return (productMenuNode.innerHTML = `<div class="not__found--cate">Not found products this category!!!</div>`);
   }
   data.forEach((product) => {

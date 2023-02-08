@@ -108,10 +108,14 @@
     <section class="category__type">
       <div class="container flex__box">
         <div class="category"></div>
+
         <form class="search__form">
-          <input type="text" name="name">
+          <div class="form__group field">
+            <input type="input" class="form__field" placeholder="Name" name="name" id='name' required />
+            <label for="name" class="form__label">Search</label>
+          </div>
           <div>
-            <button class="search__btn">
+            <button type="submit" class="search__btn">
               Search
             </button>
           </div>

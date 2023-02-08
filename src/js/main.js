@@ -12,6 +12,7 @@ import {
   addProductToCart,
   costumerOrder,
   categoryFiltrSearch,
+  searchProducts,
 } from "../api";
 import {
   loadToken,
@@ -30,6 +31,7 @@ import {
   initializeFavorityEvent,
   displayFav,
   displaycateWrapper,
+  displaySearchProducts,
 } from "./home";
 import {
   displayProductsEdit,
@@ -108,13 +110,22 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         });
       });
 
+      const formSearch = document.querySelector(".search__form");
+      formSearch.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const query = formSearch.name.value;
+        console.log(query);
+        history.pushState({ query }, null, "/search.html");
+        location.reload();
+      });
+
       getCategories().then(({ data }) => {
         console.log(data);
         displayCategory(data.payload);
       });
       deleteAllCartProduct();
     } else {
-      location.assign("/public");
+      location.assign("/public.html");
     }
   }
   if (page === "/public.html" || page === "/public") {
@@ -264,16 +275,22 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       displaycateWrapper(data.data);
     });
   }
+  if (page === "/search.html" || page === "/search") {
+    searchProducts(history.state.query).then(({data})=>{
+      console.log(data);
+      displaySearchProducts(data.payload)
+    })
+  }
 
   const herader = document.querySelector(".navbar");
   if (herader) {
     handleCart();
   }
-  const admin = document.querySelector('.admin__panels');
-  if(admin){
-    admin.addEventListener("click", ()=>{
-      location.assign('/admin-dashboard.html')
-    })
+  const admin = document.querySelector(".admin__panels");
+  if (admin) {
+    admin.addEventListener("click", () => {
+      location.assign("/admin-dashboard.html");
+    });
   }
   initializeMEvent();
   sortNavbar();
