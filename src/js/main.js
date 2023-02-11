@@ -310,6 +310,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     getFavority(localStorage.userId).then(({ data }) => {
       console.log(data);
       displayFav(data.payload.items);
+      initializeProduct();
     });
     getCartUsera();
     cartTotalsCount();
