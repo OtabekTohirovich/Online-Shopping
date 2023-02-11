@@ -13,6 +13,7 @@ import {
   costumerOrder,
   categoryFiltrSearch,
   searchProducts,
+  updateProduct,
 } from "../api";
 import {
   loadToken,
@@ -54,6 +55,7 @@ import {
   initializeOrderEvent,
   orderForms,
 } from "./order";
+import { initializeProductEdit } from "./admin";
 
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
@@ -126,7 +128,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       deleteAllCartProduct();
       getCartUsera();
       cartTotalsCount();
-    } else {
+    }
+     else {
       location.assign("/public.html");
     }
   }
@@ -143,9 +146,12 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(data);
       displayAccount(data.payload);
     });
-    getFavority(localStorage.userId).then(({ data }) => {
-      console.log(data);
+    const datss = document.querySelector(".logout__acc");
+    datss.addEventListener("click", () => {
+      localStorage.clear();
+      location.assign("/public.html");
     });
+
     getCartUsera();
     cartTotalsCount();
   }
@@ -226,8 +232,39 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         });
       }
       handleInitializeProduct();
+      initializeProductEdit();
     });
   }
+
+  if (page === "/updateproduct.html" || page === "/updateproduct") {
+    let genreWrapper = document.querySelector(".category__wreapperss");
+    getCategories().then(({ data }) => {
+      console.log(data);
+      let genresTemplate = "";
+      data.payload.forEach((genre) => {
+        genresTemplate += `<li class="category__type"><input name="categoryId" type="radio" id=${genre._id} value=${genre._id}  /> <label for="${genre._id}">${genre.name}</label></li>`;
+      });
+      genreWrapper.innerHTML = genresTemplate;
+    });
+    const formProduct = document.querySelector(".update__products");
+    formProduct.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new FormData(formProduct);
+      const data = {};
+      Array.from(formData).forEach((item) => {
+        if (item[1]) {
+          data[item[0]] = item[1];
+        }
+      });
+
+      console.log(data);
+      updateProduct(history.state.id, data).then(({ data }) => {
+        console.log(data);
+        location.assign("/admin-dashboard.html");
+      });
+    });
+  }
+
   if (page === "/add-product.html" || page === "/add-product") {
     addProductsCount();
   }
@@ -304,6 +341,13 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       location.assign("/admin-dashboard.html");
     });
   }
+  const indexhtml = document.querySelector(".indexhtml");
+  if (indexhtml) {
+    indexhtml.addEventListener("click", () => {
+      location.assign("/");
+    });
+  }
+  //
   initializeMEvent();
   sortNavbar();
   loadToken();

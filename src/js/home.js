@@ -14,7 +14,6 @@ import {
   getCategories,
   removeitemsProductCart,
 } from "../api";
-import { SignUp } from "./sign_up";
 import { CreateCategory, handleInitializeCategory } from "./edit-product";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
@@ -223,7 +222,7 @@ export function initializeFavorityEvent() {
             };
           });
           console.log(dataCart);
-          deleteFavority(localStorage.userId, dataCart ? dataCart : {}).then(
+          deleteFavority(localStorage.userId, id).then(
             (data) => {
               console.log(data);
               Toastify({

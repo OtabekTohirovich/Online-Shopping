@@ -168,6 +168,29 @@ header {
 .hide {
   display: none;
 }
+.logout__acc {
+  padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    color: $mainWhite;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    color: white;
+    background: #ad5389;
+    background: linear-gradient(to right, $primaryy,$secondaryyy);
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100px;
+}
 
 .nav__smaller {
   .nav__item {

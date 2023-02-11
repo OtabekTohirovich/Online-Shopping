@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Online Shopping</title>
+    <title>Document</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -14,35 +14,27 @@
     <header>
       <div class="container">
         <nav class="navbar">
-          <li class="logo__item">
-            <div  class="logo__link indexhtml">
+          <li class="logo__item admin__panels">
+            <div href="./index.html" class="logo__link">
               <img width="100%" src="../assets/logo.png" alt="logo" />
             </div>
           </li>
           <ul class="nav__menu">
             <li class="nav__item">
-              <div class="nav__item--link">
-                <div class="navbar__contenrets navbar__btns">Bosh menu</div>
-                <div class="nav__content">
-                  <div class="added__content">
-                    <a href="#"><h4>Menu</h4></a>
-                  </div>
-                  <div class="added__content"><a href="#">Shashliklar</a></div>
-                  <div class="added__content"><a href="#">Salatlar</a></div>
-                  <div class="added__content"><a href="#">Ichimliklar</a></div>
-                </div>
-              </div>
+              <a href="./order.html" class="nav__item--link">All order</a>
             </li>
 
             <li class="nav__item">
-              <a href="#" class="nav__item--link">Yetkazib berish</a>
+              <a href="./category.html" class="nav__item--link">Add category</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="./add-product.html" class="nav__item--link">Add product</a>
             </li>
             <li class="nav__item">
-              <a href="#" class="nav__item--link">To'lov</a>
+              <a href="./all-users.html" class="nav__item--link">All-Users</a>
             </li>
-            <li class="nav__item">
-              <a href="#" class="nav__item--link">Joy buyurtmasi</a>
-            </li>
+          
           </ul>
           <ul class="connect">
             <li class="nav__item">
@@ -83,18 +75,61 @@
         </nav>
       </div>
     </header>
-
-
     <section>
-        <div class="container">
-            <div class="account__wreapper">
-                
+      <div class="container">
+          <form class="update__products" name="update__products">
+
+            <div>
+              <label for="name">
+                Name
+                <input type="text" name="name" id="name" required>
+              </label>
+
             </div>
-            <button class="logout__acc">Logout</button>
-        </div>
+            <div>
+              <label for="price">
+                Price
+                <input type="number" name="price" id="price" required>
+              </label>
+            </div>
+
+            
+            <div>
+              <label for="salePrice">
+                SalePrice
+                <input type="number" name="salePrice" id="salePrice" required>
+              </label>
+            </div>
+            
+            <div>
+              <label for="quantity">
+                Quantity
+                <input type="number" name="quantity" id="quantity" required>
+              </label>
+            </div>
+            
+            <div>
+              <label for="discription">
+                Discription
+                <textarea name="description" id="description">
+              </label>
+            </div>
+
+            
+
+            <div class="category__wreapperss">
+
+
+
+              
+            </div>
+            
+            <div class="btn">
+              <button class="creates__thigs" type="submit">Update Product</button>
+            </div>
+          </form>
+      </div>
     </section>
-
-
 
     <div class="cart-overlay">
       <div class="cart">
@@ -115,6 +150,8 @@
         </div>
       </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.12.0/toastify.min.js"></script>
 
     <script type="module" src="../js/main.js"></script>
   </body>

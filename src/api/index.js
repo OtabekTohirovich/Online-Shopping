@@ -1,4 +1,3 @@
-import { sampleSize } from "lodash";
 import axios from "../utils/axios";
 
 export function singIn(quary) {
@@ -226,11 +225,11 @@ export function postFavority(userId, productId) {
     userId: `${userId}`
   });
 }
-
+// https://shopzone.onrender.com/favorites/63e3f211a9ad1500341b06bf
 export function deleteFavority(userId, productId) {
-  let url = `favorites/63c2dc010eb84400342f61a6`;
+  let url = `favorites/${productId}`;
   return axios.delete(url, {
-    items: productId
+    "customerId": userId
   });
 }
 
@@ -250,3 +249,10 @@ export function searchProducts(query) {
   let url = `products/search/${query}/page=${1}`;
   return axios.get(url);
 }
+
+
+export function updateProduct( id ,query) {
+  let url = `products/${id}/edit`;
+  return axios.put(url, query);
+}
+// https://shopzone.onrender.com/products/63e3f211a9ad1500341b06bf/edit

@@ -20,7 +20,7 @@ export function cardTemplateAdmin(data) {
           <div class="count__products">${quantity} k/n</div>
         </div>
         <div class="card__btns">
-          <button class="btns">Tahrirlash</button>
+          <button class="btns update__product">Tahrirlash</button>
           <button class="btns btn__remove">O'chirish</button>
         </div>
       </div>
