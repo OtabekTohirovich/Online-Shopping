@@ -33,6 +33,7 @@ import {
   displayFav,
   displaycateWrapper,
   displaySearchProducts,
+  initializeCateFiltr,
 } from "./home";
 import {
   displayProductsEdit,
@@ -56,6 +57,8 @@ import {
   orderForms,
 } from "./order";
 import { initializeProductEdit } from "./admin";
+import configs from "../configs";
+const { baseURL } = configs;
 
 document.addEventListener("DOMContentLoaded", async (e) => {
   addEventListener("popstate", (event) => {
@@ -69,6 +72,18 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       chanegeAccount.addEventListener("click", () => {
         location.assign("/account.html");
       });
+      const button = document.querySelector(".button");
+      const socket = io(baseURL);
+      socket.on("connect", () => {
+        console.log("connected");
+      });
+      socket.on("disconnect", () => {
+        console.log("Disconnected");
+      });
+      socket.on("/orders/new", (data) => {
+        console.log("salom ishladi", data);
+        button.innerHTML = JSON.stringify(data);
+      });
 
       getProducts().then(({ data }) => {
         console.log(data.data);
@@ -79,14 +94,14 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         initializeProduct();
         getUserCart().then(({ data }) => {
           console.log(data);
-          data.payload.items.forEach((element) => {
+          data?.payload?.items?.forEach((element) => {
             const itemId = datastate.filter((item) => {
-              return item._id == element?.product?._id;
+              return item?._id == element?.product?._id;
             });
             let dasas = document.querySelectorAll(".card");
             if (itemId[0]) {
               dasas.forEach((dastas) => {
-                if (dastas.dataset.id == itemId[0]._id) {
+                if (dastas?.dataset?.id == itemId[0]._id) {
                   dastas.children[1].children[3].innerHTML = `<button class="savatda_bor">Savatda bor</button>`;
                 }
               });
@@ -98,12 +113,12 @@ document.addEventListener("DOMContentLoaded", async (e) => {
           data.payload.items.forEach((element) => {
             // console.log(element);
             const itemId = datastate.filter((item) => {
-              return item._id == element?._id;
+              return item?._id == element?._id;
             });
             if (itemId[0]) {
               let dasas = document.querySelectorAll(".favority__star");
               dasas.forEach((dastas) => {
-                if (dastas.dataset.id == itemId[0]._id) {
+                if (dastas?.dataset?.id == itemId[0]._id) {
                   dastas.children[1].style.color = "#f50505";
                 }
               });
@@ -124,12 +139,12 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       getCategories().then(({ data }) => {
         console.log(data);
         displayCategory(data.payload);
+        initializeCateFiltr();
       });
       deleteAllCartProduct();
       getCartUsera();
       cartTotalsCount();
-    }
-     else {
+    } else {
       location.assign("/public.html");
     }
   }

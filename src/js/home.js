@@ -492,13 +492,6 @@ export function sortNavbar() {
       .closest(".navbar__btns")
       ?.classList.contains("navbar__btns");
     if (isMenuBtn) {
-      if (localStorage.userId) {
-        getCategories().then(({ data }) => {
-          console.log(data);
-          displayNavCate(data.payload);
-          initializeCateFiltr();
-        });
-      }
       let navMenu = element.closest(".navbar__btns");
       navMenu.nextElementSibling.classList.toggle("show");
       navMenu.parentElement.parentElement.classList.toggle("show");
@@ -521,11 +514,10 @@ export function displayNavCate(data = []) {
 }
 
 export function initializeCateFiltr() {
-  const cate = document.querySelectorAll(".nav__data");
+  const cate = document.querySelectorAll(".category__link");
   cate.forEach((cate) => {
     cate.addEventListener("click", (e) => {
       const id = cate?.dataset?.id;
-      console.log(id);
       history.pushState({ id }, null, "/category-details.html");
       location.reload();
     });
@@ -533,8 +525,8 @@ export function initializeCateFiltr() {
 }
 
 export function signUpForm() {
-  const formSignUp = document.querySelector(".signIn_form");
   try {
+    const formSignUp = document.querySelector(".signIn_form");
     formSignUp.addEventListener("submit", (e) => {
       e.preventDefault();
       let formData = new FormData(formSignUp);

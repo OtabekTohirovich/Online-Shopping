@@ -98,7 +98,7 @@ export function signInAdmins() {
         email: signInForm.email.value,
         password: signInForm.password.value,
       };
-      if (formData.email !== 'tohirqurbonov@gmail.com') {
+      if (formData.email !== 'sanjarbekweb@gmail.com') {
         return Toastify({
           text: `You are not Admin`,
           duration: 3000,
