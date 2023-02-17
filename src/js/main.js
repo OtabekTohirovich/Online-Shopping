@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     location.reload();
   });
   const page = location.pathname;
+ 
 
   if (page === "/index.html" || page === "/") {
     if (localStorage.userId !== "undefined" && localStorage.userId) {
@@ -73,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         location.assign("/account.html");
       });
       const button = document.querySelector(".button");
-      const socket = io(baseURL);
+      const socket = io("https://shopzone.onrender.com");
       socket.on("connect", () => {
         console.log("connected");
       });
@@ -84,6 +85,8 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         console.log("salom ishladi", data);
         button.innerHTML = JSON.stringify(data);
       });
+
+
 
       getProducts().then(({ data }) => {
         console.log(data.data);
