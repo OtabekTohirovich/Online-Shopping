@@ -58,6 +58,7 @@ import {
 } from "./order";
 import { initializeProductEdit } from "./admin";
 import configs from "../configs";
+import socket from "./socket";
 const { baseURL } = configs;
 
 document.addEventListener("DOMContentLoaded", async (e) => {
@@ -65,7 +66,12 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     location.reload();
   });
   const page = location.pathname;
- 
+
+  socket.on("/orders/new", (data) => {
+    console.log("salom ishladi", data);
+    // button.innerHTML = JSON.stringify(data);
+  });
+  
 
   if (page === "/index.html" || page === "/") {
     if (localStorage.userId !== "undefined" && localStorage.userId) {
@@ -74,18 +80,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         location.assign("/account.html");
       });
       const button = document.querySelector(".button");
-      const socket = io("https://shopzone.onrender.com");
-      socket.on("connect", () => {
-        console.log("connected");
-      });
-      socket.on("disconnect", () => {
-        console.log("Disconnected");
-      });
-      socket.on("/orders/new", (data) => {
-        console.log("salom ishladi", data);
-        button.innerHTML = JSON.stringify(data);
-      });
-
+   
 
 
       getProducts().then(({ data }) => {
