@@ -4,42 +4,37 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Online Shopping</title>
+    <title>Document</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     />
-    
   </head>
   <body>
     <header>
       <div class="container">
         <nav class="navbar">
           <li class="logo__item">
-            <div href="./index.html" class="logo__link indexhtml">
+            <div href="./index.html" class="logo__link admin__panels">
               <img width="100%" src="../assets/logo.png" alt="logo" />
             </div>
           </li>
           <ul class="nav__menu">
             <li class="nav__item">
-              <div class="nav__item--link">
-                <div class="navbar__contenrets navbar__btns">
-                  Filter Category
-                </div>
-                <div class="nav__content"></div>
-              </div>
+              <a href="./order.html" class="nav__item--link">All order</a>
             </li>
 
             <li class="nav__item">
-              <a href="./favority.html" class="nav__item--link"
-                >Your favority</a
-              >
+              <a href="./category.html" class="nav__item--link">Add category</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="./add-product.html" class="nav__item--link">Add product</a>
             </li>
             <li class="nav__item">
-              <a href="./order-details.html" class="nav__item--link"
-                >Your Status</a
-              >
+              <a href="./all-users.html" class="nav__item--link">All-Users</a>
             </li>
+          
           </ul>
           <ul class="connect">
             <li class="nav__item">
@@ -80,53 +75,19 @@
         </nav>
       </div>
     </header>
-    <section class="prodoct">
-      <div class="container">
-        <div class="product__wreapper">
-          
-        </div>
-      </div>
-    </section>
 
     <section>
-      <div class="container">
-        <div class="section__dastavke">
-          <div class="row wreapper__sec">
-            <div class="title__wreapper">
-              <h2>Yetkazib berish tekin Jizzax !</h2>
-              <button class="sec__wreap">Tezda shoshiling</button>
+        <div class="container">
+            <div class="btns__details--user">
+                <button class="all__order_all">ALL</button>
+                <button  class="all__order_cancel">Cancel</button>
             </div>
-            <div class="img__wreapper">
-              <img
-                width="100%"
-                src="../assets/img/mersadest.png"
-                alt="mersadest-bens"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            <div class="order__all--user">
     
-    <div class="cart-overlay">
-      <div class="cart">
-        <span class="close-cart">
-          <i class="fa-solid fa-xmark"></i>
-        </span>
-        <p class="titlecart">Your order</p>
-        <div class="cart-content"></div>
-        <div class="cart-footer">
-          <div class="wreapper__item-footer">
-            <p>Total</p>
-            <span class="cart-total">Not add</span>
-          </div>
-          <button class="remove__all--carproduct">Remove All Product</button>
-          <a href="./cart-checkout.html"
-            ><button class="clear-cart banner-btn">Set order</button></a
-          >
+            </div>
         </div>
-      </div>
-    </div>
+    </section>
+
 
 
     <script type="module" src="../js/main.js"></script>

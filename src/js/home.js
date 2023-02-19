@@ -212,28 +212,26 @@ export function initializeFavorityEvent() {
       console.log(id, "dewd");
       if (isMenuBtn) {
         getFavority(localStorage.userId).then(({ data }) => {
-          const itemId = data.payload.items.filter((item) => {
-            return item._id != id;
+          const itemId = data?.payload?.items?.filter((item) => {
+            return item?._id != id;
           });
           console.log(itemId);
-          const dataCart = itemId.map((data) => {
+          const dataCart = itemId?.map((data) => {
             return {
               productId: data._id,
             };
           });
           console.log(dataCart);
-          deleteFavority(localStorage.userId, id).then(
-            (data) => {
-              console.log(data);
-              Toastify({
-                text: "Favority" + " " + data.config.method,
-                duration: 3000,
-              }).showToast();
+          deleteFavority(localStorage.userId, id).then((data) => {
+            console.log(data);
+            Toastify({
+              text: "Favority" + " " + data.config.method,
+              duration: 3000,
+            }).showToast();
 
-              event.target.parentElement.parentElement.children[1].style.color =
-                "#0ee65f";
-            }
-          );
+            event.target.parentElement.parentElement.children[1].style.color =
+              "#0ee65f";
+          });
         });
       }
       //
@@ -273,11 +271,11 @@ export function initializeCartEvent() {
         ?.classList.contains("added__product");
       if (isMenuBtn) {
         getUserCart().then(({ data }) => {
-          const itemId = data.payload.items.filter((item) => {
+          const itemId = data?.payload?.items.filter((item) => {
             return item.product._id != id;
           });
           console.log(itemId);
-          const dataCart = itemId.map((data) => {
+          const dataCart = itemId?.map((data) => {
             return {
               product: `${data.product._id}`,
               qty: data.qty,
@@ -312,13 +310,13 @@ export function initializeCartEvent() {
       const cartRemove = event.target
         .closest(".fa-minus")
         ?.classList.contains("fa-minus");
-      if(cartRemove){
+      if (cartRemove) {
         getUserCart().then(({ data }) => {
-          const itemId = data.payload.items.filter((item) => {
+          const itemId = data?.payload?.items?.filter((item) => {
             return item.product._id == id;
           });
-          const itemIds = data.payload.items.filter((item) => {
-            return item.product._id != id;
+          const itemIds = data?.payload?.items?.filter((item) => {
+            return item?.product?._id != id;
           });
           const dataCart = itemId.map((data) => {
             return {
@@ -341,7 +339,8 @@ export function initializeCartEvent() {
           removeitemsProductCart(localStorage.userId, mergeResult).then(
             (data) => {
               console.log(data);
-              event.target.parentElement.children[1].innerHTML = itemId[0].qty--;
+              event.target.parentElement.children[1].innerHTML = itemId[0]
+                .qty--;
             }
           );
         });
@@ -391,14 +390,18 @@ export function handleCart() {
   const cartDOM = document.querySelector(".cart");
   const cartBtns = document.querySelector(".cart__btns");
   const closeCartBtn = document.querySelector(".close-cart");
-  cartBtns.addEventListener("click", () => {
-    cartOverlay.classList.add("transparentBcg");
-    cartDOM.classList.add("showCart");
-  });
-  closeCartBtn.addEventListener("click", () => {
-    cartOverlay.classList.remove("transparentBcg");
-    cartDOM.classList.remove("showCart");
-  });
+  if (cartBtns) {
+    cartBtns.addEventListener("click", () => {
+      cartOverlay.classList.add("transparentBcg");
+      cartDOM.classList.add("showCart");
+    });
+  }
+  if (closeCartBtn) {
+    closeCartBtn.addEventListener("click", () => {
+      cartOverlay.classList.remove("transparentBcg");
+      cartDOM.classList.remove("showCart");
+    });
+  }
 }
 
 export function displayAccount(data = []) {

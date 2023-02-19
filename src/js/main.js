@@ -48,7 +48,11 @@ import {
   signInAdmins,
 } from "./product";
 
-import { displayUsers, handleInitializeUsers } from "./all-users";
+import {
+  displayUserorder,
+  displayUsers,
+  handleInitializeUsers,
+} from "./all-users";
 import {
   displayAllUserOrder,
   displayCostumerOrder,
@@ -59,6 +63,7 @@ import {
 import { initializeProductEdit } from "./admin";
 import configs from "../configs";
 import socket from "./socket";
+import { initializeUserDetails } from "./sign_in";
 const { baseURL } = configs;
 
 document.addEventListener("DOMContentLoaded", async (e) => {
@@ -71,7 +76,6 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     console.log("salom ishladi", data);
     // button.innerHTML = JSON.stringify(data);
   });
-  
 
   if (page === "/index.html" || page === "/") {
     if (localStorage.userId !== "undefined" && localStorage.userId) {
@@ -80,8 +84,6 @@ document.addEventListener("DOMContentLoaded", async (e) => {
         location.assign("/account.html");
       });
       const button = document.querySelector(".button");
-   
-
 
       getProducts().then(({ data }) => {
         console.log(data.data);
@@ -287,6 +289,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
       console.log(data);
       displayUsers(data);
       handleInitializeUsers();
+      initializeUserDetails();
     });
   }
 
@@ -318,6 +321,31 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     getCartUsera();
     cartTotalsCount();
   }
+
+  if (page === "/user-details.html" || page === "/user-details") {
+    let results = "";
+    let resultdata = "";
+    const cancel = document.querySelector(".all__order_cancel");
+    const all = document.querySelector(".all__order_all");
+
+    costumerOrder(history.state.id).then(({ data }) => {
+      resultdata = data.payload;
+      displayAllUserOrder(data.payload);
+      const itemId = data?.payload?.filter((item) => {
+        return item?.status === "canceled";
+      });
+      results = itemId;
+
+      console.log(itemId);
+    });
+    cancel.addEventListener("click", () => {
+      displayAllUserOrder(results);
+    });
+    all.addEventListener("click", () => {
+      displayAllUserOrder(resultdata);
+    });
+  }
+  // status:"pending"
 
   if (page === "/favority.html" || page === "/favority") {
     getFavority(localStorage.userId).then(({ data }) => {
