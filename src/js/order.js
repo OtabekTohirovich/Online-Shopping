@@ -149,6 +149,37 @@ export function initializeOrderEvent() {
   });
 }
 
+export function initializeOrderEventUser() {
+  const orders = document.querySelectorAll(".user__order");
+
+  orders.forEach((order) => {
+    order.addEventListener("click", (event) => {
+      const element = event.target;
+      const id = order?.dataset?.id;
+      let complatedOrder = element
+        .closest(".complated__order")
+        ?.classList.contains("complated__order");
+      if (complatedOrder) {
+        if (!id) return;
+        completedUserOrder(id).then(({ data }) => {
+          console.log(data);
+          event.target.parentElement.remove();
+        });
+      }
+      let cancelOrder = element
+        .closest(".cansel__order")
+        ?.classList.contains("cansel__order");
+      if (cancelOrder) {
+        if (!id) return;
+        cancelUserOrder(id).then(({ data }) => {
+          console.log(data);
+          // event.target.parentElement.remove()
+        });
+      }
+    });
+  });
+}
+
 export function initializeCostumerEvent() {
   const orders = document.querySelectorAll(".user__order");
 

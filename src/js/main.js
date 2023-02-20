@@ -58,6 +58,7 @@ import {
   displayCostumerOrder,
   initializeCostumerEvent,
   initializeOrderEvent,
+  initializeOrderEventUser,
   orderForms,
 } from "./order";
 import { initializeProductEdit } from "./admin";
@@ -326,23 +327,41 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     let results = "";
     let resultdata = "";
     const cancel = document.querySelector(".all__order_cancel");
-    const all = document.querySelector(".all__order_all");
+    const pending = document.querySelector(".all__order_all");
 
     costumerOrder(history.state.id).then(({ data }) => {
-      resultdata = data.payload;
-      displayAllUserOrder(data.payload);
+      initializeOrderEventUser();
+      const itemPadding = data?.payload?.filter((item) => {
+        return item?.status === "pending";
+      });
+      resultdata = itemPadding;
+      displayAllUserOrder(itemPadding);
       const itemId = data?.payload?.filter((item) => {
         return item?.status === "canceled";
       });
       results = itemId;
-
+      
       console.log(itemId);
     });
+
+    
     cancel.addEventListener("click", () => {
-      displayAllUserOrder(results);
+      costumerOrder(history.state.id).then(({ data }) => {
+        const itemId = data?.payload?.filter((item) => {
+          return item?.status === "canceled";
+        });
+        displayAllUserOrder(itemId);
+        initializeOrderEventUser();
+      });
     });
-    all.addEventListener("click", () => {
-      displayAllUserOrder(resultdata);
+    pending.addEventListener("click", () => {
+      costumerOrder(history.state.id).then(({ data }) => {
+        const itemId = data?.payload?.filter((item) => {
+          return item?.status === "pending";
+        });
+        displayAllUserOrder(itemId);
+        initializeOrderEventUser();
+      });
     });
   }
   // status:"pending"
@@ -390,7 +409,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     });
   }
   //
-  initializeMEvent();
+  // initializeMEvent();
   sortNavbar();
   loadToken();
 });
